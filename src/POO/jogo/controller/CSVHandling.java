@@ -1,4 +1,4 @@
-package mc322.lab06;
+package POO.jogo.controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
