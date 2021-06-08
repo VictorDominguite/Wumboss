@@ -4,7 +4,11 @@ public class Elixir extends Item {
     private int bonusDano;
     private int rodadasAtivo;
     private int cooldown;
-    private static int CD_INICIAL = 10;
+    private static final int CD_INICIAL = 10;
+
+    public Elixir(boolean coletado, boolean equipado) {
+        super(coletado, equipado);
+    }
 
     public int getBonusDano() {
         return bonusDano;

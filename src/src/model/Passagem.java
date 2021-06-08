@@ -4,6 +4,14 @@ import src.utils.*;
 
 /* Indica o local da passagem entre duas salas */
 public class Passagem {
-    int posicao;
-    Direcao direcao;
+    private int posicao;
+    private Direcao direcao;
+
+    public int getPosicao() {
+        return posicao;
+    }
+
+    public Direcao getDirecao() {
+        return direcao;
+    }
 }
