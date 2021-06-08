@@ -2,6 +2,9 @@ package src.model;
 
 import src.model.entidade.itens.*;
 
+/* TODO:
+ * Criar exceptions (ao invez de retornar null em falha) */
+
 public class Inventario {
     private Item[] inventario;
     private int maxTamanho;
@@ -16,15 +19,11 @@ public class Inventario {
             if (i instanceof ItemAtaque && ((ItemAtaque) i).isEquipado())
                 return i;
         }
+        return null;
     }
 
     public Item getArmaduraEquipada(){
-
+    	return null;
     }
 
-    public Item getItem(class<? extends Item> classe){
-        for(Item i : inventario) {
-            if(i instanceof classe) return i;
-        }
-    }
 }

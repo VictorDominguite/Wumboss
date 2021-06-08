@@ -3,6 +3,7 @@ package src.view;
 import javax.swing.*;
 import java.awt.*;
 import src.view.panels.*;
+import src.view.panels.Panel;
 
 public class MainView extends JFrame {
 
@@ -32,26 +33,25 @@ public class MainView extends JFrame {
     private void configurePanels() {
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints constraints = new GridBagConstraints();
-
+        
+        constraints.gridx = GridBagConstraints.RELATIVE;
+        constraints.gridy = 0;
         constraints.fill = GridBagConstraints.BOTH;
+        
+        Panel[] panels = {gp, infop, invp};
 
-        constraints.weighty = 5;
-        constraints.weightx = 5;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        gbl.setConstraints(gp, constraints);
-
-        constraints.gridx = 5;
-        constraints.gridy = 0;
-        constraints.weightx = 3;
-        gbl.setConstraints(infop, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 5;
-        constraints.gridwidth = 8;
-        constraints.weighty = 3;
-        constraints.weightx = 5;
-        gbl.setConstraints(invp, constraints);
+        for(Panel p : panels) {
+        	constraints.weightx = p.getWeightX();
+        	constraints.weighty = p.getWeightY();
+        	
+        	if(p instanceof InventoryPanel) {
+        		constraints.gridx = 0;
+        		constraints.gridy = GridBagConstraints.RELATIVE;
+        		constraints.gridwidth = GridBagConstraints.REMAINDER;
+        	}
+        	
+        	gbl.setConstraints(p, constraints);
+        }
 
         setLayout(gbl);
 
