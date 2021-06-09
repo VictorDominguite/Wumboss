@@ -23,6 +23,7 @@ public class CelulaFactory {
 		try {
 			result = classe.getConstructor().newInstance();
 		} catch (Exception e) {
+			//TODO: Melhor exception handling
 			e.printStackTrace();
 		}
 		

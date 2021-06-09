@@ -7,6 +7,7 @@ import src.model.Caverna;
 import src.model.Passagem;
 import src.model.Sala;
 import src.utils.Direcao;
+import src.utils.exceptions.SemControllerNaMontagem;
 
 public class CaveFactory {
 	private static IController io;
@@ -16,10 +17,10 @@ public class CaveFactory {
 		CaveFactory.io = io;
 	}
 	
+	//TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem necessarias)
 	public static void montar() {
 		if(io == null)
-			//TODO: Excecao
-			return;
+			throw new SemControllerNaMontagem();
 		
 		Caverna cave = Caverna.getInstance();
 		

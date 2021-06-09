@@ -7,9 +7,9 @@ public class Sala {
     private Celula[][] celulas;
     private int ID;
 
-    //TODO: inicializar celula
-    public Sala(int ID) {
+    public Sala(int ID, int tamX, int tamY) {
         this.ID = ID;
+        this.celulas = new Celula[tamY][tamX];
     }
     
     public void setCelula(int x, int y, Celula c) {

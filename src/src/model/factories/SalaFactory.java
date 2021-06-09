@@ -1,7 +1,10 @@
 package src.model.factories;
 
+import java.io.IOException;
+
 import src.controller.IController;
 import src.model.Sala;
+import src.utils.exceptions.SemControllerNaMontagem;
 import src.utils.exceptions.TipoDeSalaInvalido;
 
 public class SalaFactory {
@@ -13,10 +16,10 @@ public class SalaFactory {
 	
 	public static Sala montar(int id, int tipo) {
 		if(io == null)
-			//TODO: Excecao
-			return null;
+			throw new SemControllerNaMontagem();
 		
-		Sala s = new Sala(id);
+		//TODO: tamanho das salas variavel
+		Sala s = new Sala(id, 10, 10);
 		int x = 0, y = 0;
 		
 		try {
@@ -32,6 +35,8 @@ public class SalaFactory {
 			}
 		} catch(TipoDeSalaInvalido e) {
 			System.err.println(e.getMessage());
+		} catch(IOException e) {
+			System.err.println("Não foi possivel ler o arquivo da sala! ");
 		}
 		
 		return s;

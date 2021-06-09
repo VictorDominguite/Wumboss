@@ -5,13 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public abstract class CSVHandler {
-	public static String[][] readCSV(String path) {
+public class CSVHandler {
+	//TODO: Criar readCSV que cria um vetor de chars, mover responsabilidade de tornar em matriz
+	//		de Strings para o Controller
+	public String[][] readCSV(String path) throws FileNotFoundException{
 		String[][] result = null;
 		try(var br = new BufferedReader(new FileReader(path))){
 			String line = br.readLine();
 			String[] tamanhos = line.split(",");
-			if(tamanhos.length != 2 || tamanhos[0] != tamanhos[1]) 
+			
+			if(tamanhos.length != 2 || !tamanhos[0].equals(tamanhos[1])) 
 				throw new IOException("As duas dimensões devem ser iguais!");
 			
 			int tamanho = Integer.parseInt(tamanhos[0]);
@@ -21,16 +24,11 @@ public abstract class CSVHandler {
 				result[i] = br.readLine().split(",");
 			}
 			
-		} catch(FileNotFoundException e) {
-			System.err.println("Não foi possível abrir o arquivo!");
 		} catch(IOException e) {
 			System.err.println("Houve algum erro de I/O: " + e.getMessage());
 		} catch(NumberFormatException e) {
 			System.err.println("As duas dimensões devem ser números inteiros!");
 		}
-		
-		if(result == null)
-			System.err.println("Houve algum erro inesperado ao ler o CSV em " + path);
 		
 		return result;
 	}
