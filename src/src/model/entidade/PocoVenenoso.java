@@ -1,6 +1,6 @@
 package src.model.entidade;
 
-public class PocoVenenoso {
+public class PocoVenenoso extends Entidade{
     private static final int DANO = 1;
     private static final int DURACAO_EFEITO = 2;
 

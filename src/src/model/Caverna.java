@@ -1,8 +1,8 @@
 package src.model;
 
-public class Caverna {
+public class Caverna implements ICaverna{
+	public static final int NUM_SALAS = 8;
     private static Caverna instance;
-    private static final int NUM_SALAS = 8;
 
     private Sala[] salas;
     /*
@@ -15,6 +15,23 @@ public class Caverna {
         salas = new Sala[NUM_SALAS];
         conexoes = new Passagem[NUM_SALAS][NUM_SALAS];
     }
+    
+    /* Invocados pelo montador */
+    
+    public void setSala(int id, Sala s) {
+    	if(s.getID() == id)
+    		salas[id] = s;
+    	else
+    		//TODO: excecao
+    		return;
+    }
+    
+    public void setPassagem(Sala s1, Sala s2, Passagem p) {
+    	conexoes[s1.getID()][s2.getID()] = p;
+    	conexoes[s2.getID()][s1.getID()] = p.complemento();
+    }
+    
+    /* Presente na interface */
 
     public Sala getSala(int id) {
         if (id < 0 || id >= NUM_SALAS) {

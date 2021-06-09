@@ -1,14 +1,23 @@
 package src.model;
 
+import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
+import src.model.factories.CaveFactory;
 
 public class GameModel implements IGameModel{
+	private IController io;
+	
 	private Caverna cave;
 	private Heroi hero;
 	private Inventario inv;
 	
 	public void montarCaverna() {
-		
+		CaveFactory.setIO(io);
+		CaveFactory.montar();
+	}
+
+	public void setControl(IController io) {
+		this.io = io;
 	}
 
 	/* Retorna o estado da caverna relevante ao View
@@ -40,5 +49,6 @@ public class GameModel implements IGameModel{
 		
 		return null;
 	}
+
 
 }

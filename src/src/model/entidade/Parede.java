@@ -1,5 +1,5 @@
 package src.model.entidade;
 
-public class Parede {
+public class Parede extends Entidade{
     
 }

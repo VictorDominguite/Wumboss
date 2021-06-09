@@ -1,9 +1,11 @@
 package src.model;
 
+import src.controller.IController;
+
 public interface IGameModel {
 	/* Inicializacao */
 		public void montarCaverna();
-		//public void setControl(Controller c);
+		public void setControl(IController c);
 	
 	/* Interacao com os outros componentes */
 		/* Observer pattern */
