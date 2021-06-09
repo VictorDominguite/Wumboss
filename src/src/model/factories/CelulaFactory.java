@@ -21,7 +21,6 @@ public class CelulaFactory {
 		Entidade result = null;
 		
 		try {
-			//TODO: criar construtor vazio para todas as entidades
 			result = classe.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
