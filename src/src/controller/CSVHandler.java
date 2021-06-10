@@ -15,7 +15,7 @@ public class CSVHandler {
 			String[] tamanhos = line.split(",");
 			
 			if(tamanhos.length != 2 || !tamanhos[0].equals(tamanhos[1])) 
-				throw new IOException("As duas dimensões devem ser iguais!");
+				throw new FileNotFoundException("As duas dimensões devem ser iguais!");
 			
 			int tamanho = Integer.parseInt(tamanhos[0]);
 			
