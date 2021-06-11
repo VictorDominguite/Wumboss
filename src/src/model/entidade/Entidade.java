@@ -7,7 +7,7 @@ public abstract class Entidade {
     private static IInteracao objInteracao = new Interacao();
     protected Celula celula;
 
-    protected void interagir(Entidade e) {
+    public void interagir(Entidade e) {
         objInteracao.interagir(this, e);
     }
 }

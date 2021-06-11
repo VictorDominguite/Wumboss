@@ -24,7 +24,7 @@ public class Sala {
     }
 
     public void moverEntidade(int xIni, int yIni, Direcao dir) {
-        // TODO: checar  se deve fazer interacao
+        // TODO: implementar interacao
         int xFim = xIni, yFim = yIni;
         switch (dir) {
             case NORTE:
@@ -46,9 +46,15 @@ public class Sala {
         Celula fim = celulas[yFim][xFim];
 
         // Checagem de bordas
-        if (!(fim.getEntidade() instanceof Parede)) {
+        Entidade entFim = fim.getEntidade();
+        if (!(entFim instanceof Parede)) {
             Entidade e = celulas[yIni][xIni].removerEntidade();
-            fim.addEntidade(e);
+            if(entFim == null) {
+                fim.addEntidade(e);
+            }
+            else {
+                e.interagir(entFim);
+            }
         }
         // Checagem de passagem entre salas
         if (fim.ehPassagem()) {
