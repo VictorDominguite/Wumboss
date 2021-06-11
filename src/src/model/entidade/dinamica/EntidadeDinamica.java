@@ -12,6 +12,32 @@ public abstract class EntidadeDinamica extends Entidade {
         this.defesa = defesa;
     }
 
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void morrer() {
+        this.celula.removerEntidade();
+    }
+
+    public void receberDano(int dano) {
+        int vidaRestante = this.vida - dano;
+        if (vidaRestante <= 0) {
+            this.morrer();
+        }
+        else {
+            this.vida = vidaRestante;
+        }
+    }
+
     public void mover(Direcao dir) {
         this.celula.moverEntidade(dir);
     }

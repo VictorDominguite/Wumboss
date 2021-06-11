@@ -8,5 +8,5 @@ public class Heroi extends EntidadeDinamica {
     
     public Heroi() {
     	this(5, 0, 0);
-    }
+    } 
 }
