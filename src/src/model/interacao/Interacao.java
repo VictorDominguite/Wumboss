@@ -17,4 +17,5 @@ public class Interacao implements IInteracao {
 
         atacado.receberDano(danoCausado);
     }
+    
 }

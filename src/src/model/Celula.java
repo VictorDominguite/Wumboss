@@ -27,6 +27,14 @@ public class Celula {
         return sala;
     }
 
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
     public void addEntidade(Entidade ent) {
         removerEntidade();
 
@@ -45,6 +53,10 @@ public class Celula {
 
     public void setVisivel(boolean visivel) {
         this.visivel = visivel;
+    }
+
+    public boolean ehPassagem(){
+        return sala.ehBorda(posX, posY) && !(ent instanceof Parede);
     }
 
 }

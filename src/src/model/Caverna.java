@@ -1,5 +1,8 @@
 package src.model;
 
+import src.model.entidade.*;
+import src.utils.*;
+
 public class Caverna implements ICaverna{
 	public static final int NUM_SALAS = 8;
     private static Caverna instance;
@@ -57,6 +60,31 @@ public class Caverna implements ICaverna{
             instance = new Caverna();
 
         return instance;
+    }
+
+    public void moverEntidadeEntreSalas(Celula c, int salaID, Direcao dir) {
+        for (int i = 0; i < NUM_SALAS; i++) {
+            if (conexoes[salaID][i].getDirecao() == dir) {
+                Passagem p = conexoes[salaID][i];
+                Sala destino = salas[i];
+                int xFim = c.getPosX(), yFim = c.getPosY();
+                Entidade e = c.removerEntidade();
+                switch (p.getDirecao()){
+                case NORTE:
+                    yFim = destino.getTamY() - 2;
+                    break;
+                case SUL:
+                    yFim = 1;
+                    break;
+                case LESTE:
+                    xFim = 1;
+                    break;
+                case OESTE:
+                    xFim = destino.getTamX() - 2;
+                }
+                destino.getCelula(xFim, yFim).addEntidade(e);
+            }
+        }
     }
 
 }
