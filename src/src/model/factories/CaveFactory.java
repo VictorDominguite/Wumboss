@@ -4,8 +4,10 @@ import java.util.Random;
 
 import src.controller.IController;
 import src.model.Caverna;
+import src.model.GameModel;
 import src.model.Passagem;
 import src.model.Sala;
+import src.model.entidade.dinamica.Heroi;
 import src.utils.Direcao;
 import src.utils.exceptions.SemControllerNaMontagem;
 
@@ -18,7 +20,7 @@ public class CaveFactory {
 	}
 	
 	//TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem necessarias)
-	public static void montar() {
+	public static Caverna montar(GameModel gm) {
 		if(io == null)
 			throw new SemControllerNaMontagem();
 		
@@ -32,5 +34,13 @@ public class CaveFactory {
 			
 			cave.setSala(i, atual);	
 		}
+		
+		Heroi h = new Heroi();
+		gm.setHeroi(h);
+		gm.setInventario(h.getInventario());
+		
+		cave.getSala(0).getCelula(0, 0).addEntidade(h);
+		
+		return cave;
 	}
 }

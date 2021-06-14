@@ -2,6 +2,7 @@ package src.model;
 
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
+import src.model.entidade.itens.Item;
 import src.model.factories.CaveFactory;
 import src.model.factories.SalaFactory;
 
@@ -16,17 +17,21 @@ public class GameModel implements IGameModel{
 		CaveFactory.setIO(io);
 		SalaFactory.setIO(io);
 		
-		CaveFactory.montar();
+		cave = CaveFactory.montar(this);
+	}
+	
+	public void setHeroi(Heroi h) {
+		this.hero = h;
+	}
+	
+	public void setInventario(Inventario inv) {
+		this.inv = inv;
 	}
 
 	public void setControl(IController io) {
 		this.io = io;
 	}
 
-	/* Retorna o estado da caverna relevante ao View
-	 * Isso inclui a sala em que o herói está, e
-	 * possivelmente as salas vizinhas. 
-	 * */
 	public String[][] getCaveState() {
 		if(cave == null)
 			System.err.println("A caverna não foi criada ainda!");
@@ -34,22 +39,31 @@ public class GameModel implements IGameModel{
 		return null;
 	}
 
-	/* Retorna o estado do herói relevante ao View
-	 * Isso inclui a vida atual dele, seu poder de
-	 * ataque e defesa, possivelmente seu nome, etc 
-	 * */
 	public String[][] getHeroState() {
 		if(hero == null)
 			System.err.println("O herói não existe ainda!");
 		
 		return null;
 	}
+	
+	public String[] getPossibleItems() {
+		//o inventario _deveria_ ter todos os items
+		if(inv == null) {
+			System.err.println("O inventário não existe ainda!");
+			return null;
+		}
+		
+		String[] res = new String[inv.getTamanho()];
+		
+		Item[] items = inv.getItems();
+		for(int i = 0; i < inv.getTamanho(); i++) {
+			res[i] = items[i] != null ? items[i].toString() : "null";
+		}
+		
+		return res;
+	}
 
-	/* Retorna o inventario do heroi relevante ao View
-	 * Isso inclui os itens coletados, seus nomes, 
-	 * descricoes, se estao equipados, etc 
-	 * */
-	public String[][] getInventoryState() {
+	public String[][] getInventoryState(String itemName) {
 		if(inv == null)
 			System.err.println("O inventário não existe ainda!");
 		

@@ -23,4 +23,8 @@ public abstract class Item {
     public void equipar() {
         equipado = true;
     }
+    
+    public String toString() {
+    	return this.getClass().getSimpleName();
+    }
 }

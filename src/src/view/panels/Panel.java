@@ -4,18 +4,24 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
+import src.view.GameView;
+
 public abstract class Panel extends JPanel{
 	private static final long serialVersionUID = 1L;
+	
+	protected GameView masterView;
 	
 	protected int weightX = 1;
 	protected int weightY = 1;
 	
-	public Panel(LayoutManager lm) {
-		super(lm);
+	public Panel(GameView gv) {
+		super();
+		this.masterView = gv;
 	}
 	
-	public Panel() {
-		super();
+	public Panel(GameView gv, LayoutManager lm) {
+		super(lm);
+		this.masterView = gv;
 	}
 
 	public int getWeightX() {

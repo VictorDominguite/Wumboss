@@ -4,20 +4,20 @@ import src.controller.Controller;
 import src.controller.IController;
 import src.model.GameModel;
 import src.model.IGameModel;
-import src.view.MainView;
+import src.view.GameView;
+import src.view.IGameView;
 
 public class AppWumboss {
 	public static void main(String[] args) {
-		//Start controller
 		IController controller = new Controller("data/", "assets/");
-		
-		//Start model
 		IGameModel gm = new GameModel();
+		IGameView mv = new GameView();
+		
+		mv.setControl(controller);
+		mv.setModel(gm);
 		gm.setControl(controller);
+		
 		gm.montarCaverna();
-		
-		//Start view
-		MainView mv = new MainView();
-		
+		mv.montarView();
 	}
 }
