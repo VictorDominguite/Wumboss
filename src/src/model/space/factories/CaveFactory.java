@@ -1,13 +1,13 @@
-package src.model.factories;
+package src.model.space.factories;
 
 import java.util.Random;
 
 import src.controller.IController;
-import src.model.Caverna;
 import src.model.GameModel;
-import src.model.Passagem;
-import src.model.Sala;
 import src.model.entidade.dinamica.Heroi;
+import src.model.space.Caverna;
+import src.model.space.Passagem;
+import src.model.space.Sala;
 import src.utils.Direcao;
 import src.utils.exceptions.SemControllerNaMontagem;
 

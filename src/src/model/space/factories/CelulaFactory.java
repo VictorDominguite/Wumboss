@@ -1,10 +1,10 @@
-package src.model.factories;
+package src.model.space.factories;
 
 import java.util.HashMap;
 
-import src.model.Celula;
-import src.model.Sala;
 import src.model.entidade.*;
+import src.model.space.Celula;
+import src.model.space.Sala;
 
 public class CelulaFactory {
 	private static HashMap<String, Class<? extends Entidade>> tabela = new HashMap<String, Class<? extends Entidade>>(40);

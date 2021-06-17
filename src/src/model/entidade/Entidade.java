@@ -1,13 +1,36 @@
 package src.model.entidade;
 
 import src.model.interacao.*;
+import src.model.space.ICaveAction;
 import src.model.*;
 
-public abstract class Entidade {
+public abstract class Entidade implements IRCaveAction {
     private static IInteracao objInteracao = new Interacao();
-    protected Celula celula;
+    protected int posX, posY;
+    protected ICaveAction caveAction;
 
     public void interagir(Entidade e) {
         objInteracao.interagir(this, e);
     }
+
+    public void connect(ICaveAction caveAction) {
+        this.caveAction = caveAction;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int x) {
+        this.posX = x;
+    }
+
+    public void setPosY(int y) {
+        this.posY = y;
+    }
+    
 }

@@ -3,8 +3,9 @@ package src.model;
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.itens.Item;
-import src.model.factories.CaveFactory;
-import src.model.factories.SalaFactory;
+import src.model.space.Caverna;
+import src.model.space.factories.CaveFactory;
+import src.model.space.factories.SalaFactory;
 
 public class GameModel implements IGameModel{
 	private IController io;

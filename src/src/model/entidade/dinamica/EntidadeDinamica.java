@@ -25,7 +25,7 @@ public abstract class EntidadeDinamica extends Entidade {
     }
 
     public void morrer() {
-        this.celula.removerEntidade();
+        this.caveAction.removerEntidade(posX, posY);
     }
 
     public void receberDano(int dano) {
@@ -39,6 +39,6 @@ public abstract class EntidadeDinamica extends Entidade {
     }
 
     public void mover(Direcao dir) {
-        this.celula.moverEntidade(dir);
+        this.caveAction.mover(posX, posY, dir);
     }
 }

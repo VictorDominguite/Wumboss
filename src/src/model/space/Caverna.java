@@ -1,11 +1,13 @@
-package src.model;
+package src.model.space;
 
 import src.model.entidade.*;
 import src.utils.*;
 
-public class Caverna implements ICaverna{
+public class Caverna implements ICave {
 	public static final int NUM_SALAS = 8;
     private static Caverna instance;
+
+    private int salaAtiva;
 
     private Sala[] salas;
     /*
@@ -17,6 +19,7 @@ public class Caverna implements ICaverna{
     private Caverna() {
         salas = new Sala[NUM_SALAS];
         conexoes = new Passagem[NUM_SALAS][NUM_SALAS];
+        salaAtiva = 0;
     }
     
     /* Invocados pelo montador */
@@ -62,6 +65,14 @@ public class Caverna implements ICaverna{
         return instance;
     }
 
+    public Celula getCelulaEm(int x, int y) {
+        return salas[salaAtiva].getCelula(x, y);
+    }
+
+    public void mover(int x, int y, Direcao dir) {
+        getCelulaEm(x, y).moverEntidade(dir);
+    }
+
     public void moverEntidadeEntreSalas(Celula c, int salaID, Direcao dir) {
         for (int i = 0; i < NUM_SALAS; i++) {
             if (conexoes[salaID][i].getDirecao() == dir) {
@@ -82,9 +93,14 @@ public class Caverna implements ICaverna{
                 case OESTE:
                     xFim = destino.getTamX() - 2;
                 }
+                salaAtiva = destino.getID();
                 destino.getCelula(xFim, yFim).addEntidade(e);
             }
         }
+    }
+
+    public Entidade removerEntidade(int x, int y) {
+        return getCelulaEm(x, y).removerEntidade();
     }
 
 }

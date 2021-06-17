@@ -1,4 +1,4 @@
-package src.model;
+package src.model.space;
 
 import src.utils.*;
 import src.model.entidade.*;

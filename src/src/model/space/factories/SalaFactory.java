@@ -1,9 +1,9 @@
-package src.model.factories;
+package src.model.space.factories;
 
 import java.io.IOException;
 
 import src.controller.IController;
-import src.model.Sala;
+import src.model.space.Sala;
 import src.utils.exceptions.SemControllerNaMontagem;
 import src.utils.exceptions.TipoDeSalaInvalido;
 
