@@ -9,4 +9,9 @@ public class Orc extends EntidadeDinamica {
     public Orc() {
     	this(4, 2, 3);
     }
+
+	@Override
+	public String toString() {
+		return "orc";
+	}
 }

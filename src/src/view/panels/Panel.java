@@ -39,5 +39,9 @@ public abstract class Panel extends JPanel{
 	protected void setWeightY(int weightY) {
 		this.weightY = weightY;
 	}
+	
+	public GameView getGameView() {
+		return masterView;
+	}
 
 }

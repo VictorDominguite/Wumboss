@@ -11,4 +11,9 @@ public class PocoVenenoso extends Entidade{
     public int getDuracaoEfeito() {
         return DURACAO_EFEITO;
     }
+
+	@Override
+	public String toString() {
+		return "pocoveneno";
+	}
 }

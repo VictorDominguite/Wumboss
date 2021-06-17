@@ -1,6 +1,7 @@
 package src.model.space;
 
 import src.model.entidade.*;
+import src.model.entidade.dinamica.EntidadeDinamica;
 import src.utils.*;
 
 public class Caverna implements ICave {
@@ -69,7 +70,7 @@ public class Caverna implements ICave {
         return salas[salaAtiva].getCelula(x, y);
     }
 
-    public void mover(int x, int y, Direcao dir) {
+    public void moverEntidade(int x, int y, Direcao dir) {
         getCelulaEm(x, y).moverEntidade(dir);
     }
 
@@ -79,7 +80,7 @@ public class Caverna implements ICave {
                 Passagem p = conexoes[salaID][i];
                 Sala destino = salas[i];
                 int xFim = c.getPosX(), yFim = c.getPosY();
-                Entidade e = c.removerEntidade();
+                EntidadeDinamica e = c.removerEntidade();
                 switch (p.getDirecao()){
                 case NORTE:
                     yFim = destino.getTamY() - 2;
@@ -102,6 +103,10 @@ public class Caverna implements ICave {
 
     public Entidade removerEntidade(int x, int y) {
         return getCelulaEm(x, y).removerEntidade();
+    }
+    
+    public String[] getState(int x, int y) {
+    	return getCelulaEm(x, y).estado();
     }
 
 }

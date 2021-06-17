@@ -2,28 +2,18 @@ package src.model.space.factories;
 
 import java.util.Random;
 
-import src.controller.IController;
 import src.model.GameModel;
 import src.model.entidade.dinamica.Heroi;
 import src.model.space.Caverna;
 import src.model.space.Passagem;
 import src.model.space.Sala;
 import src.utils.Direcao;
-import src.utils.exceptions.SemControllerNaMontagem;
 
 public class CaveFactory {
-	private static IController io;
 	private static Random rand = new Random();
-	
-	public static void setIO(IController io) {
-		CaveFactory.io = io;
-	}
 	
 	//TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem necessarias)
 	public static Caverna montar(GameModel gm) {
-		if(io == null)
-			throw new SemControllerNaMontagem();
-		
 		Caverna cave = Caverna.getInstance();
 		
 		cave.setSala(0, SalaFactory.montar(0, rand.nextInt(2) + 1));

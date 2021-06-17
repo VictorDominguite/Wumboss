@@ -1,11 +1,10 @@
 package src.view.atomics;
 
-import java.util.EventListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import src.utils.events.EventListener;
 import src.view.panels.InventoryPanel;
 
 public class ItemView extends JPanel implements EventListener{

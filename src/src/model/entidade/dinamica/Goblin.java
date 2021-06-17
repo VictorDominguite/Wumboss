@@ -9,4 +9,9 @@ public class Goblin extends EntidadeDinamica {
     public Goblin() {
     	this(2, 1, 0);
     }
+
+	@Override
+	public String toString() {
+		return "goblin";
+	}
 }

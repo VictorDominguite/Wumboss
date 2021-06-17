@@ -18,4 +18,9 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
     public Inventario getInventario() {
     	return this.inv;
     }
+
+	@Override
+	public String toString() {
+		return "heroi";
+	}
 }

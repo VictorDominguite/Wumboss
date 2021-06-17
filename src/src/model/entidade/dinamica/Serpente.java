@@ -9,4 +9,9 @@ public class Serpente extends EntidadeDinamica {
     public Serpente() {
     	this(1, 6, 0);
     }
+
+	@Override
+	public String toString() {
+		return "serpente";
+	}
 }

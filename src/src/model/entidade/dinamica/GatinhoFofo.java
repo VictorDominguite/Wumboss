@@ -9,4 +9,9 @@ public class GatinhoFofo extends EntidadeDinamica {
     public GatinhoFofo() {
     	this(1, 100, 0);
     }
+
+	@Override
+	public String toString() {
+		return "gato";
+	}
 }

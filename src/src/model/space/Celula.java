@@ -1,26 +1,36 @@
 package src.model.space;
 
-import src.model.entidade.*;
-import src.utils.*;
+import src.model.entidade.Entidade;
+import src.model.entidade.Parede;
+import src.model.entidade.dinamica.EntidadeDinamica;
+import src.utils.Direcao;
+import src.utils.events.EventCreator;
 
-public class Celula {
-    private Entidade ent;
+public class Celula extends EventCreator{
+    private EntidadeDinamica foreground;
+    private Entidade background;
     private boolean visivel = false;
     private int posX, posY;
     private Sala sala;
 
-    public Celula(Sala sala, int x, int y) {
+    public Celula(Sala sala, int x, int y, Entidade background) {
         this.sala = sala;
         this.posX = x;
         this.posY = y;
+        
+        this.background = background;
     }
 
     public void moverEntidade(Direcao dir) {
         sala.moverEntidade(posX, posY, dir);
     }
 
-    public Entidade getEntidade() {
-        return ent;
+    public EntidadeDinamica getForeground() {
+        return foreground;
+    }
+    
+    public Entidade getBackground() {
+    	return background;
     }
 
     public Sala getSala() {
@@ -35,17 +45,21 @@ public class Celula {
         return posY;
     }
 
-    public void addEntidade(Entidade ent) {
+    public void addEntidade(EntidadeDinamica ent) {
         removerEntidade();
 
-        this.ent = ent;
-        this.ent.setPosX(posX);
-        this.ent.setPosY(posY);
+        this.foreground = ent;
+
+        this.foreground.setPosX(posX);
+        this.foreground.setPosY(posY);
+
+        onUpdate();
     }
 
-    public Entidade removerEntidade() {
-        Entidade e = this.ent;
-        this.ent = null;
+    public EntidadeDinamica removerEntidade() {
+        EntidadeDinamica e = this.foreground;
+        this.foreground = null;
+        onUpdate();
         return e;
     }
 
@@ -55,10 +69,21 @@ public class Celula {
 
     public void setVisivel(boolean visivel) {
         this.visivel = visivel;
+        onUpdate();
     }
 
     public boolean ehPassagem(){
-        return sala.ehBorda(posX, posY) && !(ent instanceof Parede);
+        return sala.ehBorda(posX, posY) && !(background instanceof Parede);
+    }
+    
+    public String[] estado() {
+    	String[] res = new String[3];
+    	
+    	res[0] = getBackground() != null ? getBackground().toString() : "null";
+    	res[1] = getForeground() != null ? getForeground().toString() : "null";
+    	res[2] = isVisivel() ? "true" : "false";
+    	
+    	return res;
     }
 
 }

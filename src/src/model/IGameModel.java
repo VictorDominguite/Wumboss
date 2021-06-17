@@ -1,6 +1,7 @@
 package src.model;
 
 import src.controller.IController;
+import src.utils.events.EventListener;
 
 public interface IGameModel {
 	/* Inicializacao */
@@ -9,17 +10,16 @@ public interface IGameModel {
 	
 	/* Interacao com os outros componentes */
 		/* Observer pattern */
-		//public void subToCaverna(Observer o);
-		//public void subToHeroi(Observer o);
-		//public void subToInventario(Observer o);
+		public void subToLocal(int x, int y, EventListener e);
+		public void subToHeroi(EventListener e);
+		public void subToInventario(EventListener e);
 		
 		/* Requerir informacoes */
 		
-		/* Retorna o estado da caverna relevante ao View
-		 * Isso inclui a sala em que o herói está, e
-		 * possivelmente as salas vizinhas. 
+		/* Retorna o estado da caverna em dada posição, na seguinte forma
+		 * String[3] = {nome do background, nome do foreground, estado}
 		 * */
-		public String[][] getCaveState();
+		public String[] getCaveState(int x, int y);
 		
 		/* Retorna o estado do herói relevante ao View
 		 * Isso inclui a vida atual dele, seu poder de

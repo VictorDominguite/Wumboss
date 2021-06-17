@@ -37,4 +37,7 @@ public abstract class Entidade implements IRCaveAction {
         return Math.abs(posX - x) + Math.abs(posY - y);
     }
     
+    @Override
+    public abstract String toString();
+    
 }

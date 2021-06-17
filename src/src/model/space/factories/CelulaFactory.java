@@ -31,8 +31,7 @@ public class CelulaFactory {
 	}
 	
 	public static Celula montar(Sala s, int x, int y, String repr) {
-		Celula c = new Celula(s, x, y);
-		c.addEntidade(decodeRawEntity(repr));
+		Celula c = new Celula(s, x, y, decodeRawEntity(repr));
 		
 		return c;
 	}

@@ -1,7 +1,9 @@
 package src.model.space;
 
-import src.utils.*;
-import src.model.entidade.*;
+import src.model.entidade.Entidade;
+import src.model.entidade.Parede;
+import src.model.entidade.dinamica.EntidadeDinamica;
+import src.utils.Direcao;
 
 public class Sala {
     private Celula[][] celulas;
@@ -47,9 +49,9 @@ public class Sala {
         Celula fim = celulas[yFim][xFim];
 
         // Checagem de bordas
-        Entidade entFim = fim.getEntidade();
+        Entidade entFim = fim.getForeground();
         if (!(entFim instanceof Parede) && !(fim.ehPassagem())) {
-            Entidade e = celulas[yIni][xIni].removerEntidade();
+            EntidadeDinamica e = celulas[yIni][xIni].removerEntidade();
             if(entFim == null) {
                 fim.addEntidade(e);
             }

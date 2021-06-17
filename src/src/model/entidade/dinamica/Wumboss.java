@@ -9,4 +9,9 @@ public class Wumboss extends EntidadeDinamica {
     public Wumboss() {
     	this(20, 8, 4);
     }
+
+	@Override
+	public String toString() {
+		return "wumboss";
+	}
 }
