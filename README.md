@@ -12,8 +12,10 @@ O _Submundo de Wumboss_ é um jogo criado em Java, pensado como uma continuaçã
 
 ## Documentação dos componentes
 ### Diagrama geral do projeto
+![diagrama1](./diagramas/diagrama.png)
 
 ### Diagrama geral de componentes
+![diagrama2](./diagramas/diagrama2.png)
 
 ### Detalhamento das interfaces
 
