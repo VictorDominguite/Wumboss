@@ -95,6 +95,7 @@ public class Caverna implements ICave {
                 }
                 salaAtiva = destino.getID();
                 destino.getCelula(xFim, yFim).addEntidade(e);
+                break;
             }
         }
     }

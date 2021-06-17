@@ -39,6 +39,8 @@ public class Celula {
         removerEntidade();
 
         this.ent = ent;
+        this.ent.setPosX(posX);
+        this.ent.setPosY(posY);
     }
 
     public Entidade removerEntidade() {

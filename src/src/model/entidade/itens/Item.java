@@ -1,6 +1,8 @@
 package src.model.entidade.itens;
 
-public abstract class Item {
+import src.model.entidade.Entidade;
+
+public abstract class Item extends Entidade {
     private boolean coletado;
     private boolean equipado;
 
@@ -14,6 +16,7 @@ public abstract class Item {
 
     public void coletar() {
         coletado = true;
+        this.caveAction.removerEntidade(posX, posY);
     }
 
     public boolean isEquipado() {

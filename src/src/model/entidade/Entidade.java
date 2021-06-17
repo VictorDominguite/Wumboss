@@ -2,14 +2,15 @@ package src.model.entidade;
 
 import src.model.interacao.*;
 import src.model.space.ICaveAction;
+import java.lang.Math;
 
 public abstract class Entidade implements IRCaveAction {
     private static IInteracao objInteracao = new Interacao();
     protected int posX, posY;
     protected ICaveAction caveAction;
 
-    public void interagir(Entidade e) {
-        objInteracao.interagir(this, e);
+    public String interagir(Entidade e) {
+        return objInteracao.interagir(this, e);
     }
 
     public void connect(ICaveAction caveAction) {
@@ -30,6 +31,10 @@ public abstract class Entidade implements IRCaveAction {
 
     public void setPosY(int y) {
         this.posY = y;
+    }
+
+    public int distanciaAte(int x, int y) {
+        return Math.abs(posX - x) + Math.abs(posY - y);
     }
     
 }

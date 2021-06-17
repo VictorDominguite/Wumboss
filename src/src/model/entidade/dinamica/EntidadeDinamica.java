@@ -4,12 +4,13 @@ import src.model.entidade.Entidade;
 import src.utils.*;
 
 public abstract class EntidadeDinamica extends Entidade {
-    protected int vida, ataque, defesa;
+    protected int vida, ataque, defesa, alcance;
 
     public EntidadeDinamica(int vida, int ataque, int defesa) {
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
+        alcance = 1;
     }
 
     public int getAtaque() {
@@ -24,6 +25,14 @@ public abstract class EntidadeDinamica extends Entidade {
         return vida;
     }
 
+    public int getAlcance() {
+        return alcance;
+    }
+
+    public boolean estaVivo() {
+        return vida > 0;
+    }
+
     public void morrer() {
         this.caveAction.removerEntidade(posX, posY);
     }
@@ -31,6 +40,7 @@ public abstract class EntidadeDinamica extends Entidade {
     public void receberDano(int dano) {
         int vidaRestante = this.vida - dano;
         if (vidaRestante <= 0) {
+            this.vida = 0;
             this.morrer();
         }
         else {

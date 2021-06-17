@@ -43,21 +43,29 @@ public class Sala {
 
         }
 
+        Celula origem = celulas[yIni][xIni];
         Celula fim = celulas[yFim][xFim];
 
         // Checagem de bordas
         Entidade entFim = fim.getEntidade();
-        if (!(entFim instanceof Parede)) {
+        if (!(entFim instanceof Parede) && !(fim.ehPassagem())) {
             Entidade e = celulas[yIni][xIni].removerEntidade();
             if(entFim == null) {
                 fim.addEntidade(e);
             }
             else {
-                e.interagir(entFim);
+                String interacao = e.interagir(entFim);
+                if (interacao == "coleta")
+                    fim.addEntidade(e);
+                else if (interacao == "ataque")
+                    origem.addEntidade(e);
+                else {
+                    //TODO: excecao - erro na interacao
+                }
             }
         }
         // Checagem de passagem entre salas
-        if (fim.ehPassagem()) {
+        else if (fim.ehPassagem()) {
             cave.moverEntidadeEntreSalas(celulas[yIni][xIni], ID, dir);
         }
 
