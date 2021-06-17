@@ -1,19 +1,19 @@
 package src.model.space;
 
-import src.model.entidade.Entidade;
+import src.model.entidade.IEntidade;
 import src.model.entidade.Parede;
-import src.model.entidade.dinamica.EntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
 import src.utils.events.EventCreator;
 
 public class Celula extends EventCreator{
-    private EntidadeDinamica foreground;
-    private Entidade background;
+    private IEntidadeDinamica foreground;
+    private IEntidade background;
     private boolean visivel = false;
     private int posX, posY;
     private Sala sala;
 
-    public Celula(Sala sala, int x, int y, Entidade background) {
+    public Celula(Sala sala, int x, int y, IEntidade background) {
         this.sala = sala;
         this.posX = x;
         this.posY = y;
@@ -25,11 +25,11 @@ public class Celula extends EventCreator{
         sala.moverEntidade(posX, posY, dir);
     }
 
-    public EntidadeDinamica getForeground() {
+    public IEntidadeDinamica getForeground() {
         return foreground;
     }
     
-    public Entidade getBackground() {
+    public IEntidade getBackground() {
     	return background;
     }
 
@@ -45,7 +45,7 @@ public class Celula extends EventCreator{
         return posY;
     }
 
-    public void addEntidade(EntidadeDinamica ent) {
+    public void addEntidade(IEntidadeDinamica ent) {
         removerEntidade();
 
         this.foreground = ent;
@@ -56,8 +56,8 @@ public class Celula extends EventCreator{
         onUpdate();
     }
 
-    public EntidadeDinamica removerEntidade() {
-        EntidadeDinamica e = this.foreground;
+    public IEntidadeDinamica removerEntidade() {
+    	IEntidadeDinamica e = this.foreground;
         this.foreground = null;
         onUpdate();
         return e;

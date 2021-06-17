@@ -29,7 +29,7 @@ public class CaveFactory {
 		gm.setHeroi(h);
 		gm.setInventario(h.getInventario());
 		
-		cave.getSala(0).getCelula(0, 0).addEntidade(h);
+		cave.getSala(0).addEntidade(0, 0, h);
 		
 		return cave;
 	}

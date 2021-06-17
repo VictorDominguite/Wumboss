@@ -1,9 +1,9 @@
 package src.model.entidade.dinamica;
 
 import src.model.entidade.Entidade;
-import src.utils.*;
+import src.utils.Direcao;
 
-public abstract class EntidadeDinamica extends Entidade {
+public abstract class EntidadeDinamica extends Entidade implements IEntidadeDinamica{
     protected int vida, ataque, defesa, alcance;
 
     public EntidadeDinamica(int vida, int ataque, int defesa) {

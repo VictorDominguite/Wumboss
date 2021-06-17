@@ -4,12 +4,12 @@ import src.model.interacao.*;
 import src.model.space.ICaveAction;
 import java.lang.Math;
 
-public abstract class Entidade implements IRCaveAction {
+public abstract class Entidade implements IRCaveAction, IEntidade {
     private static IInteracao objInteracao = new Interacao();
     protected int posX, posY;
     protected ICaveAction caveAction;
 
-    public String interagir(Entidade e) {
+    public String interagir(IEntidade e) {
         return objInteracao.interagir(this, e);
     }
 

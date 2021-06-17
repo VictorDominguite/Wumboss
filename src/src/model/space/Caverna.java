@@ -1,26 +1,25 @@
 package src.model.space;
 
-import src.model.entidade.*;
-import src.model.entidade.dinamica.EntidadeDinamica;
-import src.utils.*;
+import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.utils.Direcao;
 
 public class Caverna implements ICave {
 	public static final int NUM_SALAS = 8;
     private static Caverna instance;
 
-    private int salaAtiva;
+    private int idAtivo;
 
-    private Sala[] salas;
     /*
      * A posicao [i][j] indica se ha passagem entre as salas i e j e onde ela se
      * encontra
      */
     private Passagem[][] conexoes;
+    private Sala[] salas;
 
     private Caverna() {
         salas = new Sala[NUM_SALAS];
         conexoes = new Passagem[NUM_SALAS][NUM_SALAS];
-        salaAtiva = 0;
+        idAtivo = 0;
     }
     
     /* Invocados pelo montador */
@@ -37,8 +36,6 @@ public class Caverna implements ICave {
     	conexoes[s1.getID()][s2.getID()] = p;
     	conexoes[s2.getID()][s1.getID()] = p.complemento();
     }
-    
-    /* Presente na interface */
 
     public Sala getSala(int id) {
         if (id < 0 || id >= NUM_SALAS) {
@@ -54,6 +51,10 @@ public class Caverna implements ICave {
 
         return s;
     }
+    
+    public Sala getSalaAtiva() {
+    	return getSala(idAtivo);
+    }
 
     public Passagem obterPassagemEntre(Sala s1, Sala s2) {
         return conexoes[s1.getID()][s2.getID()];
@@ -66,12 +67,8 @@ public class Caverna implements ICave {
         return instance;
     }
 
-    public Celula getCelulaEm(int x, int y) {
-        return salas[salaAtiva].getCelula(x, y);
-    }
-
     public void moverEntidade(int x, int y, Direcao dir) {
-        getCelulaEm(x, y).moverEntidade(dir);
+    	getSalaAtiva().moverEntidade(x, y, dir);
     }
 
     public void moverEntidadeEntreSalas(Celula c, int salaID, Direcao dir) {
@@ -80,7 +77,7 @@ public class Caverna implements ICave {
                 Passagem p = conexoes[salaID][i];
                 Sala destino = salas[i];
                 int xFim = c.getPosX(), yFim = c.getPosY();
-                EntidadeDinamica e = c.removerEntidade();
+                IEntidadeDinamica e = c.removerEntidade();
                 switch (p.getDirecao()){
                 case NORTE:
                     yFim = destino.getTamY() - 2;
@@ -94,19 +91,19 @@ public class Caverna implements ICave {
                 case OESTE:
                     xFim = destino.getTamX() - 2;
                 }
-                salaAtiva = destino.getID();
-                destino.getCelula(xFim, yFim).addEntidade(e);
+                idAtivo = destino.getID();
+                destino.addEntidade(xFim, yFim, e);
                 break;
             }
         }
     }
 
-    public Entidade removerEntidade(int x, int y) {
-        return getCelulaEm(x, y).removerEntidade();
+    public void removerEntidade(int x, int y) {
+        getSalaAtiva().removerEntidade(x, y);
     }
     
     public String[] getState(int x, int y) {
-    	return getCelulaEm(x, y).estado();
+    	return getSalaAtiva().estado(x, y);
     }
 
 }

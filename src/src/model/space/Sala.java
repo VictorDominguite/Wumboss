@@ -1,8 +1,7 @@
 package src.model.space;
 
-import src.model.entidade.Entidade;
 import src.model.entidade.Parede;
-import src.model.entidade.dinamica.EntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
 
 public class Sala {
@@ -17,7 +16,7 @@ public class Sala {
         this.celulas = new Celula[tamY][tamX];
     }
     
-    public Celula getCelula(int x, int y) {
+    private Celula getCelula(int x, int y) {
         return celulas[y][x];
     }
 
@@ -49,9 +48,9 @@ public class Sala {
         Celula fim = celulas[yFim][xFim];
 
         // Checagem de bordas
-        Entidade entFim = fim.getForeground();
+        IEntidadeDinamica entFim = fim.getForeground();
         if (!(entFim instanceof Parede) && !(fim.ehPassagem())) {
-            EntidadeDinamica e = celulas[yIni][xIni].removerEntidade();
+        	IEntidadeDinamica e = celulas[yIni][xIni].removerEntidade();
             if(entFim == null) {
                 fim.addEntidade(e);
             }
@@ -76,6 +75,18 @@ public class Sala {
 
     }
 
+    public void removerEntidade(int x, int y) {
+    	getCelula(x, y).removerEntidade();
+    }
+    
+    public void addEntidade(int x, int y, IEntidadeDinamica e) {
+    	getCelula(x, y).addEntidade(e);
+    }
+    
+    public String[] estado(int x, int y) {
+    	return getCelula(x, y).estado();
+    }
+    
     public int getID() {
         return ID;
     }

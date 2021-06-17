@@ -3,16 +3,17 @@ package src.model.interacao;
 import src.model.entidade.*;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
+import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.itens.Item;
 
 public class Interacao implements IInteracao {
 
-    public String interagir(Entidade e1, Entidade e2) {
+    public String interagir(IEntidade e1, IEntidade e2) {
         if (e1 instanceof Heroi && e2 instanceof Item) {
             coletarItem((Heroi) e1, (Item) e2);
             return "coleta";
         }
-        if (e1 instanceof Heroi && e2 instanceof EntidadeDinamica) {
+        if (e1 instanceof Heroi && e2 instanceof IEntidadeDinamica) {
             atacar((Heroi) e1, (EntidadeDinamica) e2);
             if (((EntidadeDinamica) e2).estaVivo()) {
                 atacar((EntidadeDinamica) e2, (Heroi) e1);
