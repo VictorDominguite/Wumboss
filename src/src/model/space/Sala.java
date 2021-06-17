@@ -59,6 +59,9 @@ public class Sala {
                     fim.addEntidade(e);
                 else if (interacao == "ataque")
                     origem.addEntidade(e);
+                else if (interacao == "veneno") {
+                    //TODO
+                }
                 else {
                     //TODO: excecao - erro na interacao
                 }
