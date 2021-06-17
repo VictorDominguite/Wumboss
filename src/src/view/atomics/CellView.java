@@ -5,6 +5,8 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 import src.utils.events.EventListener;
 import src.view.panels.GamePanel;
@@ -24,6 +26,8 @@ public class CellView extends JButton implements EventListener{
 		setBackground(Color.white);
 		setMaximumSize(new Dimension(32, 32));
 		setMinimumSize(new Dimension(32, 32));
+		Border emptyBorder = BorderFactory.createEmptyBorder();
+		setBorder(emptyBorder);
 		
 		this.x = x;
 		this.y = y;
