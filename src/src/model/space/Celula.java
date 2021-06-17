@@ -1,12 +1,12 @@
 package src.model.space;
 
 import src.model.entidade.IEntidade;
-import src.model.entidade.Parede;
+import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
 import src.utils.events.EventCreator;
 
-public class Celula extends EventCreator{
+public class Celula extends EventCreator implements ICelula{
     private IEntidadeDinamica foreground;
     private IEntidade background;
     private boolean visivel = false;
@@ -19,10 +19,6 @@ public class Celula extends EventCreator{
         this.posY = y;
         
         this.background = background;
-    }
-
-    public void moverEntidade(Direcao dir) {
-        sala.moverEntidade(posX, posY, dir);
     }
 
     public IEntidadeDinamica getForeground() {
@@ -43,6 +39,10 @@ public class Celula extends EventCreator{
 
     public int getPosY() {
         return posY;
+    }
+    
+    public void moverEntidade(Direcao dir) {
+    	sala.moverEntidade(posX, posY, dir);
     }
 
     public void addEntidade(IEntidadeDinamica ent) {
@@ -73,7 +73,7 @@ public class Celula extends EventCreator{
     }
 
     public boolean ehPassagem(){
-        return sala.ehBorda(posX, posY) && !(background instanceof Parede);
+        return (background instanceof Passagem);
     }
     
     public String[] estado() {
@@ -84,6 +84,10 @@ public class Celula extends EventCreator{
     	res[2] = isVisivel() ? "true" : "false";
     	
     	return res;
+    }
+    
+    public void setBackground(IEntidade e) {
+    	this.background = e;
     }
 
 }

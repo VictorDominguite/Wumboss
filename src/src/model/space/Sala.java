@@ -1,11 +1,12 @@
 package src.model.space;
 
-import src.model.entidade.Parede;
+import src.model.entidade.IEntidade;
+import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
 
 public class Sala {
-    private Celula[][] celulas;
+    private ICelula[][] celulas;
     private int ID, tamX, tamY;
     private static Caverna cave = Caverna.getInstance();
 
@@ -16,8 +17,8 @@ public class Sala {
         this.celulas = new Celula[tamY][tamX];
     }
     
-    private Celula getCelula(int x, int y) {
-        return celulas[y][x];
+    public Celula getCelula(int x, int y) {
+        return (Celula) celulas[y][x];
     }
 
     public void setCelula(int x, int y, Celula c) {
@@ -44,18 +45,19 @@ public class Sala {
 
         }
 
-        Celula origem = celulas[yIni][xIni];
-        Celula fim = celulas[yFim][xFim];
+        ICelula origem = getCelula(xIni, yIni);
+        ICelula fim = getCelula(xFim, yFim);
 
         // Checagem de bordas
-        IEntidadeDinamica entFim = fim.getForeground();
-        if (!(entFim instanceof Parede) && !(fim.ehPassagem())) {
-        	IEntidadeDinamica e = celulas[yIni][xIni].removerEntidade();
-            if(entFim == null) {
+        IEntidade backgFim = fim.getBackground();
+        IEntidadeDinamica foregFim = fim.getForeground();
+        
+        if (backgFim == null || backgFim.isPassable()) {
+        	IEntidadeDinamica e = origem.removerEntidade();
+            if(foregFim == null) 
                 fim.addEntidade(e);
-            }
             else {
-                String interacao = e.interagir(entFim);
+                String interacao = e.interagir(foregFim);
                 if (interacao == "coleta")
                     fim.addEntidade(e);
                 else if (interacao == "ataque")
@@ -69,10 +71,9 @@ public class Sala {
             }
         }
         // Checagem de passagem entre salas
-        else if (fim.ehPassagem()) {
-            cave.moverEntidadeEntreSalas(celulas[yIni][xIni], ID, dir);
-        }
-
+        else if (backgFim instanceof Passagem) 
+            cave.moverEntidadeEntreSalas(xFim, yFim, dir);
+        
     }
 
     public void removerEntidade(int x, int y) {

@@ -37,6 +37,10 @@ public abstract class Entidade implements IRCaveAction, IEntidade {
         return Math.abs(posX - x) + Math.abs(posY - y);
     }
     
+    public boolean isPassable() {
+    	return true;
+    }
+    
     @Override
     public abstract String toString();
     

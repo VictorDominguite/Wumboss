@@ -6,5 +6,10 @@ public class Parede extends Entidade{
 	public String toString() {
 		return "parede";
 	}
+	
+	@Override
+	public boolean isPassable() {
+    	return false;
+    }
     
 }

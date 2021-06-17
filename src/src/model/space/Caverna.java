@@ -1,6 +1,6 @@
 package src.model.space;
 
-import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.Passagem;
 import src.utils.Direcao;
 
 public class Caverna implements ICave {
@@ -8,17 +8,10 @@ public class Caverna implements ICave {
     private static Caverna instance;
 
     private int idAtivo;
-
-    /*
-     * A posicao [i][j] indica se ha passagem entre as salas i e j e onde ela se
-     * encontra
-     */
-    private Passagem[][] conexoes;
     private Sala[] salas;
 
     private Caverna() {
         salas = new Sala[NUM_SALAS];
-        conexoes = new Passagem[NUM_SALAS][NUM_SALAS];
         idAtivo = 0;
     }
     
@@ -30,11 +23,6 @@ public class Caverna implements ICave {
     	else
     		//TODO: excecao
     		return;
-    }
-    
-    public void setPassagem(Sala s1, Sala s2, Passagem p) {
-    	conexoes[s1.getID()][s2.getID()] = p;
-    	conexoes[s2.getID()][s1.getID()] = p.complemento();
     }
 
     public Sala getSala(int id) {
@@ -56,10 +44,6 @@ public class Caverna implements ICave {
     	return getSala(idAtivo);
     }
 
-    public Passagem obterPassagemEntre(Sala s1, Sala s2) {
-        return conexoes[s1.getID()][s2.getID()];
-    }
-
     public static Caverna getInstance() {
         if (instance == null)
             instance = new Caverna();
@@ -71,31 +55,11 @@ public class Caverna implements ICave {
     	getSalaAtiva().moverEntidade(x, y, dir);
     }
 
-    public void moverEntidadeEntreSalas(Celula c, int salaID, Direcao dir) {
-        for (int i = 0; i < NUM_SALAS; i++) {
-            if (conexoes[salaID][i].getDirecao() == dir) {
-                Passagem p = conexoes[salaID][i];
-                Sala destino = salas[i];
-                int xFim = c.getPosX(), yFim = c.getPosY();
-                IEntidadeDinamica e = c.removerEntidade();
-                switch (p.getDirecao()){
-                case NORTE:
-                    yFim = destino.getTamY() - 2;
-                    break;
-                case SUL:
-                    yFim = 1;
-                    break;
-                case LESTE:
-                    xFim = 1;
-                    break;
-                case OESTE:
-                    xFim = destino.getTamX() - 2;
-                }
-                idAtivo = destino.getID();
-                destino.addEntidade(xFim, yFim, e);
-                break;
-            }
-        }
+    public void moverEntidadeEntreSalas(int x, int y, Direcao dir) {
+        Passagem p = (Passagem) getSalaAtiva().getCelula(x, y).getBackground();
+        if(p.getDirecao() == dir) 
+        	idAtivo = p.getDestino().getID();
+        
     }
 
     public void removerEntidade(int x, int y) {
