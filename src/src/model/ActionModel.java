@@ -1,10 +1,16 @@
 package src.model;
 
-public class ActionModel implements IActionModel {
-    private String action;
+import src.model.entidade.dinamica.IActionExecutor;
 
-    public String getAction() {
-        return action;
+public class ActionModel implements IRActionExecutor {
+    private String action;
+    private IActionExecutor actor;
+
+    public void connect(IActionExecutor actor) {
+        this.actor = actor;
     }
 
+    public void setAction(String action) {
+        this.action = action;
+    }
 }

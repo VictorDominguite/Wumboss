@@ -2,7 +2,6 @@ package src.model.entidade;
 
 import src.model.interacao.*;
 import src.model.space.ICaveAction;
-import src.model.*;
 
 public abstract class Entidade implements IRCaveAction {
     private static IInteracao objInteracao = new Interacao();
