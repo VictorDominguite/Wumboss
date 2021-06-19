@@ -12,7 +12,7 @@ public interface IGameModel {
 		/* Observer pattern */
 		public void subToLocal(int x, int y, EventListener e);
 		public void subToHeroi(EventListener e);
-		public void subToInventario(EventListener e);
+		public void subToItem(String item, EventListener e);
 		
 		/* Requerir informacoes */
 		
@@ -32,5 +32,5 @@ public interface IGameModel {
 		/* Retorna o item de nome dado, na seguinte forma
 		 * String[3] = {descricao, estaColetado?, estaEquipado?}
 		 * */
-		public String[][] getInventoryState(String itemName);
+		public String[] getItemState(String itemName);
 }

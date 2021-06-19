@@ -1,10 +1,11 @@
 package src.model.entidade;
 
-import src.model.interacao.*;
+import src.model.interacao.IInteracao;
+import src.model.interacao.Interacao;
 import src.model.space.ICaveAction;
-import java.lang.Math;
+import src.utils.events.EventCreator;
 
-public abstract class Entidade implements IRCaveAction, IEntidade {
+public abstract class Entidade extends EventCreator implements IRCaveAction, IEntidade {
     private static IInteracao objInteracao = new Interacao();
     protected int posX, posY;
     protected ICaveAction caveAction;

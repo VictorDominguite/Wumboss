@@ -2,7 +2,7 @@ package src.utils.events;
 
 import java.util.ArrayList;
 
-public abstract class EventCreator {
+public abstract class EventCreator implements IEventCreator{
 	protected ArrayList<EventListener> listeners;
 	
 	protected EventCreator() {

@@ -25,15 +25,20 @@ public class ItemView extends JPanel implements EventListener{
 		
 		this.img = new ImageIcon();
 		
+		parentPanel.getGameView().getGameModel().subToItem(name, this);
+		
 		add(new JLabel(name));
 		//add(new JLabel(description));
 	}
 	
 	public void onUpdate() {
-		
+		String[] newInfo = getInfo();
+		this.description = newInfo[0];
+		this.isCollected = newInfo[1].equals("true") ? true : false;
+		this.isEquipped =  newInfo[2].equals("true") ? true : false;
 	}
 	
 	public String[] getInfo() {
-		return null;
+		return parentPanel.getGameView().getGameModel().getItemState(name);
 	}
 }

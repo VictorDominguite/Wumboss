@@ -2,7 +2,9 @@ package src.model.entidade.itens;
 
 import src.model.entidade.Entidade;
 
-public abstract class Item extends Entidade {
+public abstract class Item extends Entidade implements IItem{
+	private String descricao;
+	
     private boolean coletado;
     private boolean equipado;
 
@@ -10,6 +12,7 @@ public abstract class Item extends Entidade {
         this.coletado = coletado;
         this.equipado = equipado;
     }
+    
     public boolean isColetado() {
         return coletado;
     }
@@ -29,5 +32,17 @@ public abstract class Item extends Entidade {
     
     public String toString() {
     	return this.getClass().getSimpleName();
+    }
+    
+    public String getNome() {
+    	return toString();
+    }
+    
+    public String getDescricao() {
+    	return descricao;
+    }
+    
+    protected void setDescricao(String descricao) {
+    	this.descricao = descricao;
     }
 }
