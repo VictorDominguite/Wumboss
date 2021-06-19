@@ -8,6 +8,8 @@ public class Elixir extends Item {
 
     public Elixir(boolean coletado, boolean equipado) {
         super(coletado, equipado);
+        
+        setDescricao("Um elixir");
     }
 
     public int getBonusDano() {

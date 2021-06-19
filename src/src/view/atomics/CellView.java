@@ -26,6 +26,7 @@ public class CellView extends JButton implements EventListener{
 		setBackground(Color.white);
 		setMaximumSize(new Dimension(32, 32));
 		setMinimumSize(new Dimension(32, 32));
+		
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		setBorder(emptyBorder);
 		

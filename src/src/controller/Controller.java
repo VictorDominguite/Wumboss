@@ -1,7 +1,11 @@
 package src.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import src.utils.exceptions.TipoDeSalaInvalido;
 
@@ -45,6 +49,17 @@ public class Controller implements IController{
 			throw new IOException();
 		
 		return res;
+	}
+	
+	public BufferedImage readIcon(String name){
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(assetsPath + name + ".png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return img;
 	}
 
 }

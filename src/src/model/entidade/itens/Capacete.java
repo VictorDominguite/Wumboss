@@ -6,6 +6,8 @@ public class Capacete extends Item {
     public Capacete(boolean coletado, boolean equipado, int defesa) {
         super(coletado, equipado);
         this.defesa = defesa;
+        
+        setDescricao("Um capacete");
     }
 
     public int getDefesa() {
