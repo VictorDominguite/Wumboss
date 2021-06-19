@@ -3,6 +3,7 @@ package src.view.atomics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -29,9 +30,6 @@ public class ItemView extends JPanel implements EventListener{
 	public ItemView(String name, InventoryPanel parent) {
 		super(new BorderLayout());
 		
-		setMaximumSize(new Dimension(32, 32));
-		setMinimumSize(new Dimension(32, 32));
-		
 		Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
 		
@@ -39,17 +37,16 @@ public class ItemView extends JPanel implements EventListener{
 		this.parentPanel = parent;
 		
 		BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
-		ImageIcon icon = new ImageIcon(buffImg);
+		ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
 		
 		this.img = new JLabel(icon);
-		img.setSize(64, 64);
 		this.description = new JLabel();
 		
 		parentPanel.getGameView().getGameModel().subToItem(name, this);
 		onUpdate();
 		
 		add(new JLabel(name), BorderLayout.NORTH);
-		add(img, BorderLayout.WEST);
+		add(img, BorderLayout.EAST);
 		add(description, BorderLayout.CENTER);
 	}
 	
