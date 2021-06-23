@@ -20,13 +20,11 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
     	return this.inv;
     }
 
-	@Override
 	public String toString() {
 		return "heroi";
 	}
 
-	@Override
-	public void receiveMessage(String message) {
+	public void sendMessage(String action, String... args) {
 		
 	}
 }

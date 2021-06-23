@@ -1,6 +1,8 @@
 package src.model;
 
 import src.controller.IController;
+import src.model.actions.IActionParser;
+import src.model.actions.ModelAction;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.itens.IItem;
 import src.model.space.ICave;
@@ -11,6 +13,7 @@ import src.utils.exceptions.SemReferenciaAComponente;
 
 public class GameModel implements IGameModel{
 	private IController io;
+	private IActionParser modelAction;
 	
 	private ICave cave;
 	private Heroi hero;
@@ -24,6 +27,9 @@ public class GameModel implements IGameModel{
 	
 	public void setHeroi(Heroi h) {
 		this.hero = h;
+		
+		if(modelAction != null)
+			modelAction.connect("hero", h);
 	}
 	
 	public void setInventario(IInventario inv) {
@@ -32,6 +38,11 @@ public class GameModel implements IGameModel{
 
 	public void setControl(IController io) {
 		this.io = io;
+		
+		if(modelAction == null)
+			modelAction = new ModelAction();
+		
+		this.io.connect("parser", modelAction);
 	}
 	
 	public void subToLocal(int x, int y, EventListener e) {

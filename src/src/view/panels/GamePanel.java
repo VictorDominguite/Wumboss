@@ -2,6 +2,8 @@ package src.view.panels;
 
 import java.awt.GridLayout;
 
+import javax.swing.JComponent;
+
 import src.view.GameView;
 import src.view.atomics.CellView;
 
@@ -13,6 +15,8 @@ public class GamePanel extends Panel{
         
         setWeightX(7);
         setWeightY(7);
+        
+        gv.getController().setKeyboardMappings(getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), getActionMap());
         
         for(int i = 0; i < 10; i++) {
         	for(int j = 0; j < 10; j++) {
