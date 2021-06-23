@@ -1,4 +1,4 @@
-package src.model.entidade;
+package src.model.actions;
 
 import src.model.space.ICaveAction;
 

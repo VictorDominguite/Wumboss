@@ -1,7 +1,7 @@
 package src.model.entidade;
 
-import src.model.interacao.IInteracao;
-import src.model.interacao.Interacao;
+import src.model.actions.IRCaveAction;
+import src.model.entidade.interacao.*;
 import src.model.space.ICaveAction;
 import src.utils.events.EventCreator;
 

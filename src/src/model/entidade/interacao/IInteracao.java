@@ -1,4 +1,4 @@
-package src.model.interacao;
+package src.model.entidade.interacao;
 
 import src.model.entidade.*;
 

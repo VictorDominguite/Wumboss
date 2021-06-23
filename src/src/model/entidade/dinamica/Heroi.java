@@ -1,6 +1,7 @@
 package src.model.entidade.dinamica;
 
 import src.model.Inventario;
+import src.model.actions.IActionExecutor;
 
 public class Heroi extends EntidadeDinamica implements IActionExecutor {
 	private Inventario inv;
@@ -22,5 +23,10 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
 	@Override
 	public String toString() {
 		return "heroi";
+	}
+
+	@Override
+	public void receiveMessage(String message) {
+		
 	}
 }
