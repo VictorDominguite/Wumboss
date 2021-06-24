@@ -1,10 +1,10 @@
 package src.model.space;
 
 import src.model.entidade.IEntidade;
-import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.estatica.Passagem;
 import src.utils.Direcao;
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 
 public class Sala {
     private ICelula[][] celulas;
@@ -121,7 +121,7 @@ public class Sala {
         return false;
     }
     
-    public void subToLocal(int x, int y, EventListener e) {
+    public void subToLocal(int x, int y, Observer e) {
     	getCelula(x, y).subscribe(e);
     }
 }

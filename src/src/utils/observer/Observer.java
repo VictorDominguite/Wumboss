@@ -1,6 +1,6 @@
-package src.utils.events;
+package src.utils.observer;
 
-public interface EventListener {
+public interface Observer {
 	public void onUpdate();
 	public void onUpdate(boolean reinscrever);
 	public String[] getInfo();

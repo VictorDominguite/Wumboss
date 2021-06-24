@@ -1,6 +1,4 @@
-package src.model.actions;
-
-import src.model.space.ICaveAction;
+package src.model.space;
 
 public interface IRCaveAction {
     public void connect(ICaveAction caveAction);

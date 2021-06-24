@@ -1,6 +1,5 @@
 package src.controller;
 
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,12 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import src.model.actions.IActionAgent;
-import src.model.actions.IActionCreator;
-import src.model.actions.IActionParser;
+import src.utils.actions.IActionParser;
 import src.utils.exceptions.TipoDeSalaInvalido;
 
 public class Controller implements IController{
@@ -81,10 +77,8 @@ public class Controller implements IController{
 			actionHandler.sendMessage(message);
 	}
 	
-	@Override
-	public void connect(String name, IActionAgent agent) {
-		if(name.equals("parser") && agent instanceof IActionParser)
-			this.actionHandler = (IActionParser) agent;
+	public void connect(IActionParser agent) {
+		this.actionHandler = (IActionParser) agent;
 	}
 
 	public void setKeyboardMappings(InputMap im, ActionMap am) {

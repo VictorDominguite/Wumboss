@@ -1,8 +1,7 @@
 package src.model.space;
 
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 
-public interface ICave {
-	public String[] estado(int x, int y);
-	public void subToLocal(int x, int y, EventListener e);
+public interface ICave extends ICaveAction, ICaveProperties{
+	public void subToLocal(int x, int y, Observer e);
 }

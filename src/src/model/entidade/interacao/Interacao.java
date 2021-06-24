@@ -4,6 +4,7 @@ import src.model.entidade.*;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Item;
 
 public class Interacao implements IInteracao {

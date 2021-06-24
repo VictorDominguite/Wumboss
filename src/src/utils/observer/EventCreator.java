@@ -1,12 +1,12 @@
-package src.utils.events;
+package src.utils.observer;
 
 import java.util.ArrayList;
 
 public abstract class EventCreator implements IEventCreator{
-	protected ArrayList<EventListener> listeners;
+	protected ArrayList<Observer> listeners;
 	
 	protected EventCreator() {
-		listeners = new ArrayList<EventListener>();
+		listeners = new ArrayList<Observer>();
 	}
 	
 	protected void onUpdate() {
@@ -14,14 +14,14 @@ public abstract class EventCreator implements IEventCreator{
 	}
 	
 	protected void onUpdate(boolean reinscrever) {
-		for(EventListener e : listeners) {
+		for(Observer e : listeners) {
 			e.onUpdate(reinscrever);
 			if(reinscrever) 
 				listeners.remove(e);
 		}
 	}
 	
-	public void subscribe(EventListener e) {
+	public void subscribe(Observer e) {
 		listeners.add(e);
 	}
 	

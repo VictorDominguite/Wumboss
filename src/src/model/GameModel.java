@@ -1,15 +1,15 @@
 package src.model;
 
 import src.controller.IController;
-import src.model.actions.IActionParser;
-import src.model.actions.ModelAction;
 import src.model.entidade.dinamica.Heroi;
+import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
 import src.model.space.ICave;
 import src.model.space.factories.CaveFactory;
 import src.model.space.factories.SalaFactory;
-import src.utils.events.EventListener;
+import src.utils.actions.IActionParser;
 import src.utils.exceptions.SemReferenciaAComponente;
+import src.utils.observer.Observer;
 
 public class GameModel implements IGameModel{
 	private IController io;
@@ -42,18 +42,18 @@ public class GameModel implements IGameModel{
 		if(modelAction == null)
 			modelAction = new ModelAction();
 		
-		this.io.connect("parser", modelAction);
+		this.io.connect(modelAction);
 	}
 	
-	public void subToLocal(int x, int y, EventListener e) {
+	public void subToLocal(int x, int y, Observer e) {
 		cave.subToLocal(x, y, e);
 	}
 	
-	public void subToHeroi(EventListener e) {
+	public void subToHeroi(Observer e) {
 		
 	}
 	
-	public void subToItem(String item, EventListener e) {
+	public void subToItem(String item, Observer e) {
 		inv.subToItem(item, e);
 	}
 

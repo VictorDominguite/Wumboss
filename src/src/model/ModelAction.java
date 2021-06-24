@@ -1,7 +1,9 @@
-package src.model.actions;
+package src.model;
 
 import java.util.HashMap;
 
+import src.utils.actions.IActionExecutor;
+import src.utils.actions.IActionParser;
 import src.utils.exceptions.MensagemInvalida;
 
 public class ModelAction implements IActionParser {
@@ -11,7 +13,7 @@ public class ModelAction implements IActionParser {
     	mappings = new HashMap<String, IActionExecutor>();
     }
 
-	public void connect(String name, IActionAgent actor) {
+	public void connect(String name, IActionExecutor actor) {
 		if(!mappings.containsKey(name) && actor instanceof IActionExecutor)
 			mappings.put(name, (IActionExecutor) actor);
 	}

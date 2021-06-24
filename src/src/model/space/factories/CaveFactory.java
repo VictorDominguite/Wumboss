@@ -3,8 +3,8 @@ package src.model.space.factories;
 import java.util.Random;
 
 import src.model.GameModel;
-import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.Heroi;
+import src.model.entidade.estatica.Passagem;
 import src.model.space.Caverna;
 import src.model.space.Sala;
 import src.utils.Direcao;

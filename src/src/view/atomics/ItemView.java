@@ -12,10 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 import src.view.panels.InventoryPanel;
 
-public class ItemView extends JPanel implements EventListener{
+public class ItemView extends JPanel implements Observer{
 	private static final long serialVersionUID = -7610186360675545438L;
 	
 	private InventoryPanel parentPanel;

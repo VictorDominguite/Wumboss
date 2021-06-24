@@ -1,4 +1,6 @@
-package src.model.entidade;
+package src.model.entidade.estatica;
+
+import src.model.entidade.Entidade;
 
 public class Parede extends Entidade{
 

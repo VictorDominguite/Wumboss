@@ -1,5 +1,6 @@
-package src.model.entidade;
+package src.model.entidade.estatica;
 
+import src.model.entidade.Entidade;
 import src.model.space.Sala;
 import src.utils.Direcao;
 

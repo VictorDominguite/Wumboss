@@ -1,10 +1,9 @@
-package src.model;
+package src.model.entidade.itens;
 
-import src.model.entidade.itens.IItem;
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 
 public interface IInventario {
-	public void subToItem(String item, EventListener e);
+	public void subToItem(String item, Observer e);
 	
 	public IItem getArmaEquipada();
 	public IItem getArmaduraEquipada();

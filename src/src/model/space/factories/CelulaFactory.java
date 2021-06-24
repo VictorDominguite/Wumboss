@@ -3,6 +3,8 @@ package src.model.space.factories;
 import java.util.HashMap;
 
 import src.model.entidade.*;
+import src.model.entidade.estatica.Parede;
+import src.model.entidade.estatica.PocoVenenoso;
 import src.model.space.Celula;
 import src.model.space.Sala;
 

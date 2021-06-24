@@ -1,11 +1,11 @@
 package src.model.space;
 
-import src.model.entidade.Passagem;
+import src.model.entidade.estatica.Passagem;
 import src.utils.Direcao;
-import src.utils.events.EventListener;
 import src.utils.exceptions.IDInvalido;
+import src.utils.observer.Observer;
 
-public class Caverna implements ICave, ICaveAction {
+public class Caverna implements ICave{
 	public static final int NUM_SALAS = 8;
     private static Caverna instance;
 
@@ -70,7 +70,7 @@ public class Caverna implements ICave, ICaveAction {
     	return getSalaAtiva().estado(x, y);
     }
     
-    public void subToLocal(int x, int y, EventListener e) {
+    public void subToLocal(int x, int y, Observer e) {
     	getSalaAtiva().subToLocal(x, y, e);
     }
 

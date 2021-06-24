@@ -1,7 +1,7 @@
 package src.model;
 
 import src.controller.IController;
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 
 public interface IGameModel {
 	/* Inicializacao */
@@ -10,9 +10,9 @@ public interface IGameModel {
 	
 	/* Interacao com os outros componentes */
 		/* Observer pattern */
-		public void subToLocal(int x, int y, EventListener e);
-		public void subToHeroi(EventListener e);
-		public void subToItem(String item, EventListener e);
+		public void subToLocal(int x, int y, Observer e);
+		public void subToHeroi(Observer e);
+		public void subToItem(String item, Observer e);
 		
 		/* Requerir informacoes */
 		

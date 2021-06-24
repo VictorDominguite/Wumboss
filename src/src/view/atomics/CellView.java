@@ -8,10 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 import src.view.panels.GamePanel;
 
-public class CellView extends JButton implements EventListener{
+public class CellView extends JButton implements Observer{
 	private static final long serialVersionUID = -431171023250216935L;
 	
 	private GamePanel parentPanel;

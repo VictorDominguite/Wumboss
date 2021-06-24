@@ -1,7 +1,6 @@
-package src.model;
+package src.model.entidade.itens;
 
-import src.model.entidade.itens.*;
-import src.utils.events.EventListener;
+import src.utils.observer.Observer;
 
 public class Inventario implements IInventario{
     private IItem[] inventario;
@@ -25,7 +24,7 @@ public class Inventario implements IInventario{
         addItem(new Tocha(true, true));
     }
     
-    public void subToItem(String item, EventListener e) {
+    public void subToItem(String item, Observer e) {
     	getItem(item).subscribe(e);
     }
     

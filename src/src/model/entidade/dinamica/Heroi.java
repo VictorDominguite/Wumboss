@@ -1,8 +1,8 @@
 package src.model.entidade.dinamica;
 
-import src.model.Inventario;
-import src.model.actions.IActionExecutor;
+import src.model.entidade.itens.Inventario;
 import src.utils.Direcao;
+import src.utils.actions.IActionExecutor;
 
 public class Heroi extends EntidadeDinamica implements IActionExecutor {
 	private Inventario inv;

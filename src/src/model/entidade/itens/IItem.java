@@ -1,6 +1,6 @@
 package src.model.entidade.itens;
 
-import src.utils.events.IEventCreator;
+import src.utils.observer.IEventCreator;
 
 public interface IItem extends IEventCreator{
 	public boolean isColetado();

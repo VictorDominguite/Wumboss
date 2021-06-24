@@ -1,9 +1,9 @@
 package src.model.entidade;
 
-import src.model.actions.IRCaveAction;
 import src.model.entidade.interacao.*;
 import src.model.space.ICaveAction;
-import src.utils.events.EventCreator;
+import src.model.space.IRCaveAction;
+import src.utils.observer.EventCreator;
 
 public abstract class Entidade extends EventCreator implements IRCaveAction, IEntidade {
     private static IInteracao objInteracao = new Interacao();

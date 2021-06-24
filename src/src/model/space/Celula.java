@@ -1,10 +1,10 @@
 package src.model.space;
 
 import src.model.entidade.IEntidade;
-import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.estatica.Passagem;
 import src.utils.Direcao;
-import src.utils.events.EventCreator;
+import src.utils.observer.EventCreator;
 
 public class Celula extends EventCreator implements ICelula{
     private IEntidadeDinamica foreground;
