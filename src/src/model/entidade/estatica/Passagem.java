@@ -6,23 +6,24 @@ import src.utils.Direcao;
  * Se for em uma parede vertical, conta de baixo para cima, comecando em 0
  * Se for em uma parede horizontal, conta da esquerda para a direita, desde 0 */
 public class Passagem extends EntidadeEstatica implements IPassagem{
-    private int posicao;
     private Direcao direcao;
     private int idOrigem, idDestino;
+    private Passagem outroLado;
     
-    public Passagem(Direcao dir, int pos, int idOrigem, int idDestino) {
+    public Passagem(Direcao dir, int posX, int posY, int idOrigem, int idDestino) {
     	this.direcao = dir;
-    	this.posicao = pos;
+    	this.posX = posX;
+    	this.posY = posY;
     	this.idOrigem = idOrigem;
     	this.idDestino = idDestino;
     }
     
-    public Passagem complemento() {
-    	return new Passagem(Direcao.contrario(direcao), posicao, idDestino, idOrigem);
+    public void setComplementar(Passagem outroLado) {
+    	this.outroLado = outroLado;
     }
-
-    public int getPosicao() {
-        return posicao;
+    
+    public Passagem complemento() {
+    	return new Passagem(Direcao.contrario(direcao), posX, posY, idDestino, idOrigem);
     }
 
     public Direcao getDirecao() {
@@ -42,4 +43,12 @@ public class Passagem extends EntidadeEstatica implements IPassagem{
 	public boolean isPassable() {
     	return false;
     }
+
+	public int getXFim() {
+		return Direcao.newLoc(outroLado.getPosX(), outroLado.getPosY(), direcao)[0];
+	}
+
+	public int getYFim() {
+		return Direcao.newLoc(outroLado.getPosX(), outroLado.getPosY(), direcao)[1];
+	}
 }

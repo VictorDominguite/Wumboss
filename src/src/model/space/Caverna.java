@@ -1,5 +1,6 @@
 package src.model.space;
 
+import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
@@ -57,14 +58,30 @@ public class Caverna implements ICave{
     	if(!passagem.isPassagem())
     		throw new RuntimeException("A passagem não é uma passagem!");
     	
-        getSalaAtiva().setInativa();
+    	int idInativado = getSalaAtiva().getID();
+    	IEntidadeDinamica e = removerEntidade(xEnt, yEnt);
+    	
         idAtivo = ((IPassagem) passagem).getDestino();
-        getSalaAtiva().setAtiva();
+        getSala(idAtivo).setAtiva();
+        
+        int xFim = ((IPassagem) passagem).getXFim();
+        int yFim = ((IPassagem) passagem).getYFim();
+        
+        System.out.println(xFim + ":" + yFim);
+        
+        
+        addEntidade(xFim, yFim, e);
+        
+        getSala(idInativado).setInativa();
         
     }
 
-    public void removerEntidade(int x, int y) {
-        getSalaAtiva().removerEntidade(x, y);
+    public IEntidadeDinamica removerEntidade(int x, int y) {
+        return getSalaAtiva().removerEntidade(x, y);
+    }
+    
+    private void addEntidade(int x, int y, IEntidadeDinamica e) {
+    	getSalaAtiva().addEntidade(x, y, e);
     }
     
     public String[] estado(int x, int y) {

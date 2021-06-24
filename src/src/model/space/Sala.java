@@ -18,6 +18,8 @@ public class Sala {
     }
     
     public Celula getCelula(int x, int y) {
+    	if(outOfBounds(x, y))
+    		throw new RuntimeException("Tentando acessar uma célula que não existe! Posicao: " + x + ":" + y);
         return (Celula) celulas[y][x];
     }
 
@@ -35,7 +37,6 @@ public class Sala {
         
         if (checkValidadeMovimento(origem, fim)) {
         	if(fim.getBackground() != null && fim.getBackground().isPassagem()) {
-        		System.out.println("a");
         		cave.moverEntidadeEntreSalas(xIni, yIni, fim.getBackground());
         	}
         	else {
@@ -71,8 +72,8 @@ public class Sala {
     	return true;
     }
 
-    public void removerEntidade(int x, int y) {
-    	getCelula(x, y).removerEntidade();
+    public IEntidadeDinamica removerEntidade(int x, int y) {
+    	return getCelula(x, y).removerEntidade();
     }
     
     public void addEntidade(int x, int y, IEntidadeDinamica e) {
