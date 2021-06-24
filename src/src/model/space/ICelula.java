@@ -1,12 +1,12 @@
 package src.model.space;
 
-import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.estatica.IEntidadeEstatica;
 import src.utils.Direcao;
 
 public interface ICelula {
-	public IEntidadeDinamica getForeground();
-	public IEntidade getBackground();
+	public IEntidadeDinamica getEntidade();
+	public IEntidadeEstatica getBackground();
 	public Sala getSala();
 	public int getPosX();
 	public int getPosY();

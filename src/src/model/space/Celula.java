@@ -1,8 +1,8 @@
 package src.model.space;
 
-import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.Passagem;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
@@ -10,12 +10,12 @@ import src.utils.observer.EventCreator;
 
 public class Celula extends EventCreator implements ICelula{
     private IEntidadeDinamica foreground;
-    private IEntidade background;
+    private IEntidadeEstatica background;
     private boolean visivel = false;
     private int posX, posY;
     private Sala sala;
 
-    public Celula(Sala sala, int x, int y, IEntidade background) {
+    public Celula(Sala sala, int x, int y, IEntidadeEstatica background) {
         this.sala = sala;
         this.posX = x;
         this.posY = y;
@@ -23,11 +23,11 @@ public class Celula extends EventCreator implements ICelula{
         this.background = background;
     }
 
-    public IEntidadeDinamica getForeground() {
+    public IEntidadeDinamica getEntidade() {
         return foreground;
     }
     
-    public IEntidade getBackground() {
+    public IEntidadeEstatica getBackground() {
     	return background;
     }
 
@@ -88,13 +88,13 @@ public class Celula extends EventCreator implements ICelula{
     	String[] res = new String[3];
     	
     	res[0] = getBackground() != null ? getBackground().toString() : "null";
-    	res[1] = getForeground() != null ? getForeground().toString() : "null";
+    	res[1] = getEntidade() != null ? getEntidade().toString() : "null";
     	res[2] = isVisivel() ? "true" : "false";
     	
     	return res;
     }
     
-    public void setBackground(IEntidade e) {
+    public void setBackground(IEntidadeEstatica e) {
     	this.background = e;
     }
     

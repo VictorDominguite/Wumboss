@@ -51,6 +51,13 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
             this.vida = vidaRestante;
         }
     }
+    
+    public void processarEfeitos() {
+    	if(estaEnvenenado()) {
+    		receberDano(PocoVenenoso.getDano());
+            envenenado -= 1;
+    	}
+    }
 
     public void mover(Direcao dir) {
         this.caveAction.moverEntidade(posX, posY, dir);

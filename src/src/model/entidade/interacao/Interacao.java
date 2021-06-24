@@ -10,6 +10,8 @@ import src.utils.exceptions.ErroDeInteracao;
 public class Interacao implements IInteracao {
 
     public String interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
+    	if(e2 == null)
+    		return "mover";
         if (e1 instanceof Heroi && e2 instanceof Item) {
             coletarItem((Heroi) e1, (Item) e2);
             return "coleta";

@@ -36,4 +36,25 @@ public enum Direcao {
     	
     	return null;
     }
+    
+    public static int[] newLoc(int x, int y, Direcao dir) {
+    	 switch (dir) {
+         case NORTE:
+             y -= 1;
+             break;
+         case LESTE:
+             x += 1;
+             break;
+         case SUL:
+             y += 1;
+             break;
+         case OESTE:
+             x -= 1;
+             break;
+         default:
+
+     }
+    int[] res = {x, y};
+    return res;
+    }
 }

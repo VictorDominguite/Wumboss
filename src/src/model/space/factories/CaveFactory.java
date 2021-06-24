@@ -1,7 +1,5 @@
 package src.model.space.factories;
 
-import java.util.Random;
-
 import src.model.GameModel;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.estatica.Passagem;
@@ -11,8 +9,6 @@ import src.utils.Constantes;
 import src.utils.Direcao;
 
 public class CaveFactory {
-	private static Random rand = new Random();
-	
 	//TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem necessarias)
 	public static Caverna montar(GameModel gm) {
 		Caverna cave = Caverna.getInstance();
@@ -40,24 +36,60 @@ public class CaveFactory {
 	
 	//TODO: Checar se ja nao existe passagem na celula
 	private static void criarPassagem(Sala s1, Sala s2) {
-		int d = Constantes.rng.nextInt(7) + 1;
-		switch(Direcao.randomDir(rand)) {
+		Passagem pass = null;
+		Passagem passComplemento = null;
+		
+		int x, y;
+		
+		int d = Constantes.rng.nextInt(Constantes.TAM_SALAS - 3) + 1;
+		switch(Direcao.randomDir(Constantes.rng)) {
 		case NORTE:
-			s1.getCelula(d, s1.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s1, s2));
-			s2.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s2, s1));
-			return;
+			x = d;
+			y = s2.getTamY() - 1;
+			
+			pass = new Passagem(Direcao.NORTE, x, 0, s1.getID(), s2.getID());
+			passComplemento = new Passagem(Direcao.SUL, x, y, s2.getID(), s1.getID());
+			
+			s1.getCelula(x, 0).setBackground(pass);
+			s2.getCelula(x, y).setBackground(passComplemento);
+			
+			break;
 		case SUL:
-			s1.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s1, s2));
-			s2.getCelula(d, s2.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s2, s1));
-			return;
+			x = d;
+			y = s1.getTamY() - 1;
+			
+			pass = new Passagem(Direcao.SUL, x, y, s1.getID(), s2.getID());
+			passComplemento = new Passagem(Direcao.NORTE, x, 0, s2.getID(), s1.getID());
+			
+			s1.getCelula(x, y).setBackground(pass);
+			s2.getCelula(x, 0).setBackground(passComplemento);
+			
+			break;
 		case LESTE:
-			s1.getCelula(s1.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s1, s2));
-			s2.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s2, s1));
-			return;
+			x = s1.getTamX() - 1;
+			y = d;
+			
+			pass = new Passagem(Direcao.LESTE, x, y, s1.getID(), s2.getID());
+			passComplemento = new Passagem(Direcao.OESTE, 0, y, s2.getID(), s1.getID());
+			
+			s1.getCelula(x, y).setBackground(pass);
+			s2.getCelula(0, y).setBackground(passComplemento);
+			
+			break;
 		case OESTE:
-			s1.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s1, s2));
-			s2.getCelula(s2.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s2, s1));
-			return;
+			x = s2.getTamX() - 1;
+			y = d;
+			
+			pass = new Passagem(Direcao.OESTE, 0, y, s1.getID(), s2.getID());
+			passComplemento = new Passagem(Direcao.LESTE, x, y, s2.getID(), s1.getID());
+			
+			s1.getCelula(0, y).setBackground(pass);
+			s2.getCelula(x, d).setBackground(passComplemento);
+			
+			break;
 		}
+		
+		pass.setComplementar(passComplemento);
+		passComplemento.setComplementar(pass);
 	}
 }

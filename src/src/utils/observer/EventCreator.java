@@ -14,11 +14,11 @@ public abstract class EventCreator implements IEventCreator{
 	}
 	
 	protected void onUpdate(boolean reinscrever) {
-		for(Observer e : listeners) {
+		for(Observer e : listeners) 
 			e.onUpdate(reinscrever);
-			if(reinscrever) 
-				listeners.remove(e);
-		}
+		
+		if(reinscrever)
+			listeners.clear();
 	}
 	
 	public void subscribe(Observer e) {

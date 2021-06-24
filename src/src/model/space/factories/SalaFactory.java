@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import src.controller.IController;
 import src.model.space.Sala;
+import src.utils.Constantes;
 import src.utils.exceptions.SemControllerNaMontagem;
 import src.utils.exceptions.TipoDeSalaInvalido;
 
@@ -18,8 +19,7 @@ public class SalaFactory {
 		if(io == null)
 			throw new SemControllerNaMontagem();
 		
-		//TODO: tamanho das salas variavel
-		Sala s = new Sala(id, 10, 10);
+		Sala s = new Sala(id, Constantes.TAM_SALAS, Constantes.TAM_SALAS);
 		int x = 0, y = 0;
 		
 		try {

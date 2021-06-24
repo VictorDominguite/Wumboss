@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 
+import src.utils.Constantes;
 import src.view.GameView;
 import src.view.atomics.CellView;
 
@@ -11,15 +12,15 @@ public class GamePanel extends Panel{
 	private static final long serialVersionUID = 4246347561043763922L;
 
 	public GamePanel(GameView gv){
-        super(gv, new GridLayout(10, 10));
+        super(gv, new GridLayout(Constantes.TAM_SALAS, Constantes.TAM_SALAS));
         
         setWeightX(7);
         setWeightY(7);
         
         gv.getController().setKeyboardMappings(getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), getActionMap());
         
-        for(int i = 0; i < 10; i++) {
-        	for(int j = 0; j < 10; j++) {
+        for(int i = 0; i < Constantes.TAM_SALAS; i++) {
+        	for(int j = 0; j < Constantes.TAM_SALAS; j++) {
         		add(new CellView(j, i, this));
         	}
         }
