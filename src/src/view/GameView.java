@@ -1,8 +1,6 @@
 package src.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 
@@ -12,7 +10,6 @@ import src.utils.exceptions.SemReferenciaAComponente;
 import src.view.panels.GamePanel;
 import src.view.panels.InfoPanel;
 import src.view.panels.InventoryPanel;
-import src.view.panels.Panel;
 
 public class GameView extends JFrame implements IGameView{
 	private static final long serialVersionUID = -6985235430976713413L;
@@ -67,6 +64,7 @@ public class GameView extends JFrame implements IGameView{
 
 	public void setControl(IController c) {
 		this.control = c;
+		ImageCache.setIOHandler(c);
 	}
 
 	public void setModel(IGameModel g) {

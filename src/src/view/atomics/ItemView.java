@@ -2,17 +2,14 @@ package src.view.atomics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
+import src.view.ImageCache;
 import src.view.panels.InventoryPanel;
 
 public class ItemView extends JPanel implements Observer{
@@ -37,13 +34,7 @@ public class ItemView extends JPanel implements Observer{
 		this.parentPanel = parent;
 		this.img = new JLabel();
 		
-		try {
-			BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
-			ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
-			img.setIcon(icon);
-		} catch(IOException e) {
-			
-		}
+		updateIcon();
 		
 		this.description = new JLabel();
 		
@@ -64,8 +55,13 @@ public class ItemView extends JPanel implements Observer{
 		
 		String[] newInfo = getInfo();
 		this.description.setText(newInfo[0]);
-		this.isCollected = newInfo[1].equals("true") ? true : false;
-		this.isEquipped =  newInfo[2].equals("true") ? true : false;
+		this.isCollected = newInfo[1].equals("true");
+		this.isEquipped =  newInfo[2].equals("true");
+	}
+	
+	public void updateIcon() {
+		img.setIcon(null);
+		img.setIcon(ImageCache.getIcon(name, 64, 64));
 	}
 	
 	public String[] getInfo() {

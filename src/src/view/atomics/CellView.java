@@ -2,12 +2,8 @@ package src.view.atomics;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
@@ -64,20 +60,7 @@ public class CellView extends JButton implements Observer{
 		String name = (!foregroundName.equals("null") ? foregroundName : backgroundName);
 		
 		img.setIcon(null);
-		
-		try {
-			ImageIcon icon = ImageCache.getIconFromCache(name);
-			if(icon == null) {
-				BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
-				icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
-				ImageCache.insertIconInCache(name, icon);
-			}
-			
-			img.setIcon(icon);
-		} catch(IOException e) {
-			
-		}
-		
+		img.setIcon(ImageCache.getIcon(name, 64, 64));
 	}
 
 	public String[] getInfo() {
