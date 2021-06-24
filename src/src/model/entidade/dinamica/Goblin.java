@@ -1,6 +1,6 @@
 package src.model.entidade.dinamica;
 
-public class Goblin extends EntidadeDinamica {
+public class Goblin extends Inimigo {
 
     private Goblin(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);

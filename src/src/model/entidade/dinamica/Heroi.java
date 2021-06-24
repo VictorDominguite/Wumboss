@@ -1,5 +1,6 @@
 package src.model.entidade.dinamica;
 
+import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.utils.Direcao;
 import src.utils.actions.IActionExecutor;
@@ -30,5 +31,13 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
 			if(args != null)
 				mover(Direcao.fromString(args[0]));
 		}
+	}
+
+	public int getAlcance() {
+		IItemAtaque arma_equipada = (IItemAtaque) this.getInventario().getArmaEquipada();
+		if (arma_equipada != null) {
+			return arma_equipada.getAlcance();
+		}
+		return this.alcance;
 	}
 }

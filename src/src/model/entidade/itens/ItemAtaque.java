@@ -1,6 +1,6 @@
 package src.model.entidade.itens;
 
-public abstract class ItemAtaque extends Item {
+public abstract class ItemAtaque extends Item implements IItemAtaque {
     private int dano;
     private int alcance;
 

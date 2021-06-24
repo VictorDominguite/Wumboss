@@ -1,6 +1,6 @@
 package src.model.entidade.dinamica;
 
-public class Wumboss extends EntidadeDinamica {
+public class Wumboss extends Inimigo {
 
     private Wumboss(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);

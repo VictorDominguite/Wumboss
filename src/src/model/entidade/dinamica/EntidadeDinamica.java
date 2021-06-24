@@ -6,13 +6,15 @@ import src.utils.Direcao;
 
 public abstract class EntidadeDinamica extends Entidade implements IEntidadeDinamica{
     protected int vida, ataque, defesa, alcance;
-    protected int envenenado = 0;
+    protected int envenenado;
+
 
     public EntidadeDinamica(int vida, int ataque, int defesa) {
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
         alcance = 1;
+        envenenado = 0;
     }
 
     public int getAtaque() {
@@ -65,5 +67,24 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     public void receberDanoVeneno() {
         receberDano(PocoVenenoso.getDano());
         envenenado -= 1;
+    }
+
+
+    public void moverEmDirecaoA(int x, int y) {
+        int deltaX = Math.abs(x - posX);
+        int deltaY = Math.abs(y - posY);
+        
+        if (deltaX > deltaY) {
+            if (x > posX) 
+                mover(Direcao.LESTE);
+            else
+                mover(Direcao.OESTE);
+        }
+        else {
+            if (y > posY)
+                mover(Direcao.NORTE);
+            else
+                mover(Direcao.SUL);
+        }
     }
 }
