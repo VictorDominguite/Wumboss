@@ -1,12 +1,12 @@
 package src.model.space;
 
 import src.model.entidade.estatica.Passagem;
+import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.exceptions.IDInvalido;
 import src.utils.observer.Observer;
 
 public class Caverna implements ICave{
-	public static final int NUM_SALAS = 8;
     private static Caverna instance;
 
     private int idAtivo;
@@ -20,12 +20,12 @@ public class Caverna implements ICave{
     }
 
     private Caverna() {
-        salas = new Sala[NUM_SALAS];
+        salas = new Sala[Constantes.NUM_SALAS_CAVERNA];
         idAtivo = 0;
     }
     
     public Sala getSala(int id) {
-        if (id < 0 || id >= NUM_SALAS) 
+        if (id < 0 || id >= Constantes.NUM_SALAS_CAVERNA) 
             throw new IDInvalido(id);
 
         Sala s = salas[id];
