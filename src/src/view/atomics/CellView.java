@@ -18,8 +18,10 @@ public class CellView extends JButton implements Observer{
 	private GamePanel parentPanel;
 	
 	private int x, y;
-	//temp
-	private JLabel img;
+	
+	private JLabel imgBackground;
+	private JLabel imgForeground;
+	
 	private String backgroundName;
 	private String foregroundName;
 	
@@ -37,8 +39,11 @@ public class CellView extends JButton implements Observer{
 		
 		this.parentPanel = parent;
 		
-		this.img = new JLabel();
-		add(img);
+		this.imgBackground = new JLabel();
+		this.imgForeground = new JLabel();
+		
+		add(imgForeground);
+		add(imgBackground);
 		
 		inscrever();
 		onUpdate();
@@ -57,10 +62,11 @@ public class CellView extends JButton implements Observer{
 		backgroundName = newData[0];
 		foregroundName = newData[1];
 		
-		String name = (!foregroundName.equals("null") ? foregroundName : backgroundName);
+		imgForeground.setIcon(null);
+		imgBackground.setIcon(null);
 		
-		img.setIcon(null);
-		img.setIcon(ImageCache.getIcon(name, 64, 64));
+		imgBackground.setIcon(ImageCache.getIcon(backgroundName, 64, 64));
+		imgForeground.setIcon(ImageCache.getIcon(foregroundName, 64, 64));
 	}
 
 	public String[] getInfo() {
