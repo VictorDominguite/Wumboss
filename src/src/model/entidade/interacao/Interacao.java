@@ -4,7 +4,6 @@ import src.model.entidade.*;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Item;
 
 public class Interacao implements IInteracao {
@@ -20,10 +19,6 @@ public class Interacao implements IInteracao {
                 atacar((EntidadeDinamica) e2, (Heroi) e1);
             }
             return "ataque";
-        }
-        if (e1 instanceof Heroi && e2 instanceof PocoVenenoso) {
-            envenenar((Heroi) e1);
-            return "veneno";
         }
         return null;
     }
@@ -42,9 +37,4 @@ public class Interacao implements IInteracao {
         h.getInventario().addItem(item);
         item.coletar();
     }
-
-    public void envenenar(Heroi h) {
-        // TODO: envenenamento
-    }
-    
 }

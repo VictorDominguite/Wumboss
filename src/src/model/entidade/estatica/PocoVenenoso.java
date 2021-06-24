@@ -6,11 +6,11 @@ public class PocoVenenoso extends Entidade{
     private static final int DANO = 1;
     private static final int DURACAO_EFEITO = 2;
 
-    public int getDano() {
+    public static int getDano() {
         return DANO;
     }
 
-    public int getDuracaoEfeito() {
+    public static int getDuracaoEfeito() {
         return DURACAO_EFEITO;
     }
 

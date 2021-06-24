@@ -1,10 +1,12 @@
 package src.model.entidade.dinamica;
 
 import src.model.entidade.Entidade;
+import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
 
 public abstract class EntidadeDinamica extends Entidade implements IEntidadeDinamica{
     protected int vida, ataque, defesa, alcance;
+    protected int envenenado = 0;
 
     public EntidadeDinamica(int vida, int ataque, int defesa) {
         this.vida = vida;
@@ -50,5 +52,18 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
 
     public void mover(Direcao dir) {
         this.caveAction.moverEntidade(posX, posY, dir);
+    }
+
+    public boolean estaEnvenenado() {
+        return envenenado > 0;
+    }
+
+    public void envenenar() {
+        envenenado = PocoVenenoso.getDuracaoEfeito();
+    }
+
+    public void receberDanoVeneno() {
+        receberDano(PocoVenenoso.getDano());
+        envenenado -= 1;
     }
 }

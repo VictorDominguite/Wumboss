@@ -56,6 +56,9 @@ public class Sala {
         
         if (backgFim == null || backgFim.isPassable()) {
         	IEntidadeDinamica e = origem.removerEntidade();
+            if (e.estaEnvenenado()) {
+                e.receberDanoVeneno();
+            }
             if(foregFim == null) {
                 fim.addEntidade(e);
             } else {
@@ -64,9 +67,6 @@ public class Sala {
                     fim.addEntidade(e);
                 else if (interacao == "ataque")
                     origem.addEntidade(e);
-                else if (interacao == "veneno") {
-                    //TODO
-                }
                 else {
                     //TODO: excecao - erro na interacao
                 }

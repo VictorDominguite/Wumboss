@@ -1,8 +1,10 @@
 package src.model.space;
 
 import src.model.entidade.IEntidade;
+import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.estatica.Passagem;
+import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
 import src.utils.observer.EventCreator;
 
@@ -52,6 +54,10 @@ public class Celula extends EventCreator implements ICelula{
 
         this.foreground.setPosX(posX);
         this.foreground.setPosY(posY);
+
+        if (background instanceof PocoVenenoso && ent instanceof Heroi) {
+            ent.envenenar();
+        }
 
         onUpdate();
     }
