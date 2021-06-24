@@ -2,9 +2,9 @@ package src.view.atomics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -35,11 +35,16 @@ public class ItemView extends JPanel implements Observer{
 		
 		this.name = name;
 		this.parentPanel = parent;
+		this.img = new JLabel();
 		
-		BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
-		ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+		try {
+			BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
+			ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+			img.setIcon(icon);
+		} catch(IOException e) {
+			
+		}
 		
-		this.img = new JLabel(icon);
 		this.description = new JLabel();
 		
 		inscrever();

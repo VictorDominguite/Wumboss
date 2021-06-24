@@ -11,7 +11,7 @@ import src.utils.exceptions.TipoDeSalaInvalido;
 
 public interface IController extends IActionCreator{
 	public String[][] readSala(int tipo) throws TipoDeSalaInvalido, IOException;
-	public BufferedImage readIcon(String name);
+	public BufferedImage readIcon(String name) throws IOException;
 	
 	public void setKeyboardMappings(InputMap im, ActionMap am);
 }

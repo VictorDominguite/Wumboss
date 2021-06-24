@@ -23,7 +23,7 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
     }
 
 	public String toString() {
-		return "heroi";
+		return "Heroi";
 	}
 
 	public void sendMessage(String action, String... args) {
