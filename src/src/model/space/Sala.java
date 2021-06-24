@@ -50,26 +50,26 @@ public class Sala {
         ICelula origem = getCelula(xIni, yIni);
         ICelula fim = getCelula(xFim, yFim);
 
-        // Checagem de bordas
         IEntidade backgFim = fim.getBackground();
         IEntidadeDinamica foregFim = fim.getForeground();
         
+        // Checagem de bordas e movimentacao / interacao
         if (backgFim == null || backgFim.isPassable()) {
         	IEntidadeDinamica e = origem.removerEntidade();
-            if (e.estaEnvenenado()) {
-                e.receberDanoVeneno();
-            }
             if(foregFim == null) {
                 fim.addEntidade(e);
             } else {
                 String interacao = e.interagir(foregFim);
                 if (interacao == "coleta")
-                    fim.addEntidade(e);
+                fim.addEntidade(e);
                 else if (interacao == "ataque")
-                    origem.addEntidade(e);
+                origem.addEntidade(e);
                 else {
                     //TODO: excecao - erro na interacao
                 }
+            }
+            if (e.estaEnvenenado()) {
+                e.receberDanoVeneno();
             }
         }
         // Checagem de passagem entre salas
