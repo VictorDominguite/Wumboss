@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CSVHandler {
-	//TODO: Criar readCSV que cria um vetor de chars, mover responsabilidade de tornar em matriz
-	//		de Strings para o Controller
 	public String[][] readCSV(String path) throws FileNotFoundException{
 		String[][] result = null;
 		try(var br = new BufferedReader(new FileReader(path))){
@@ -22,10 +20,6 @@ public class CSVHandler {
 			result = new String[tamanho][tamanho];
 			for(int i = 0; i < tamanho; i++) {
 				result[i] = br.readLine().split(",");
-				//for(int j = 0; j < tamanho; j++) {
-				//	System.out.print(result[i][j]);
-				//}
-				//System.out.println();
 			}
 			
 		} catch(IOException e) {

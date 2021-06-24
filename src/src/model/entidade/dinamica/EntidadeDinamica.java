@@ -49,6 +49,13 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
             this.vida = vidaRestante;
         }
     }
+    
+    public void processarEfeitos() {
+    	if(estaEnvenenado()) {
+    		receberDano(PocoVenenoso.getDano());
+            envenenado -= 1;
+    	}
+    }
 
     public void mover(Direcao dir) {
         this.caveAction.moverEntidade(posX, posY, dir);
@@ -60,10 +67,5 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
 
     public void envenenar() {
         envenenado = PocoVenenoso.getDuracaoEfeito();
-    }
-
-    public void receberDanoVeneno() {
-        receberDano(PocoVenenoso.getDano());
-        envenenado -= 1;
     }
 }

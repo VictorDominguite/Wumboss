@@ -40,23 +40,23 @@ public class CaveFactory {
 	
 	//TODO: Checar se ja nao existe passagem na celula
 	private static void criarPassagem(Sala s1, Sala s2) {
-		int d = Constantes.rng.nextInt(7) + 1;
+		int d = Constantes.rng.nextInt(Constantes.TAM_SALAS - 3) + 1;
 		switch(Direcao.randomDir(rand)) {
 		case NORTE:
-			s1.getCelula(d, s1.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s1, s2));
-			s2.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s2, s1));
+			s1.getCelula(d, s1.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s1.getID(), s2.getID()));
+			s2.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s2.getID(), s1.getID()));
 			return;
 		case SUL:
-			s1.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s1, s2));
-			s2.getCelula(d, s2.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s2, s1));
+			s1.getCelula(d, 0).setBackground(new Passagem(Direcao.SUL, d, s1.getID(), s2.getID()));
+			s2.getCelula(d, s2.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s2.getID(), s1.getID()));
 			return;
 		case LESTE:
-			s1.getCelula(s1.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s1, s2));
-			s2.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s2, s1));
+			s1.getCelula(s1.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s1.getID(), s2.getID()));
+			s2.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s2.getID(), s1.getID()));
 			return;
 		case OESTE:
-			s1.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s1, s2));
-			s2.getCelula(s2.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s2, s1));
+			s1.getCelula(0, d).setBackground(new Passagem(Direcao.OESTE, d, s1.getID(), s2.getID()));
+			s2.getCelula(s2.getTamX() - 1, d).setBackground(new Passagem(Direcao.LESTE, d, s2.getID(), s1.getID()));
 			return;
 		}
 	}

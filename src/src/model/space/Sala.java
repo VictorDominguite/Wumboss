@@ -1,8 +1,6 @@
 package src.model.space;
 
-import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.estatica.Passagem;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
 
@@ -28,53 +26,49 @@ public class Sala {
     }
 
     public void moverEntidade(int xIni, int yIni, Direcao dir) {
-        // TODO: implementar interacao
-        int xFim = xIni, yFim = yIni;
-        switch (dir) {
-            case NORTE:
-                yFim -= 1;
-                break;
-            case LESTE:
-                xFim += 1;
-                break;
-            case SUL:
-                yFim += 1;
-                break;
-            case OESTE:
-                xFim -= 1;
-                break;
-            default:
-
-        }
+        int[] locFim = Direcao.newLoc(xIni, yIni, dir);
+        int xFim = locFim[0];
+        int yFim = locFim[1];
+       
         ICelula origem = getCelula(xIni, yIni);
         ICelula fim = getCelula(xFim, yFim);
-
-        IEntidade backgFim = fim.getBackground();
-        IEntidadeDinamica foregFim = fim.getForeground();
         
-        // Checagem de bordas e movimentacao / interacao
-        if (backgFim == null || backgFim.isPassable()) {
-        	IEntidadeDinamica e = origem.removerEntidade();
-            if(foregFim == null) {
-                fim.addEntidade(e);
-            } else {
-                String interacao = e.interagir(foregFim);
-                if (interacao == "coleta")
-                fim.addEntidade(e);
-                else if (interacao == "ataque")
-                origem.addEntidade(e);
-                else {
-                    //TODO: excecao - erro na interacao
-                }
-            }
-            if (e.estaEnvenenado()) {
-                e.receberDanoVeneno();
-            }
+        if (checkValidadeMovimento(origem, fim)) {
+        	if(fim.getBackground() != null && fim.getBackground().isPassagem()) {
+        		System.out.println("a");
+        		cave.moverEntidadeEntreSalas(xIni, yIni, fim.getBackground());
+        	}
+        	else {
+				IEntidadeDinamica e = origem.removerEntidade();
+				String interacao = e.interagir(fim.getEntidade());
+				
+				if(interacao.equals("mover") || interacao.equals("coleta")) {
+					fim.addEntidade(e);
+				}
+				else if (interacao.equals("ataque")) {
+					origem.addEntidade(e);
+				}
+				else {
+					// TODO: excecao - erro na interacao
+				}
+				
+				e.processarEfeitos();
+        	}
         }
-        // Checagem de passagem entre salas
-        else if (backgFim instanceof Passagem) 
-            cave.moverEntidadeEntreSalas(xFim, yFim, dir);
         
+    }
+    
+    private boolean checkValidadeMovimento(ICelula origem, ICelula fim) {
+    	if(outOfBounds(fim.getPosX(), fim.getPosY()))
+    		return false;
+    	if(origem.getEntidade() == null)
+    		return false;
+    	if(fim.getBackground() != null) {
+    		if(!fim.getBackground().isPassable() && !(fim.getBackground().isPassagem()))
+    			return false;
+    	}
+    	
+    	return true;
     }
 
     public void removerEntidade(int x, int y) {
@@ -114,8 +108,8 @@ public class Sala {
         return tamY;
     }
 
-    public boolean ehBorda(int x, int y) {
-        if (x == 0 || y == 0 || x == tamX - 1 || y == tamY - 1)
+    public boolean outOfBounds(int x, int y) {
+        if (x < 0 || y < 0 || x >= tamX || y >= tamY)
             return true;
         return false;
     }

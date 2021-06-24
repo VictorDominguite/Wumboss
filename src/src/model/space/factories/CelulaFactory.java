@@ -2,25 +2,26 @@ package src.model.space.factories;
 
 import java.util.HashMap;
 
-import src.model.entidade.*;
+import src.model.entidade.estatica.EntidadeEstatica;
 import src.model.entidade.estatica.Parede;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.space.Celula;
 import src.model.space.Sala;
 
 public class CelulaFactory {
-	private static HashMap<String, Class<? extends Entidade>> tabela = new HashMap<String, Class<? extends Entidade>>(40);
+	private static HashMap<String, Class<? extends EntidadeEstatica>> tabela 
+		= new HashMap<String, Class<? extends EntidadeEstatica>>(40);
 	static {
 		tabela.put("P", Parede.class);
 		tabela.put("V", PocoVenenoso.class);
 		
 	}
 	
-	private static Entidade decodeRawEntity(String repr) {
-		Class<? extends Entidade> classe = tabela.get(repr);
+	private static EntidadeEstatica decodeRawEntity(String repr) {
+		Class<? extends EntidadeEstatica> classe = tabela.get(repr);
 		if(classe == null) return null;
 		
-		Entidade result = null;
+		EntidadeEstatica result = null;
 		
 		try {
 			result = classe.getConstructor().newInstance();

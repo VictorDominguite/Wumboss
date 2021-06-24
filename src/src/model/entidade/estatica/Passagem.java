@@ -1,27 +1,24 @@
 package src.model.entidade.estatica;
 
-import src.model.entidade.Entidade;
-import src.model.space.Sala;
 import src.utils.Direcao;
 
 /* Indica o local da passagem entre duas salas 
  * Se for em uma parede vertical, conta de baixo para cima, comecando em 0
  * Se for em uma parede horizontal, conta da esquerda para a direita, desde 0 */
-public class Passagem extends Entidade{
+public class Passagem extends EntidadeEstatica implements IPassagem{
     private int posicao;
     private Direcao direcao;
-    //TODO: Interface
-    private Sala origem, destino;
+    private int idOrigem, idDestino;
     
-    public Passagem(Direcao dir, int pos, Sala origem, Sala destino) {
+    public Passagem(Direcao dir, int pos, int idOrigem, int idDestino) {
     	this.direcao = dir;
     	this.posicao = pos;
-    	this.origem = origem;
-    	this.destino = destino;
+    	this.idOrigem = idOrigem;
+    	this.idDestino = idDestino;
     }
     
     public Passagem complemento() {
-    	return new Passagem(Direcao.contrario(direcao), posicao, destino, origem);
+    	return new Passagem(Direcao.contrario(direcao), posicao, idDestino, idOrigem);
     }
 
     public int getPosicao() {
@@ -32,8 +29,8 @@ public class Passagem extends Entidade{
         return direcao;
     }
     
-    public Sala getDestino() {
-    	return destino;
+    public int getDestino() {
+    	return idDestino;
     }
 
 	@Override

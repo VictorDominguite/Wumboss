@@ -1,6 +1,7 @@
 package src.model.space;
 
-import src.model.entidade.estatica.Passagem;
+import src.model.entidade.estatica.IEntidadeEstatica;
+import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.exceptions.IDInvalido;
@@ -52,13 +53,13 @@ public class Caverna implements ICave{
     	getSalaAtiva().moverEntidade(x, y, dir);
     }
 
-    public void moverEntidadeEntreSalas(int x, int y, Direcao dir) {
-        Passagem p = (Passagem) getSalaAtiva().getCelula(x, y).getBackground();
-        if(p.getDirecao() == dir) {
-        	getSalaAtiva().setInativa();
-        	idAtivo = p.getDestino().getID();
-        	getSalaAtiva().setAtiva();
-        }
+    public void moverEntidadeEntreSalas(int xEnt, int yEnt, IEntidadeEstatica passagem) {
+    	if(!passagem.isPassagem())
+    		throw new RuntimeException("A passagem não é uma passagem!");
+    	
+        getSalaAtiva().setInativa();
+        idAtivo = ((IPassagem) passagem).getDestino();
+        getSalaAtiva().setAtiva();
         
     }
 

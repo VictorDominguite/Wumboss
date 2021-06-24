@@ -1,8 +1,6 @@
 package src.model.entidade.estatica;
 
-import src.model.entidade.Entidade;
-
-public class PocoVenenoso extends Entidade{
+public class PocoVenenoso extends EntidadeEstatica{
     private static final int DANO = 1;
     private static final int DURACAO_EFEITO = 2;
 
