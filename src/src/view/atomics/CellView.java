@@ -2,23 +2,27 @@ package src.view.atomics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
 import src.view.panels.GamePanel;
 
 public class CellView extends JButton implements Observer{
-	private static final long serialVersionUID = -431171023250216935L;
-	
+	private static final long serialVersionUID = -5086833428424017326L;
+
 	private GamePanel parentPanel;
 	
 	private int x, y;
 	//temp
-	private JLabel text;
+	private JLabel img;
 	private String backgroundName;
 	private String foregroundName;
 	
@@ -26,8 +30,7 @@ public class CellView extends JButton implements Observer{
 		super();
 		
 		setBackground(Color.white);
-		setMaximumSize(new Dimension(32, 32));
-		setMinimumSize(new Dimension(32, 32));
+		setPreferredSize(new Dimension(64, 64));
 		
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		setBorder(emptyBorder);
@@ -37,8 +40,8 @@ public class CellView extends JButton implements Observer{
 		
 		this.parentPanel = parent;
 		
-		this.text = new JLabel();
-		add(text);
+		this.img = new JLabel();
+		add(img);
 		
 		inscrever();
 		onUpdate();
@@ -55,7 +58,19 @@ public class CellView extends JButton implements Observer{
 		backgroundName = newData[0];
 		foregroundName = newData[1];
 		
-		text.setText(!foregroundName.equals("null") ? foregroundName : backgroundName);
+		System.out.println(foregroundName);
+		System.out.println(backgroundName);
+		
+		img.setIcon(null);
+		
+		try {
+			BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(!foregroundName.equals("null") ? foregroundName : backgroundName);
+			ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+			img.setIcon(icon);
+		} catch(IOException e) {
+			
+		}
+		
 	}
 
 	public String[] getInfo() {

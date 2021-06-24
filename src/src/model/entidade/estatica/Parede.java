@@ -4,7 +4,7 @@ public class Parede extends EntidadeEstatica{
 
 	@Override
 	public String toString() {
-		return "parede";
+		return "Parede";
 	}
 	
 	@Override

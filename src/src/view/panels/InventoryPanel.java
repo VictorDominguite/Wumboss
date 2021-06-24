@@ -1,6 +1,8 @@
 package src.view.panels;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import src.utils.Constantes;
 import src.view.GameView;
 import src.view.atomics.ItemView;
 
@@ -12,8 +14,7 @@ public class InventoryPanel extends Panel{
 	public InventoryPanel(GameView gv){
         super(gv, new GridLayout(2, 5));
         
-        setWeightX(10);
-        setWeightY(3);
+        setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X, Constantes.WINDOW_SIZE_Y*2/10));
         
         this.items = new ItemView[10];
         String[] itemNames = getItemNames();

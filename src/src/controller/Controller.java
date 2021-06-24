@@ -61,13 +61,9 @@ public class Controller implements IController{
 		return res;
 	}
 	
-	public BufferedImage readIcon(String name){
+	public BufferedImage readIcon(String name) throws IOException{
 		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(assetsPath + name + ".png"));
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		img = ImageIO.read(new File(assetsPath + name + ".png"));
 		
 		return img;
 	}

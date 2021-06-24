@@ -1,9 +1,8 @@
 package src.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
@@ -47,33 +46,11 @@ public class GameView extends JFrame implements IGameView{
     }
 
     private void configurePanels() {
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints constraints = new GridBagConstraints();
-        
-        constraints.gridx = GridBagConstraints.RELATIVE;
-        constraints.gridy = 0;
-        constraints.fill = GridBagConstraints.BOTH;
-        
-        Panel[] panels = {gp, infop, invp};
+        setLayout(new BorderLayout());
 
-        for(Panel p : panels) {
-        	constraints.weightx = p.getWeightX();
-        	constraints.weighty = p.getWeightY();
-        	
-        	if(p instanceof InventoryPanel) {
-        		constraints.gridx = 0;
-        		constraints.gridy = GridBagConstraints.RELATIVE;
-        		constraints.gridwidth = GridBagConstraints.REMAINDER;
-        	}
-        	
-        	gbl.setConstraints(p, constraints);
-        }
-
-        setLayout(gbl);
-
-        add(gp);
-        add(infop);
-        add(invp);
+        add(gp, BorderLayout.CENTER);
+        add(infop, BorderLayout.EAST);
+        add(invp, BorderLayout.SOUTH);
     }
     
     public IGameModel getGameModel() {

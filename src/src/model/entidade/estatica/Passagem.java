@@ -36,7 +36,7 @@ public class Passagem extends EntidadeEstatica implements IPassagem{
 
 	@Override
 	public String toString() {
-		return "passagem";
+		return "Passagem";
 	}
 	
 	@Override

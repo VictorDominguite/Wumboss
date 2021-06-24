@@ -1,5 +1,6 @@
 package src.view.panels;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JComponent;
@@ -14,8 +15,7 @@ public class GamePanel extends Panel{
 	public GamePanel(GameView gv){
         super(gv, new GridLayout(Constantes.TAM_SALAS, Constantes.TAM_SALAS));
         
-        setWeightX(7);
-        setWeightY(7);
+        setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X*5/10, Constantes.WINDOW_SIZE_Y*8/10));
         
         gv.getController().setKeyboardMappings(getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), getActionMap());
         

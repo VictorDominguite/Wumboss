@@ -1,6 +1,9 @@
 package src.view.panels;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 
+import src.utils.Constantes;
 import src.view.GameView;
 
 public class InfoPanel extends Panel{
@@ -9,8 +12,7 @@ public class InfoPanel extends Panel{
 	public InfoPanel(GameView gv){
         super(gv);
         
-        setWeightX(3);
-        setWeightY(7);
+        setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X*5/10, Constantes.WINDOW_SIZE_Y*8/10));
 
         add(new JLabel("InfoPanel"));
     }
