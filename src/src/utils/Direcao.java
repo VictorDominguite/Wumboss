@@ -23,4 +23,17 @@ public enum Direcao {
     	
     	return null;
     }
+    
+    public static Direcao fromString(String s) {
+    	if(s.equals("up") || s.equals("cima") || s.equals("norte"))
+    		return Direcao.NORTE;
+    	if(s.equals("down") || s.equals("baixo") || s.equals("sul"))
+    		return Direcao.SUL;
+    	if(s.equals("left") || s.equals("esquerda") || s.equals("oeste"))
+    		return Direcao.OESTE;
+    	if(s.equals("right") || s.equals("direita") || s.equals("leste"))
+    		return Direcao.LESTE;
+    	
+    	return null;
+    }
 }

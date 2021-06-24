@@ -49,6 +49,6 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     }
 
     public void mover(Direcao dir) {
-        this.caveAction.mover(posX, posY, dir);
+        this.caveAction.moverEntidade(posX, posY, dir);
     }
 }

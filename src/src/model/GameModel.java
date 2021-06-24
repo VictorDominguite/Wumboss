@@ -46,7 +46,7 @@ public class GameModel implements IGameModel{
 	}
 	
 	public void subToLocal(int x, int y, EventListener e) {
-		
+		cave.subToLocal(x, y, e);
 	}
 	
 	public void subToHeroi(EventListener e) {

@@ -28,10 +28,11 @@ public class CaveFactory {
 		}
 		
 		Heroi h = new Heroi();
+		h.connect(cave);
 		gm.setHeroi(h);
 		gm.setInventario(h.getInventario());
 		
-		cave.getSala(0).addEntidade(0, 0, h);
+		cave.getSala(0).addEntidade(1, 1, h);
 		
 		return cave;
 	}

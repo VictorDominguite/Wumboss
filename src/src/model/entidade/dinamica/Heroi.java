@@ -2,6 +2,7 @@ package src.model.entidade.dinamica;
 
 import src.model.Inventario;
 import src.model.actions.IActionExecutor;
+import src.utils.Direcao;
 
 public class Heroi extends EntidadeDinamica implements IActionExecutor {
 	private Inventario inv;
@@ -25,6 +26,9 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
 	}
 
 	public void sendMessage(String action, String... args) {
-		
+		if(action.equals("move")) {
+			if(args != null)
+				mover(Direcao.fromString(args[0]));
+		}
 	}
 }

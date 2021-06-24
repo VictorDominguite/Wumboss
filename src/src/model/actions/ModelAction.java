@@ -26,7 +26,7 @@ public class ModelAction implements IActionParser {
 		String action = splitMessage[1];
 		String[] args = new String[splitMessage.length - 2];
 		
-		for(int i = 2; i < splitMessage.length - 2; i++)
+		for(int i = 2; i < splitMessage.length; i++)
 			args[i-2] = splitMessage[i];
 		
 		sendAction(actor, action, args);

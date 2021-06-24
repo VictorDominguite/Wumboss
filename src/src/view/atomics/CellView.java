@@ -17,6 +17,8 @@ public class CellView extends JButton implements EventListener{
 	private GamePanel parentPanel;
 	
 	private int x, y;
+	//temp
+	private JLabel text;
 	private String backgroundName;
 	private String foregroundName;
 	
@@ -35,22 +37,33 @@ public class CellView extends JButton implements EventListener{
 		
 		this.parentPanel = parent;
 		
-		parentPanel.getGameView().getGameModel().subToLocal(x, y, this);
+		this.text = new JLabel();
+		add(text);
 		
+		inscrever();
 		onUpdate();
 	}
-
+	
 	public void onUpdate() {
+		onUpdate(false);
+	}
+
+	public void onUpdate(boolean reinscrever) {
+		if(reinscrever) inscrever();
 		String[] newData = getInfo();
 		
 		backgroundName = newData[0];
 		foregroundName = newData[1];
 		
-		add(new JLabel(!foregroundName.equals("null") ? foregroundName : backgroundName));
+		text.setText(!foregroundName.equals("null") ? foregroundName : backgroundName);
 	}
 
 	public String[] getInfo() {
 		return parentPanel.getGameView().getGameModel().getCaveState(x, y);
+	}
+	
+	private void inscrever() {
+		parentPanel.getGameView().getGameModel().subToLocal(x, y, this);
 	}
 
 }

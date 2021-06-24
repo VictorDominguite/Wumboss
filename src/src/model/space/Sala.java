@@ -4,10 +4,12 @@ import src.model.entidade.IEntidade;
 import src.model.entidade.Passagem;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
+import src.utils.events.EventListener;
 
 public class Sala {
     private ICelula[][] celulas;
     private int ID, tamX, tamY;
+    private boolean isAtiva = false;
     private static Caverna cave = Caverna.getInstance();
 
     public Sala(int ID, int tamX, int tamY) {
@@ -29,22 +31,22 @@ public class Sala {
         // TODO: implementar interacao
         int xFim = xIni, yFim = yIni;
         switch (dir) {
+        	//????????????????????????????????????????????????????????????????????????????????????????????????
             case NORTE:
-                yFim += 1;
+                xFim -= 1;
                 break;
             case LESTE:
-                xFim += 1;
+                yFim += 1;
                 break;
             case SUL:
-                yFim -= 1;
+                xFim += 1;
                 break;
             case OESTE:
-                xFim -= 1;
+                yFim -= 1;
                 break;
             default:
 
         }
-
         ICelula origem = getCelula(xIni, yIni);
         ICelula fim = getCelula(xFim, yFim);
 
@@ -54,9 +56,9 @@ public class Sala {
         
         if (backgFim == null || backgFim.isPassable()) {
         	IEntidadeDinamica e = origem.removerEntidade();
-            if(foregFim == null) 
+            if(foregFim == null) {
                 fim.addEntidade(e);
-            else {
+            } else {
                 String interacao = e.interagir(foregFim);
                 if (interacao == "coleta")
                     fim.addEntidade(e);
@@ -88,6 +90,19 @@ public class Sala {
     	return getCelula(x, y).estado();
     }
     
+    public void setInativa() {
+    	isAtiva = false;
+    	for(int i = 0; i < getTamX(); i++) {
+    		for(int j = 0; j < getTamY(); j++) {
+    			getCelula(i, j).inativar();
+    		}
+    	}
+    }
+    
+    public void setAtiva() {
+    	isAtiva = true;
+    }
+    
     public int getID() {
         return ID;
     }
@@ -104,5 +119,9 @@ public class Sala {
         if (x == 0 || y == 0 || x == tamX - 1 || y == tamY - 1)
             return true;
         return false;
+    }
+    
+    public void subToLocal(int x, int y, EventListener e) {
+    	getCelula(x, y).subscribe(e);
     }
 }

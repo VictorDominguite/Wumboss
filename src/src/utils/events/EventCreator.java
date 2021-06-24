@@ -9,9 +9,16 @@ public abstract class EventCreator implements IEventCreator{
 		listeners = new ArrayList<EventListener>();
 	}
 	
-	public void onUpdate() {
-		for(EventListener e : listeners) 
-			e.onUpdate();
+	protected void onUpdate() {
+		onUpdate(false);
+	}
+	
+	protected void onUpdate(boolean reinscrever) {
+		for(EventListener e : listeners) {
+			e.onUpdate(reinscrever);
+			if(reinscrever) 
+				listeners.remove(e);
+		}
 	}
 	
 	public void subscribe(EventListener e) {

@@ -42,7 +42,7 @@ public class ItemView extends JPanel implements EventListener{
 		this.img = new JLabel(icon);
 		this.description = new JLabel();
 		
-		parentPanel.getGameView().getGameModel().subToItem(name, this);
+		inscrever();
 		onUpdate();
 		
 		add(new JLabel(name), BorderLayout.NORTH);
@@ -51,6 +51,12 @@ public class ItemView extends JPanel implements EventListener{
 	}
 	
 	public void onUpdate() {
+		onUpdate(false);
+	}
+	
+	public void onUpdate(boolean reinscrever) {
+		if(reinscrever) inscrever();
+		
 		String[] newInfo = getInfo();
 		this.description.setText(newInfo[0]);
 		this.isCollected = newInfo[1].equals("true") ? true : false;
@@ -59,5 +65,9 @@ public class ItemView extends JPanel implements EventListener{
 	
 	public String[] getInfo() {
 		return parentPanel.getGameView().getGameModel().getItemState(name);
+	}
+	
+	private void inscrever() {
+		parentPanel.getGameView().getGameModel().subToItem(name, this);
 	}
 }

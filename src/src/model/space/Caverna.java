@@ -2,9 +2,10 @@ package src.model.space;
 
 import src.model.entidade.Passagem;
 import src.utils.Direcao;
+import src.utils.events.EventListener;
 import src.utils.exceptions.IDInvalido;
 
-public class Caverna implements ICave {
+public class Caverna implements ICave, ICaveAction {
 	public static final int NUM_SALAS = 8;
     private static Caverna instance;
 
@@ -28,8 +29,8 @@ public class Caverna implements ICave {
             throw new IDInvalido(id);
 
         Sala s = salas[id];
-        if (s.getID() != id) 
-        	throw new IDInvalido("Sala", s.getID(), id);
+        if (s == null || s.getID() != id) 
+        	throw new IDInvalido("Sala", s == null ? -1 : s.getID(), id);
 
         return s;
     }
@@ -39,12 +40,13 @@ public class Caverna implements ICave {
     }
     
     public void setSala(int id, Sala s) {
-    	if(s.getID() == id)
+    	if(s.getID() == id) {
     		salas[id] = s;
+    		if(id == idAtivo) s.setAtiva();
+    	}
     	else
     		throw new IDInvalido("Sala", s.getID(), id);
     }
-
 
     public void moverEntidade(int x, int y, Direcao dir) {
     	getSalaAtiva().moverEntidade(x, y, dir);
@@ -52,8 +54,11 @@ public class Caverna implements ICave {
 
     public void moverEntidadeEntreSalas(int x, int y, Direcao dir) {
         Passagem p = (Passagem) getSalaAtiva().getCelula(x, y).getBackground();
-        if(p.getDirecao() == dir) 
+        if(p.getDirecao() == dir) {
+        	getSalaAtiva().setInativa();
         	idAtivo = p.getDestino().getID();
+        	getSalaAtiva().setAtiva();
+        }
         
     }
 
@@ -63,6 +68,10 @@ public class Caverna implements ICave {
     
     public String[] estado(int x, int y) {
     	return getSalaAtiva().estado(x, y);
+    }
+    
+    public void subToLocal(int x, int y, EventListener e) {
+    	getSalaAtiva().subToLocal(x, y, e);
     }
 
 }

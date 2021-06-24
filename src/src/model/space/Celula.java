@@ -59,6 +59,7 @@ public class Celula extends EventCreator implements ICelula{
     public IEntidadeDinamica removerEntidade() {
     	IEntidadeDinamica e = this.foreground;
         this.foreground = null;
+        
         onUpdate();
         return e;
     }
@@ -69,6 +70,7 @@ public class Celula extends EventCreator implements ICelula{
 
     public void setVisivel(boolean visivel) {
         this.visivel = visivel;
+        
         onUpdate();
     }
 
@@ -88,6 +90,10 @@ public class Celula extends EventCreator implements ICelula{
     
     public void setBackground(IEntidade e) {
     	this.background = e;
+    }
+    
+    public void inativar() {
+    	super.onUpdate(true);
     }
 
 }
