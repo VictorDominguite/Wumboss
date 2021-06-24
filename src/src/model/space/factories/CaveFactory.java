@@ -7,6 +7,7 @@ import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.estatica.Passagem;
 import src.model.space.Caverna;
 import src.model.space.Sala;
+import src.utils.Constantes;
 import src.utils.Direcao;
 
 public class CaveFactory {
@@ -16,14 +17,14 @@ public class CaveFactory {
 	public static Caverna montar(GameModel gm) {
 		Caverna cave = Caverna.getInstance();
 		
-		cave.setSala(0, SalaFactory.montar(0, rand.nextInt(2) + 1));
-		for(int i = 1; i < Caverna.NUM_SALAS; i++) {
-			Sala atual =  SalaFactory.montar(i, rand.nextInt(2) + 1);
+		cave.setSala(0, SalaFactory.montar(0, Constantes.rng.nextInt(Constantes.NUM_SALAS_DISPONIVEIS) + 1));
+		for(int i = 1; i < Constantes.NUM_SALAS_CAVERNA; i++) {
+			Sala atual =  SalaFactory.montar(i, Constantes.rng.nextInt(Constantes.NUM_SALAS_DISPONIVEIS) + 1);
 			
 			cave.setSala(i, atual);	
 		}
 		
-		for(int i = 0; i < Caverna.NUM_SALAS - 1; i++) {
+		for(int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i++) {
 			criarPassagem(cave.getSala(i), cave.getSala(i+1));
 		}
 		
@@ -39,7 +40,7 @@ public class CaveFactory {
 	
 	//TODO: Checar se ja nao existe passagem na celula
 	private static void criarPassagem(Sala s1, Sala s2) {
-		int d = rand.nextInt(7) + 1;
+		int d = Constantes.rng.nextInt(7) + 1;
 		switch(Direcao.randomDir(rand)) {
 		case NORTE:
 			s1.getCelula(d, s1.getTamY() - 1).setBackground(new Passagem(Direcao.NORTE, d, s1, s2));
