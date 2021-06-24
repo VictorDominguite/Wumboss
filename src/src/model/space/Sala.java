@@ -1,5 +1,6 @@
 package src.model.space;
 
+import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
@@ -36,7 +37,7 @@ public class Sala {
         ICelula fim = getCelula(xFim, yFim);
         
         if (checkValidadeMovimento(origem, fim)) {
-        	if(fim.getBackground() != null && fim.getBackground().isPassagem()) {
+        	if(fim.getBackground() != null && fim.getBackground().isPassagem() && origem.getEntidade() instanceof Heroi) {
         		cave.moverEntidadeEntreSalas(xIni, yIni, fim.getBackground());
         	}
         	else {
@@ -55,7 +56,9 @@ public class Sala {
 				
 				e.processarEfeitos();
         	}
+            
         }
+
         
     }
     
