@@ -19,9 +19,9 @@ public class CaveFactory {
 			
 			cave.setSala(i, atual);	
 		}
-		
+		Direcao anterior = Direcao.NORTE;
 		for(int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i++) {
-			criarPassagem(cave.getSala(i), cave.getSala(i+1));
+			anterior = criarPassagem(cave.getSala(i), cave.getSala(i+1), anterior);
 		}
 		
 		Heroi h = new Heroi();
@@ -35,14 +35,18 @@ public class CaveFactory {
 	}
 	
 	//TODO: Checar se ja nao existe passagem na celula
-	private static void criarPassagem(Sala s1, Sala s2) {
+	private static Direcao criarPassagem(Sala s1, Sala s2, Direcao anterior) {
 		Passagem pass = null;
 		Passagem passComplemento = null;
 		
 		int x, y;
-		
 		int d = Constantes.rng.nextInt(Constantes.TAM_SALAS - 3) + 1;
-		switch(Direcao.randomDir(Constantes.rng)) {
+		Direcao dir = Direcao.randomDir(Constantes.rng);
+		
+		while(dir == anterior)
+			dir = Direcao.randomDir(Constantes.rng);
+		
+		switch(dir) {
 		case NORTE:
 			x = d;
 			y = s2.getTamY() - 1;
@@ -91,5 +95,7 @@ public class CaveFactory {
 		
 		pass.setComplementar(passComplemento);
 		passComplemento.setComplementar(pass);
+		
+		return Direcao.contrario(dir);
 	}
 }
