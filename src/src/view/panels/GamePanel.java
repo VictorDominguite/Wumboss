@@ -20,7 +20,7 @@ public class GamePanel extends Panel{
         
         for(int i = 0; i < 10; i++) {
         	for(int j = 0; j < 10; j++) {
-        		add(new CellView(i, j, this));
+        		add(new CellView(j, i, this));
         	}
         }
     }

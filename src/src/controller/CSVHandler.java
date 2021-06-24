@@ -19,9 +19,13 @@ public class CSVHandler {
 			
 			int tamanho = Integer.parseInt(tamanhos[0]);
 			
-			result = new String[tamanho][];
+			result = new String[tamanho][tamanho];
 			for(int i = 0; i < tamanho; i++) {
 				result[i] = br.readLine().split(",");
+				//for(int j = 0; j < tamanho; j++) {
+				//	System.out.print(result[i][j]);
+				//}
+				//System.out.println();
 			}
 			
 		} catch(IOException e) {
