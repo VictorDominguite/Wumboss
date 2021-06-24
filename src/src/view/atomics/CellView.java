@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
+import src.view.ImageCache;
 import src.view.panels.GamePanel;
 
 public class CellView extends JButton implements Observer{
@@ -52,20 +53,26 @@ public class CellView extends JButton implements Observer{
 	}
 
 	public void onUpdate(boolean reinscrever) {
-		if(reinscrever) inscrever();
+		if(reinscrever) 
+			inscrever();
+		
 		String[] newData = getInfo();
 		
 		backgroundName = newData[0];
 		foregroundName = newData[1];
 		
-		System.out.println(foregroundName);
-		System.out.println(backgroundName);
+		String name = (!foregroundName.equals("null") ? foregroundName : backgroundName);
 		
 		img.setIcon(null);
 		
 		try {
-			BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(!foregroundName.equals("null") ? foregroundName : backgroundName);
-			ImageIcon icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+			ImageIcon icon = ImageCache.getIconFromCache(name);
+			if(icon == null) {
+				BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
+				icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+				ImageCache.insertIconInCache(name, icon);
+			}
+			
 			img.setIcon(icon);
 		} catch(IOException e) {
 			
