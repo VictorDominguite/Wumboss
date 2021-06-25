@@ -17,9 +17,4 @@ public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
         emAlerta = true;
     }
 
-    @Override
-    public void morrer() {
-        super.morrer();
-        
-    }
 }
