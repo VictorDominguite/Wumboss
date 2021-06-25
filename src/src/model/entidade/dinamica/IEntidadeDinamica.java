@@ -7,4 +7,5 @@ public interface IEntidadeDinamica extends IEntidade{
 	
     public void envenenar();
     public boolean estaEnvenenado();
+    public void moverEmDirecaoA(int x, int y);
 }

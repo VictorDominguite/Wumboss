@@ -1,8 +1,8 @@
 package src.model.entidade.dinamica;
 
-public abstract class Inimigo extends EntidadeDinamica {
+public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
     
-    protected boolean emAlerta;
+    private boolean emAlerta;
 
     public Inimigo (int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);

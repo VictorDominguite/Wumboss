@@ -47,7 +47,7 @@ public class Sala {
 				if(interacao.equals("mover") || interacao.equals("coleta")) {
 					fim.addEntidade(e);
 				}
-				else if (interacao.equals("ataque")) {
+				else if (interacao.equals("ataque") || interacao.equals("parado")) {
 					origem.addEntidade(e);
 				}
 				else {
@@ -56,7 +56,7 @@ public class Sala {
 				
 				e.processarEfeitos();
         	}
-            
+            cave.atualizarVisaoEInimigos();
         }
 
         

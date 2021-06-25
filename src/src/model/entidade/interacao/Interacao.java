@@ -3,7 +3,8 @@ package src.model.entidade.interacao;
 import src.model.entidade.*;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
-import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IInimigo;
+import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.itens.Item;
 import src.utils.exceptions.ErroDeInteracao;
 
@@ -16,12 +17,16 @@ public class Interacao implements IInteracao {
             coletarItem((Heroi) e1, (Item) e2);
             return "coleta";
         }
-        if (e1 instanceof Heroi && e2 instanceof IEntidadeDinamica) {
-            atacar((Heroi) e1, (EntidadeDinamica) e2);
-            if (((EntidadeDinamica) e2).estaVivo()) {
-                atacar((EntidadeDinamica) e2, (Heroi) e1);
-            }
+        if (e1 instanceof Heroi && e2 instanceof Inimigo) {
+            atacar((Heroi) e1, (Inimigo) e2);
             return "ataque";
+        }
+        if (e1 instanceof Inimigo && e2 instanceof Heroi) {
+            atacar((Inimigo) e1, (Heroi) e2);
+            return "ataque";
+        }
+        if (e1 instanceof Inimigo) {
+            return "parado";
         }
         throw new ErroDeInteracao();
     }

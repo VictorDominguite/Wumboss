@@ -41,10 +41,6 @@ public abstract class Entidade extends EventCreator implements IRCaveAction, IEn
     public void setPosY(int y) {
         this.posY = y;
     }
-
-    public int distanciaAte(int x, int y) {
-        return Math.abs(posX - x) + Math.abs(posY - y);
-    }
     
     public boolean isPassable() {
     	return true;

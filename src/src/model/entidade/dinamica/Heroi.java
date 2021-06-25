@@ -5,12 +5,15 @@ import src.model.entidade.itens.Inventario;
 import src.utils.Direcao;
 import src.utils.actions.IActionExecutor;
 
-public class Heroi extends EntidadeDinamica implements IActionExecutor {
+public class Heroi extends EntidadeDinamica implements IActionExecutor, IHeroi {
 	private Inventario inv;
+	private static final int VISAO_PADRAO = 2;
+	private int visao;
+	//TODO: incremento de visao com tocha
 
     private Heroi(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
-        
+        visao = VISAO_PADRAO; 
         this.inv = new Inventario(10);
     }
     
@@ -39,5 +42,9 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor {
 			return arma_equipada.getAlcance();
 		}
 		return this.alcance;
+	}
+
+	public int getVisao() {
+		return visao;
 	}
 }

@@ -1,6 +1,11 @@
 package src.model.space;
 
+import src.model.entidade.dinamica.EntidadeDinamica;
+import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.dinamica.IInimigo;
+import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
@@ -90,6 +95,43 @@ public class Caverna implements ICave{
     
     public void subToLocal(int x, int y, Observer e) {
     	getSalaAtiva().subToLocal(x, y, e);
+    }
+
+    public Heroi getHeroi() {
+        Sala atual = getSalaAtiva();
+        for (int i = 1; i < atual.getTamX() - 1; i++) {
+            for (int j = 1; j < atual.getTamY() - 1; j++) {
+                if (atual.getCelula(i, j).getEntidade() instanceof Heroi) {
+                    return (Heroi) atual.getCelula(i, j).getEntidade();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void atualizarVisaoEInimigos() {
+        Sala atual = getSalaAtiva();
+        IHeroi heroi = getHeroi();
+        int heroiX = heroi.getPosX(), heroiY = heroi.getPosY();
+
+        for (int i = 0; i < atual.getTamX(); i++) {
+            for (int j = 0; j < atual.getTamY(); j++) {
+                if (atual.getCelula(i, j).distanciaAte(heroiX, heroiY) <= heroi.getVisao()) {
+                    atual.getCelula(i, j).setVisivel(true);
+                    IEntidadeDinamica e = atual.getCelula(i, j).getEntidade();
+                    if (e != null && e instanceof Inimigo) {
+                        IInimigo inimigo = (IInimigo) e;
+                        if (inimigo.emAlerta())
+                            inimigo.moverEmDirecaoA(heroiX, heroiY);
+                        else
+                            inimigo.alertar();
+                    }
+                }
+                else {
+                    atual.getCelula(i, j).setVisivel(false);
+                }
+            }
+        }
     }
 
 }
