@@ -69,6 +69,7 @@ public class Celula extends EventCreator implements ICelula{
         
         if (e instanceof Inimigo) {
             //TODO: dropar flechas
+
         }
         onUpdate();
         return e;
