@@ -2,12 +2,8 @@ package src.view.atomics;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
@@ -22,8 +18,10 @@ public class CellView extends JButton implements Observer{
 	private GamePanel parentPanel;
 	
 	private int x, y;
-	//temp
-	private JLabel img;
+	
+	private JLabel imgBackground;
+	private JLabel imgForeground;
+	
 	private String backgroundName;
 	private String foregroundName;
 	
@@ -41,8 +39,11 @@ public class CellView extends JButton implements Observer{
 		
 		this.parentPanel = parent;
 		
-		this.img = new JLabel();
-		add(img);
+		this.imgBackground = new JLabel();
+		this.imgForeground = new JLabel();
+		
+		add(imgForeground);
+		add(imgBackground);
 		
 		inscrever();
 		onUpdate();
@@ -61,23 +62,11 @@ public class CellView extends JButton implements Observer{
 		backgroundName = newData[0];
 		foregroundName = newData[1];
 		
-		String name = (!foregroundName.equals("null") ? foregroundName : backgroundName);
+		imgForeground.setIcon(null);
+		imgBackground.setIcon(null);
 		
-		img.setIcon(null);
-		
-		try {
-			ImageIcon icon = ImageCache.getIconFromCache(name);
-			if(icon == null) {
-				BufferedImage buffImg = parentPanel.getGameView().getController().readIcon(name);
-				icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
-				ImageCache.insertIconInCache(name, icon);
-			}
-			
-			img.setIcon(icon);
-		} catch(IOException e) {
-			
-		}
-		
+		imgBackground.setIcon(ImageCache.getIcon(backgroundName, 64, 64));
+		imgForeground.setIcon(ImageCache.getIcon(foregroundName, 64, 64));
 	}
 
 	public String[] getInfo() {
