@@ -3,7 +3,6 @@ package src.model.entidade.interacao;
 import src.model.entidade.*;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
-import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.itens.Item;
 import src.utils.exceptions.ErroDeInteracao;

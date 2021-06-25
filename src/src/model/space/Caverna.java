@@ -116,15 +116,20 @@ public class Caverna implements ICave{
 
         for (int i = 0; i < atual.getTamX(); i++) {
             for (int j = 0; j < atual.getTamY(); j++) {
+                
+                IEntidadeDinamica e = atual.getCelula(i, j).getEntidade();
+                //move os inimigos em alerta para o local do herói
+                if (e != null && e instanceof Inimigo && ((IInimigo) e).emAlerta())
+                    ((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
+                //Se estiver no campo de visão do herói
                 if (atual.getCelula(i, j).distanciaAte(heroiX, heroiY) <= heroi.getVisao()) {
+                    //torna a célula  visível
                     atual.getCelula(i, j).setVisivel(true);
-                    IEntidadeDinamica e = atual.getCelula(i, j).getEntidade();
+                    
+                    //alerta os inimigos
                     if (e != null && e instanceof Inimigo) {
-                        IInimigo inimigo = (IInimigo) e;
-                        if (inimigo.emAlerta())
-                            inimigo.moverEmDirecaoA(heroiX, heroiY);
-                        else
-                            inimigo.alertar();
+                        if (!((IInimigo) e).emAlerta())
+                            ((IInimigo) e).alertar();
                     }
                 }
                 else {
