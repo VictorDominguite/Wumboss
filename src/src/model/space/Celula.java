@@ -2,6 +2,7 @@ package src.model.space;
 
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.Passagem;
 import src.model.entidade.estatica.PocoVenenoso;
@@ -66,6 +67,9 @@ public class Celula extends EventCreator implements ICelula{
     	IEntidadeDinamica e = this.foreground;
         this.foreground = null;
         
+        if (e instanceof Inimigo) {
+            //TODO: dropar flechas
+        }
         onUpdate();
         return e;
     }

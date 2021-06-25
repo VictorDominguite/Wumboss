@@ -1,6 +1,5 @@
 package src.model.space;
 
-import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
