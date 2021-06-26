@@ -9,7 +9,6 @@ import src.utils.Direcao;
 public class Heroi extends EntidadeDinamica implements IHeroi {
 	private Inventario inv;
 	private static final int VISAO_PADRAO = 2;
-	//TODO: incremento de visao com tocha
 
     private Heroi(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
@@ -68,10 +67,13 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
 	@Override
 	public void processarEfeitos() {
 		super.processarEfeitos();
-		if (inv.getItem("Elixir").isColetado()) {
+		if (inv.getItem("Elixir") != null && inv.getItem("Elixir").isColetado()) {
 			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && (((Elixir) inv.getItem("Elixir")).emCooldown())) {
 				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;
 			}
+		}
+		if (inv.getItem("Mapa") != null && inv.getItem("Mapa").isColetado()) {
+			space.getCelula(posX, posY).descobrir();
 		}
 	}
 }

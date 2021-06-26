@@ -1,7 +1,6 @@
 package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.IInimigo;
 import src.utils.observer.Observer;
 
 public class Sala implements ISala{

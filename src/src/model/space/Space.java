@@ -50,7 +50,11 @@ public class Space implements ISpace{
 		cave.subToLocal(x, y, e);
 	}
 	
-	private void atualizarVisaoEInimigos() {
+	public ICelula getCelula(int x,int y) {
+		return cave.getSalaAtiva().getCelula(x, y);
+	}
+
+	public void atualizarVisaoEInimigos() {
 		if(heroInstance == null)
 			return;
 		
@@ -75,8 +79,7 @@ public class Space implements ISpace{
                     }
                 }
                 else {
-                	//TODO: Add check do mapa
-                	if(cellAtual.isVisivel())
+                	if(cellAtual.isVisivel() && !cellAtual.isDescoberta())
                 		salaAtual.getCelula(i, j).setVisivel(false);
                 }
             }

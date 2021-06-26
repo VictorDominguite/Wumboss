@@ -12,6 +12,8 @@ public interface ICelula {
 	public IEntidadeDinamica popEntidade();
 	public IEntidadeDinamica peekEntidade();
 	
+	public boolean isDescoberta();
+	public void descobrir();
 	public boolean isVisivel();
 	public void setVisivel(boolean visivel);
 	public void inativar();

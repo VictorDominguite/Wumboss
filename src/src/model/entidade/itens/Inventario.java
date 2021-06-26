@@ -20,8 +20,8 @@ public class Inventario implements IInventario{
         addItem(new Espada(false, false, 2, 1));
         addItem(new Faquinha(true, true, 1, 1));
         addItem(new Flecha(false, false));
-        addItem(new Mapa(true, true));
-        addItem(new Tocha(true, true));
+        addItem(new Mapa(false, false));
+        addItem(new Tocha(false, false));
     }
     
     public void subToItem(String item, Observer e) {
