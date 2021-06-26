@@ -7,7 +7,7 @@ public class Tocha extends Item {
     public Tocha() {
         super(false, false);
         
-        setDescricao("<html> Pera, como que ela ta queimando a tanto tempo? </html>");
+        setDescricao("<html> Pera, como que ela ta queimando ha tanto tempo? </html>");
     }
     public int getIncrementoVisao() {
         return INCREMENTO_VISAO;

@@ -3,6 +3,7 @@ package src.model.space;
 import java.util.Stack;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.utils.observer.EventCreator;
 
@@ -80,6 +81,8 @@ public class Celula extends EventCreator implements ICelula{
     
     
     public void inativar() {
+        if (peekEntidade() instanceof Inimigo)
+            ((Inimigo) peekEntidade()).desalertar();
     	super.onUpdate(true);
     }
 
