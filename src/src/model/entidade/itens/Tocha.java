@@ -4,19 +4,13 @@ public class Tocha extends Item {
 
     private static final int INCREMENTO_VISAO = 1;
 
-    public Tocha(boolean coletado, boolean equipado) {
-        super(coletado, equipado);
+    public Tocha() {
+        super(true, true);
         
-        setDescricao("Uma tocha");
+        setDescricao("<html> Pera, como que ela ta queimando a tanto tempo? </html>");
     }
     public int getIncrementoVisao() {
         return INCREMENTO_VISAO;
-    }
-
-    @Override
-    public void coletar() {
-        super.coletar();
-        equipar();
     }
 
 }

@@ -3,11 +3,11 @@ package src.model.entidade.itens;
 public class Armadura extends Item {
     private int defesa;
 
-    public Armadura(boolean coletado, boolean equipado, int defesa) {
-        super(coletado, equipado);
-        this.defesa = defesa;
+    public Armadura() {
+        super(false, false);
+        this.defesa = 4;
         
-        setDescricao("Uma armadura");
+        setDescricao("<html> Um peitoral de ferro <br> <em> +4 def </em> </html>");
     }
 
     public int getDefesa() {

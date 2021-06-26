@@ -76,7 +76,7 @@ public class Space implements ISpace{
                 }
                 else {
                 	//TODO: Add check do mapa
-                	if(cellAtual.isVisivel())
+                	if(cellAtual.isVisivel() && !(heroInstance.getInventario().getItem("Tocha").isEquipado()))
                 		salaAtual.getCelula(i, j).setVisivel(false);
                 }
             }

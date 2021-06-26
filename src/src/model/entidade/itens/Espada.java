@@ -2,9 +2,9 @@ package src.model.entidade.itens;
 
 public class Espada extends ItemAtaque {
 
-    public Espada(boolean coletado, boolean equipado, int dano, int alcance) {
-        super(coletado, equipado, dano, alcance);
+    public Espada() {
+        super(false, false, 2, 1);
         
-        setDescricao("Uma espada");
+        setDescricao("<html> Uma espada decente... <br> <em> +2 atk - 1 alcance </em> </html>");
     }
 }

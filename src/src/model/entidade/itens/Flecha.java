@@ -2,9 +2,9 @@ package src.model.entidade.itens;
 
 public class Flecha extends Item {
 
-    public Flecha(boolean coletado, boolean equipado) {
-        super(coletado, equipado);
+    public Flecha() {
+        super(false, false);
         
-        setDescricao("Uma flecha");
+        setDescricao("<html> Infelizmente ainda nao se atira sozinha... </html>");
     }
 }

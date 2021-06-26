@@ -2,9 +2,9 @@ package src.model.entidade.itens;
 
 public class Chave extends Item {
 
-    public Chave(boolean coletado, boolean equipado) {
-        super(coletado, equipado);
+    public Chave() {
+        super(false, false);
         
-        setDescricao("Uma chave");
+        setDescricao("<html> Uma chave bonita que abre uma porta bonita </html>");
     }
 }

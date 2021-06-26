@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
 import src.view.ImageCache;
@@ -33,8 +32,7 @@ public class CellView extends JButton implements Observer{
 		setBackground(Color.black);
 		setPreferredSize(new Dimension(64, 64));
 		
-		Border emptyBorder = BorderFactory.createEmptyBorder();
-		setBorder(emptyBorder);
+		setBorder(BorderFactory.createEmptyBorder());
 		
 		this.x = x;
 		this.y = y;

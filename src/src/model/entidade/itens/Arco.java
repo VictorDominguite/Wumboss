@@ -5,7 +5,8 @@ public class Arco extends ItemAtaque {
     public Arco(boolean coletado, boolean equipado, int dano, int alcance) {
         super(coletado, equipado, dano, alcance);
         
-        setDescricao("Um arco");
+        //setDescricao("Um arco, infelizmente sem manual de instruções");
+        setDescricao("<html>Um arco, infelizmente sem manual de instruções...</html>");
     }
 
     public Arco() {
