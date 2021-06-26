@@ -1,15 +1,9 @@
 package src.model.entidade.itens;
 
 public class Mapa extends Item {
-    public Mapa(boolean coletado, boolean equipado) {
-        super(coletado, equipado);
+    public Mapa() {
+        super(true, true);
         
-        setDescricao("Um mapa");
-    }
-
-    @Override
-    public void coletar() {
-        super.coletar();
-        equipar();
+        setDescricao("<html> Você não tem mais perda de memória recente ;) </html>");
     }
 }

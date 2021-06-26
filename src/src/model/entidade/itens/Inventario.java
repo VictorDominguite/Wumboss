@@ -13,15 +13,15 @@ public class Inventario implements IInventario{
         inventario = new IItem[tamanho];
         
         addItem(new Arco());
-        addItem(new Armadura(false, false, 4));
-        addItem(new Capacete(false, false, 4));
-        addItem(new Chave(false, false));
-        addItem(new Elixir(false, false));
-        addItem(new Espada(false, false, 2, 1));
-        addItem(new Faquinha(true, true, 1, 1));
-        addItem(new Flecha(false, false));
-        addItem(new Mapa(false, false));
-        addItem(new Tocha(false, false));
+        addItem(new Armadura());
+        addItem(new Capacete());
+        addItem(new Chave());
+        addItem(new Elixir());
+        addItem(new Espada());
+        addItem(new Faquinha());
+        addItem(new Flecha());
+        addItem(new Mapa());
+        addItem(new Tocha());
     }
     
     public void subToItem(String item, Observer e) {

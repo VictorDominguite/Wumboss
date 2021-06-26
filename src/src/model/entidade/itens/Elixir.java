@@ -7,10 +7,10 @@ public class Elixir extends Item {
     private static final int CD_INICIAL = 10;
     private static final int DURACAO_EFEITO = 5;
 
-    public Elixir(boolean coletado, boolean equipado) {
-        super(coletado, equipado);
+    public Elixir() {
+        super(false, false);
         
-        setDescricao("Um elixir");
+        setDescricao("<html> Um elixir de dano <br> <em> +" + BONUS_DANO + " atk por " + DURACAO_EFEITO + " rodadas </em> </html>");
     }
 
     public int getBonusDano() {

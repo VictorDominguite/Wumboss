@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
@@ -20,9 +22,10 @@ public class ItemView extends JPanel implements Observer{
 	private String name;
 	private JLabel description;
 	private JLabel img;
-	private boolean isCollected;
-	private boolean isEquippable;
-	private boolean isEquipped;
+	private JButton equipButton;
+	
+	private boolean coletado;
+	private boolean equipado;
 	
 	public ItemView(String name, InventoryPanel parent) {
 		super(new BorderLayout());
@@ -37,13 +40,18 @@ public class ItemView extends JPanel implements Observer{
 		updateIcon();
 		
 		this.description = new JLabel();
+		this.equipButton = new JButton();
 		
 		inscrever();
 		onUpdate();
 		
-		add(new JLabel(name), BorderLayout.NORTH);
+		JLabel lName = new JLabel(name);
+		lName.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		add(lName, BorderLayout.NORTH);
 		add(img, BorderLayout.EAST);
 		add(description, BorderLayout.CENTER);
+		add(equipButton, BorderLayout.SOUTH);
 	}
 	
 	public void onUpdate() {
@@ -55,13 +63,26 @@ public class ItemView extends JPanel implements Observer{
 		
 		String[] newInfo = getInfo();
 		this.description.setText(newInfo[0]);
-		this.isCollected = newInfo[1].equals("true");
-		this.isEquipped =  newInfo[2].equals("true");
+		this.coletado = newInfo[1].equals("true");
+		this.equipado =  newInfo[2].equals("true");
+		
+		if(!this.coletado) {
+			this.equipButton.setEnabled(false);
+			this.equipButton.setText("Voce nao possui esse item!");
+		}
+		else if(this.equipado) {
+			this.equipButton.setEnabled(false);
+			this.equipButton.setText("Equipado!");
+		}
+		else {
+			this.equipButton.setEnabled(true);
+			this.equipButton.setText("Equipar");
+		}
 	}
 	
 	public void updateIcon() {
 		img.setIcon(null);
-		img.setIcon(ImageCache.getIcon(name, 64, 64));
+		img.setIcon(ImageCache.getIcon(name, 42, 42));
 	}
 	
 	public String[] getInfo() {
