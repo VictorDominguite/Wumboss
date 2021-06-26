@@ -13,4 +13,10 @@ public class Armadura extends Item {
     public int getDefesa() {
         return defesa;
     }
+
+    @Override
+    public void coletar() {
+        super.coletar();
+        equipar();
+    }
 }

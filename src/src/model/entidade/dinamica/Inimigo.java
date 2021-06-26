@@ -20,7 +20,7 @@ public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
     }
 
     public void alertar() {
-        emAlerta = true;
+        this.emAlerta = true;
     }
 
 }

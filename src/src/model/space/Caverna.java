@@ -104,6 +104,7 @@ public class Caverna implements ICave{
         int yFim = passagem.getYFim();
         
         addEntidade(xFim, yFim, e);
+        e.processarEfeitos();
         
         getSala(idInativado).inativar();
         
@@ -136,5 +137,4 @@ public class Caverna implements ICave{
         }
         return null;
     }
-
 }

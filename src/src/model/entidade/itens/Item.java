@@ -29,6 +29,10 @@ public abstract class Item extends Entidade implements IItem{
     public void equipar() {
         equipado = true;
     }
+
+    public void desequipar() {
+        equipado = false;
+    }
     
     public String toString() {
     	return this.getClass().getSimpleName();

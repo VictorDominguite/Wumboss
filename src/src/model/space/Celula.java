@@ -10,6 +10,7 @@ public class Celula extends EventCreator implements ICelula{
     private Stack<IEntidadeDinamica> actors;
     private IEntidadeEstatica background;
     private boolean visivel = false;
+    private boolean descoberta = false;
     private int posX, posY;
 
     public Celula(int x, int y, IEntidadeEstatica background) {
@@ -84,5 +85,13 @@ public class Celula extends EventCreator implements ICelula{
 
     public int distanciaAte(int x, int y) {
         return Math.abs(posX - x) + Math.abs(posY - y);
+    }
+
+    public boolean isDescoberta() {
+        return descoberta;
+    }
+
+    public void descobrir() {
+        descoberta = true;
     }
 }
