@@ -7,6 +7,7 @@ import src.model.entidade.estatica.Parede;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.estatica.Vazio;
 import src.model.space.Celula;
+import src.model.space.ICelula;
 
 public class CelulaFactory {
 	private static HashMap<String, Class<? extends EntidadeEstatica>> tabela 
@@ -34,7 +35,7 @@ public class CelulaFactory {
 		return result;
 	}
 	
-	public static Celula montar(int x, int y, String repr) {
+	public static ICelula montar(int x, int y, String repr) {
 		Celula c = new Celula(x, y, decodeRawEntity(repr));
 		
 		return c;

@@ -19,7 +19,7 @@ public abstract class Item extends Entidade implements IItem{
 
     public void coletar() {
         coletado = true;
-        this.caveAction.removerEntidade(posX, posY);
+        this.space.removerEntidade(posX, posY);
     }
 
     public boolean isEquipado() {

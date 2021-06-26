@@ -85,7 +85,7 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     }
 
     protected void morrer() {
-        this.caveAction.removerEntidade(posX, posY);
+        this.space.removerEntidade(posX, posY);
         this.dropItems();
     }
     
@@ -94,7 +94,7 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     }
 
     protected void mover(Direcao dir) {
-        this.caveAction.moverEntidade(posX, posY, dir);
+        this.space.moverEntidade(posX, posY, dir);
     }
 
     protected void envenenar() {

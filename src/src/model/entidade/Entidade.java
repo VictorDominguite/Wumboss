@@ -1,15 +1,15 @@
 package src.model.entidade;
 
-import src.model.entidade.interacao.*;
-import src.model.space.ICaveAction;
-import src.model.space.IRCaveAction;
+import src.model.entidade.interacao.IInteracao;
+import src.model.entidade.interacao.Interacao;
+import src.model.space.ISpace;
 import src.utils.exceptions.ErroDeInteracao;
 import src.utils.observer.EventCreator;
 
-public abstract class Entidade extends EventCreator implements IRCaveAction, IEntidade {
+public abstract class Entidade extends EventCreator implements IEntidade {
     private static IInteracao objInteracao = new Interacao();
     protected int posX, posY;
-    protected ICaveAction caveAction;
+    protected ISpace space;
 
     public String interagir(IEntidade e) {
         try {
@@ -22,8 +22,8 @@ public abstract class Entidade extends EventCreator implements IRCaveAction, IEn
         }
     }
 
-    public void connect(ICaveAction caveAction) {
-        this.caveAction = caveAction;
+    public void connect(ISpace space) {
+        this.space = space;
     }
 
     public int getPosX() {

@@ -20,14 +20,13 @@ public class Celula extends EventCreator implements ICelula{
         this.background = background;
     }
 
-    public IEntidadeDinamica peekEntidade() {
-    	if(this.actors.empty())
-    		return null;
-        return actors.peek();
-    }
     
     public IEntidadeEstatica getBackground() {
     	return background;
+    }
+    
+    public void setBackground(IEntidadeEstatica e) {
+    	this.background = e;
     }
 
     public void pushEntidade(IEntidadeDinamica ent) {
@@ -52,6 +51,12 @@ public class Celula extends EventCreator implements ICelula{
         return e;
     }
 
+    public IEntidadeDinamica peekEntidade() {
+    	if(this.actors.empty())
+    		return null;
+    	return actors.peek();
+    }
+    
     public boolean isVisivel() {
         return visivel;
     }
@@ -72,9 +77,6 @@ public class Celula extends EventCreator implements ICelula{
     	return res;
     }
     
-    public void setBackground(IEntidadeEstatica e) {
-    	this.background = e;
-    }
     
     public void inativar() {
     	super.onUpdate(true);

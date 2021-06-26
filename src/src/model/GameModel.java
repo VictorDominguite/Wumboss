@@ -4,8 +4,8 @@ import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
-import src.model.space.ICave;
-import src.model.space.factories.CaveFactory;
+import src.model.space.ISpace;
+import src.model.space.Space;
 import src.model.space.factories.SalaFactory;
 import src.utils.actions.IActionParser;
 import src.utils.exceptions.SemReferenciaAComponente;
@@ -15,14 +15,22 @@ public class GameModel implements IGameModel{
 	private IController io;
 	private IActionParser modelAction;
 	
-	private ICave cave;
+	private ISpace space;
 	private Heroi hero;
 	private IInventario inv;
 	
+	public void start() {
+		montarCaverna();
+		
+		setHeroi(new Heroi());
+		space.addEntidade(1, 1, hero);
+		
+		setInventario(hero.getInventario());
+	}
+	
 	public void montarCaverna() {
 		SalaFactory.setIO(io);
-		
-		cave = CaveFactory.montar(this);
+		space = Space.getInstance();
 	}
 	
 	public void setHeroi(Heroi h) {
@@ -30,6 +38,8 @@ public class GameModel implements IGameModel{
 		
 		if(modelAction != null)
 			modelAction.connect("hero", h);
+		if(space != null)
+			hero.connect(space);
 	}
 	
 	public void setInventario(IInventario inv) {
@@ -46,7 +56,7 @@ public class GameModel implements IGameModel{
 	}
 	
 	public void subToLocal(int x, int y, Observer e) {
-		cave.subToLocal(x, y, e);
+		space.subToLocal(x, y, e);
 	}
 	
 	public void subToHeroi(Observer e) {
@@ -58,9 +68,9 @@ public class GameModel implements IGameModel{
 	}
 
 	public String[] getCaveState(int x, int y) {
-		isCaveAvailable();
+		isSpaceAvailable();
 		
-		return cave.estado(x, y);
+		return space.estadoAtual(x, y);
 	}
 
 	public String[][] getHeroState() {
@@ -96,9 +106,9 @@ public class GameModel implements IGameModel{
 		return res;
 	}
 	
-	private boolean isCaveAvailable() throws SemReferenciaAComponente {
-		if(cave == null) 
-			throw new SemReferenciaAComponente("Caverna", "GameModel");
+	private boolean isSpaceAvailable() throws SemReferenciaAComponente {
+		if(space == null) 
+			throw new SemReferenciaAComponente("Space", "GameModel");
 		
 		return true;
 	}

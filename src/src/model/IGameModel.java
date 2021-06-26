@@ -5,7 +5,7 @@ import src.utils.observer.Observer;
 
 public interface IGameModel {
 	/* Inicializacao */
-		public void montarCaverna();
+		public void start();
 		public void setControl(IController c);
 	
 	/* Interacao com os outros componentes */

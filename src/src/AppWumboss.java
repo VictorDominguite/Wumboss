@@ -17,7 +17,7 @@ public class AppWumboss {
 		mv.setModel(gm);
 		gm.setControl(controller);
 		
-		gm.montarCaverna();
+		gm.start();
 		mv.montarView();
 	}
 }

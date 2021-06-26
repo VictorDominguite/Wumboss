@@ -1,9 +1,8 @@
 package src.model.space.factories;
 
-import src.model.GameModel;
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.estatica.Passagem;
 import src.model.space.Caverna;
+import src.model.space.ISala;
 import src.model.space.Sala;
 import src.utils.Constantes;
 import src.utils.Direcao;
@@ -11,8 +10,8 @@ import src.utils.Direcao;
 public class CaveFactory {
 	// TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem
 	// necessarias)
-	public static Caverna montar(GameModel gm) {
-		Caverna cave = Caverna.getInstance();
+	public static Caverna montar() {
+		Caverna cave = new Caverna();
 
 		cave.setSala(0, SalaFactory.montar(0, Constantes.rng.nextInt(Constantes.NUM_SALAS_DISPONIVEIS) + 1));
 		for (int i = 1; i < Constantes.NUM_SALAS_CAVERNA; i++) {
@@ -25,18 +24,11 @@ public class CaveFactory {
 			anterior = criarPassagem(cave.getSala(i), cave.getSala(i + 1), anterior);
 		}
 
-		Heroi h = new Heroi();
-		h.connect(cave);
-		gm.setHeroi(h);
-		gm.setInventario(h.getInventario());
-
-		cave.getSala(0).addEntidade(1, 1, h);
-
 		return cave;
 	}
 
 	// TODO: Checar se ja nao existe passagem na celula
-	private static Direcao criarPassagem(Sala s1, Sala s2, Direcao anterior) {
+	private static Direcao criarPassagem(ISala s1, ISala s2, Direcao anterior) {
 		Passagem pass = null;
 		Passagem passComplemento = null;
 
