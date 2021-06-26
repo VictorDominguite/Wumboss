@@ -94,7 +94,8 @@ public class Sala {
     	for(int i = 0; i < getTamX(); i++) {
     		for(int j = 0; j < getTamY(); j++) {
     			getCelula(i, j).inativar();
-                getCelula(i, j).setVisivel(false);
+                if (!getCelula(i, j).isDescoberta())
+                    getCelula(i, j).setVisivel(false);
                 if (getCelula(i, j).getEntidade() instanceof Inimigo) {
                     ((IInimigo) getCelula(i, j).getEntidade()).setEmAlerta(false);
                 }
