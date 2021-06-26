@@ -42,11 +42,6 @@ public class Sala implements ISala{
     	for(int i = 0; i < getTamX(); i++) {
     		for(int j = 0; j < getTamY(); j++) {
     			getCelula(i, j).inativar();
-                if (!getCelula(i, j).isVisivel())
-                    getCelula(i, j).setVisivel(false);
-                if (getCelula(i, j).peekEntidade().isInimigo()) {
-                    ((IInimigo) getCelula(i, j).peekEntidade()).desalertar();
-                }
     		}
     	}
     }
