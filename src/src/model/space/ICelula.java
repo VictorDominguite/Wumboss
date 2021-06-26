@@ -18,6 +18,8 @@ public interface ICelula {
 	public boolean isVisivel();
 	public void setVisivel(boolean visivel);
 	
+	public int distanciaAte(int x, int y);
+	
 	public boolean ehPassagem();
 	
 	public String[] estado();

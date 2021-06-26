@@ -4,7 +4,6 @@ import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
-import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
@@ -109,30 +108,31 @@ public class Caverna implements ICave{
     }
 
     public void atualizarVisaoEInimigos() {
-        Sala atual = getSalaAtiva();
+        Sala salaAtual = getSalaAtiva();
         IHeroi heroi = getHeroi();
         int heroiX = heroi.getPosX(), heroiY = heroi.getPosY();
 
-        for (int i = 0; i < atual.getTamX(); i++) {
-            for (int j = 0; j < atual.getTamY(); j++) {
+        for (int i = 0; i < salaAtual.getTamX(); i++) {
+            for (int j = 0; j < salaAtual.getTamY(); j++) {
+            	ICelula cellAtual = salaAtual.getCelula(i, j);
                 
-                IEntidadeDinamica e = atual.getCelula(i, j).getEntidade();
-                //move os inimigos em alerta para o local do herói
-                if (e != null && e instanceof Inimigo && ((IInimigo) e).emAlerta())
+                IEntidadeDinamica e = cellAtual.getEntidade();
+                
+                if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta())
                     ((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
-                //Se estiver no campo de visão do herói
-                if (atual.getCelula(i, j).distanciaAte(heroiX, heroiY) <= heroi.getVisao()) {
-                    //torna a célula  visível
-                    atual.getCelula(i, j).setVisivel(true);
-                    
-                    //alerta os inimigos
-                    if (e != null && e instanceof Inimigo) {
+                
+                if (cellAtual.distanciaAte(heroiX, heroiY) <= heroi.getVisao()) {
+                	cellAtual.setVisivel(true);
+                	
+                    if (e != null && e instanceof IInimigo) {
                         if (!((IInimigo) e).emAlerta())
                             ((IInimigo) e).alertar();
                     }
                 }
                 else {
-                    atual.getCelula(i, j).setVisivel(false);
+                	//TODO: Add check do mapa
+                	if(cellAtual.isVisivel())
+                		salaAtual.getCelula(i, j).setVisivel(false);
                 }
             }
         }

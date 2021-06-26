@@ -2,9 +2,9 @@ package src.model.space;
 
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.Inimigo;
+import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
-import src.model.entidade.estatica.Passagem;
+import src.model.entidade.estatica.IPassagem;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
 import src.utils.observer.EventCreator;
@@ -67,7 +67,7 @@ public class Celula extends EventCreator implements ICelula{
     	IEntidadeDinamica e = this.foreground;
         this.foreground = null;
         
-        if (e instanceof Inimigo) {
+        if (e instanceof IInimigo) {
             //TODO: dropar flechas
 
         }
@@ -86,7 +86,7 @@ public class Celula extends EventCreator implements ICelula{
     }
 
     public boolean ehPassagem(){
-        return (background instanceof Passagem);
+        return (background instanceof IPassagem);
     }
     
     public String[] estado() {
