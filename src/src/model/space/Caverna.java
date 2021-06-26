@@ -117,6 +117,7 @@ public class Caverna implements ICave{
         if (heroi.getInventario().getItem("Mapa").isColetado()) {
             atual.getCelula(heroiX, heroiY).descobrir();
         }
+        
         for (int i = 0; i < atual.getTamX(); i++) {
             for (int j = 0; j < atual.getTamY(); j++) {
                 
