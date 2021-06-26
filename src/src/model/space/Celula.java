@@ -2,12 +2,8 @@ package src.model.space;
 
 import java.util.Stack;
 
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
-import src.model.entidade.estatica.IPassagem;
-import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.observer.EventCreator;
 
 public class Celula extends EventCreator implements ICelula{
@@ -37,15 +33,12 @@ public class Celula extends EventCreator implements ICelula{
     public void pushEntidade(IEntidadeDinamica ent) {
         popEntidade();
 
-        ent.setPosX(posX);
-        ent.setPosY(posY);
-        
         this.actors.push(ent);
         
-        if (background instanceof PocoVenenoso && ent instanceof Heroi) {
-            ent.envenenar();
-        }
-
+        ent.setPosX(posX);
+        ent.setPosY(posY);
+        ent.interagirComEntidadeEstatica(getBackground());
+        
         onUpdate();
     }
 
@@ -54,11 +47,6 @@ public class Celula extends EventCreator implements ICelula{
     		return null;
     	
     	IEntidadeDinamica e = this.actors.pop();
-        
-        if (e instanceof IInimigo) {
-            //TODO: dropar flechas
-
-        }
         
         onUpdate();
         return e;
@@ -72,10 +60,6 @@ public class Celula extends EventCreator implements ICelula{
         this.visivel = visivel;
         
         onUpdate();
-    }
-
-    public boolean ehPassagem(){
-        return (background instanceof IPassagem);
     }
     
     public String[] estado() {

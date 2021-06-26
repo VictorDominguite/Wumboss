@@ -4,4 +4,5 @@ import src.model.entidade.IEntidade;
 
 public interface IEntidadeEstatica extends IEntidade{
 	public boolean isPassagem();
+	public String efeito();
 }

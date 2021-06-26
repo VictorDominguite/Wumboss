@@ -6,7 +6,13 @@ public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
 
     public Inimigo (int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
-        emAlerta = false;
+        
+        this.emAlerta = false;
+        this.isInimigo = true;
+    }
+    
+    public void getDrop() {
+    	
     }
 
     public boolean emAlerta() {

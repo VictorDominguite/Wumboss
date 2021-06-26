@@ -7,4 +7,8 @@ public abstract class EntidadeEstatica extends Entidade implements IEntidadeEsta
 	public boolean isPassagem() {
 		return (this instanceof Passagem);
 	}
+	
+	public String efeito() {
+		return "nada";
+	}
 }

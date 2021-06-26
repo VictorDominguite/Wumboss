@@ -15,7 +15,5 @@ public interface ICelula {
 	
 	public int distanciaAte(int x, int y);
 	
-	public boolean ehPassagem();
-	
 	public String[] estado();
 }

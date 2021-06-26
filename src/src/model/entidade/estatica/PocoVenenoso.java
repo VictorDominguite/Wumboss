@@ -16,4 +16,9 @@ public class PocoVenenoso extends EntidadeEstatica{
 	public String toString() {
 		return "Poco_venenoso";
 	}
+
+	@Override
+	public String efeito() {
+		return "veneno";
+	}
 }
