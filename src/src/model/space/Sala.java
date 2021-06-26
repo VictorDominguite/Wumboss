@@ -2,6 +2,8 @@ package src.model.space;
 
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IInimigo;
+import src.model.entidade.dinamica.Inimigo;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
 
@@ -93,6 +95,9 @@ public class Sala {
     		for(int j = 0; j < getTamY(); j++) {
     			getCelula(i, j).inativar();
                 getCelula(i, j).setVisivel(false);
+                if (getCelula(i, j).getEntidade() instanceof Inimigo) {
+                    ((IInimigo) getCelula(i, j).getEntidade()).setEmAlerta(false);
+                }
     		}
     	}
     }

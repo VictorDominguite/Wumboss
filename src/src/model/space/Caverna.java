@@ -75,6 +75,7 @@ public class Caverna implements ICave{
         
         
         addEntidade(xFim, yFim, e);
+        e.processarEfeitos();
         
         getSala(idInativado).setInativa();
         
@@ -112,7 +113,10 @@ public class Caverna implements ICave{
         Sala atual = getSalaAtiva();
         IHeroi heroi = getHeroi();
         int heroiX = heroi.getPosX(), heroiY = heroi.getPosY();
-
+        
+        if (heroi.getInventario().getItem("Mapa").isColetado()) {
+            atual.getCelula(heroiX, heroiY).descobrir();
+        }
         for (int i = 0; i < atual.getTamX(); i++) {
             for (int j = 0; j < atual.getTamY(); j++) {
                 
@@ -128,10 +132,10 @@ public class Caverna implements ICave{
                     //alerta os inimigos
                     if (e != null && e instanceof Inimigo) {
                         if (!((IInimigo) e).emAlerta())
-                            ((IInimigo) e).alertar();
+                            ((IInimigo) e).setEmAlerta(true);
                     }
                 }
-                else {
+                else if (!atual.getCelula(i, j).isDescoberta()){
                     atual.getCelula(i, j).setVisivel(false);
                 }
             }

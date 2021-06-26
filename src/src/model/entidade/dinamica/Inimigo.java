@@ -13,8 +13,8 @@ public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
         return emAlerta;
     }
 
-    public void alertar() {
-        emAlerta = true;
+    public void setEmAlerta(boolean emAlerta) {
+        this.emAlerta = emAlerta;
     }
 
 }
