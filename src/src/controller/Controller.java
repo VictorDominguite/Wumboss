@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
 import src.utils.actions.IActionParser;
@@ -82,6 +83,10 @@ public class Controller implements IController{
 			im.put(KeyStroke.getKeyStroke(s), s);
 			am.put(s, this.keyboard);
 		}
+	}
+
+	public void setButtonMappings(JButton b) {
+		b.addActionListener(view);
 	}
 	
 }

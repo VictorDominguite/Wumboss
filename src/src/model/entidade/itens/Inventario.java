@@ -73,5 +73,10 @@ public class Inventario implements IInventario{
     	return atualTamanho;
     }
 
+	public void sendMessage(String action, String... args) {
+		if(action.equals("equip"))
+			getItem(args[0]).equipar();
+	}
+
 
 }

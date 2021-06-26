@@ -20,6 +20,7 @@ public abstract class Item extends Entidade implements IItem{
     public void coletar() {
         coletado = true;
         this.space.removerEntidade(posX, posY);
+        onUpdate();
     }
 
     public boolean isEquipado() {
@@ -28,10 +29,12 @@ public abstract class Item extends Entidade implements IItem{
 
     public void equipar() {
         equipado = true;
+        onUpdate();
     }
 
     public void desequipar() {
         equipado = false;
+        onUpdate();
     }
     
     public String toString() {
