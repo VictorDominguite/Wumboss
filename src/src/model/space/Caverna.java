@@ -1,9 +1,7 @@
 package src.model.space;
 
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
-import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
 import src.utils.Direcao;
@@ -124,17 +122,5 @@ public class Caverna implements ICave{
     		return false;
     	
     	return true;
-    }
-    
-    public Heroi getHeroi() {
-        ISala atual = getSalaAtiva();
-        for (int i = 1; i < atual.getTamX() - 1; i++) {
-            for (int j = 1; j < atual.getTamY() - 1; j++) {
-                if (atual.getCelula(i, j).peekEntidade() instanceof Heroi) {
-                    return (Heroi) atual.getCelula(i, j).peekEntidade();
-                }
-            }
-        }
-        return null;
     }
 }
