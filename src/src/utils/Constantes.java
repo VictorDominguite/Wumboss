@@ -10,5 +10,7 @@ public class Constantes {
 	public static final int WINDOW_SIZE_X = 1200;
 	public static final int WINDOW_SIZE_Y = 800;
 	
+	public static final int HEROI_VISAO_PADRAO = 2;
+	
 	public static final Random rng = new Random(System.currentTimeMillis());
 }

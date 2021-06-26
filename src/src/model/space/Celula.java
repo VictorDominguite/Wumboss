@@ -71,6 +71,7 @@ public class Celula extends EventCreator implements ICelula{
             //TODO: dropar flechas
 
         }
+        
         onUpdate();
         return e;
     }
