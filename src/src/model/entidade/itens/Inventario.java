@@ -37,16 +37,23 @@ public class Inventario implements IInventario{
     	atualTamanho += 1;
     }
 
-    public IItem getArmaEquipada() {
+    public IItemAtaque getArmaEquipada() {
         for (IItem i : inventario) {
             if (i instanceof ItemAtaque && ((ItemAtaque) i).isEquipado())
-                return i;
+                return (IItemAtaque) i;
         }
         return null;
     }
     
-    public IItem getArmaduraEquipada(){
-    	return null;
+    public int getArmaduraEquipada(){
+    	int armadura = 0;
+        if (getItem("Armadura").isEquipado()) {
+            armadura += ((Armadura) getItem("Armadura")).getDefesa();
+        }
+        if (getItem("Capacete").isEquipado()) {
+            armadura += ((Capacete) getItem("Capacete")).getDefesa();
+        }
+        return armadura;
     }
     
     public IItem[] getItems() {

@@ -1,6 +1,7 @@
 package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IInimigo;
 import src.utils.observer.Observer;
 
 public class Sala implements ISala{
@@ -41,10 +42,11 @@ public class Sala implements ISala{
     	for(int i = 0; i < getTamX(); i++) {
     		for(int j = 0; j < getTamY(); j++) {
     			getCelula(i, j).inativar();
-                getCelula(i, j).setVisivel(false);
-                //if (getCelula(i, j).getEntidade() instanceof Inimigo) {
-                //    ((IInimigo) getCelula(i, j).getEntidade()).setEmAlerta(false);
-                //}
+                if (!getCelula(i, j).isVisivel())
+                    getCelula(i, j).setVisivel(false);
+                if (getCelula(i, j).peekEntidade().isInimigo()) {
+                    ((IInimigo) getCelula(i, j).peekEntidade()).desalertar();
+                }
     		}
     	}
     }

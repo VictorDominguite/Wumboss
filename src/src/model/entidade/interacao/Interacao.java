@@ -14,6 +14,7 @@ public class Interacao implements IInteracao {
     		return "mover";
         if (e1 instanceof Heroi && e2 instanceof Item) {
             coletarItem((Heroi) e1, (Item) e2);
+
             return "coleta";
         }
         if (e1 instanceof Heroi && e2 instanceof Inimigo) {

@@ -6,4 +6,10 @@ public class Mapa extends Item {
         
         setDescricao("Um mapa");
     }
+
+    @Override
+    public void coletar() {
+        super.coletar();
+        equipar();
+    }
 }
