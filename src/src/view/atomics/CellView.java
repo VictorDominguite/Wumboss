@@ -65,7 +65,7 @@ public class CellView extends JButton implements Observer{
 		imgForeground.setIcon(null);
 		imgBackground.setIcon(null);
 		
-		if(backgroundName.equals("null"))
+		if(backgroundName.equals("null") || backgroundName.equals("Passagem"))
 			backgroundName = "Piso";
 		
 		imgBackground.setIcon(ImageCache.getIcon(backgroundName, 64, 64));
