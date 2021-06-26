@@ -41,7 +41,7 @@ public class Passagem extends EntidadeEstatica implements IPassagem{
 	
 	@Override
 	public boolean isPassable() {
-    	return false;
+    	return true;
     }
 
 	public int getXFim() {

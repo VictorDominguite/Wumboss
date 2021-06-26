@@ -1,7 +1,8 @@
 package src.model.space;
 
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.estatica.IPassagem;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
 
@@ -32,55 +33,59 @@ public class Sala {
         int[] locFim = Direcao.newLoc(xIni, yIni, dir);
         int xFim = locFim[0];
         int yFim = locFim[1];
+        
+        if(!posicoesValidas(xIni, yIni, xFim, yFim))
+        	return;
        
         ICelula origem = getCelula(xIni, yIni);
         ICelula fim = getCelula(xFim, yFim);
         
-        if (checkValidadeMovimento(origem, fim)) {
-        	if(fim.getBackground() != null && fim.getBackground().isPassagem() && origem.getEntidade() instanceof Heroi) {
-        		cave.moverEntidadeEntreSalas(xIni, yIni, fim.getBackground());
-        	}
-        	else {
-				IEntidadeDinamica e = origem.removerEntidade();
-				String interacao = e.interagir(fim.getEntidade());
-				
-				if(interacao.equals("mover") || interacao.equals("coleta")) {
-					fim.addEntidade(e);
-				}
-				else if (interacao.equals("ataque") || interacao.equals("parado")) {
-					origem.addEntidade(e);
-				}
-				else {
-					// TODO: excecao - erro na interacao
-				}
-				
-				e.processarEfeitos();
-        	}
-            cave.atualizarVisaoEInimigos();
-        }
-
+        if(!celulasValidas(origem, fim))
+        	return;
         
+		if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
+			cave.moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
+		} 
+		else {
+			IEntidadeDinamica e = origem.popEntidade();
+			String interacao = e.interagir(fim.peekEntidade());
+
+			if (interacao.equals("mover") || interacao.equals("coleta")) {
+				fim.pushEntidade(e);
+			} 
+			else if (interacao.equals("ataque") || interacao.equals("parado")) {
+				origem.pushEntidade(e);
+			} 
+			else {
+				// TODO: excecao - erro na interacao
+			}
+
+			e.processarEfeitos();
+		}
+		cave.atualizarVisaoEInimigos();
     }
     
-    private boolean checkValidadeMovimento(ICelula origem, ICelula fim) {
-    	if(outOfBounds(fim.getPosX(), fim.getPosY()))
+    private boolean posicoesValidas(int xIni, int yIni, int xFim, int yFim) {
+    	return !(outOfBounds(xIni, yIni) || outOfBounds(xFim, yFim));
+    }
+    
+    private boolean celulasValidas(ICelula origem, ICelula fim) {
+    	if(origem.peekEntidade() == null)
     		return false;
-    	if(origem.getEntidade() == null)
+    	if(fim.getBackground() == null)
     		return false;
-    	if(fim.getBackground() != null) {
-    		if(!fim.getBackground().isPassable() && !(fim.getBackground().isPassagem()))
-    			return false;
-    	}
+    	if(!fim.getBackground().isPassable())
+    		return false;
     	
     	return true;
     }
 
     public IEntidadeDinamica removerEntidade(int x, int y) {
-    	return getCelula(x, y).removerEntidade();
+    	return getCelula(x, y).popEntidade();
     }
     
     public void addEntidade(int x, int y, IEntidadeDinamica e) {
-    	getCelula(x, y).addEntidade(e);
+    	getCelula(x, y).pushEntidade(e);
     }
     
     public String[] estado(int x, int y) {
@@ -114,9 +119,7 @@ public class Sala {
     }
 
     public boolean outOfBounds(int x, int y) {
-        if (x < 0 || y < 0 || x >= tamX || y >= tamY)
-            return true;
-        return false;
+        return (x < 0 || y < 0 || x >= tamX || y >= tamY);
     }
     
     public void subToLocal(int x, int y, Observer e) {

@@ -2,18 +2,13 @@ package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.estatica.IEntidadeEstatica;
-import src.utils.Direcao;
 
 public interface ICelula {
-	public IEntidadeDinamica getEntidade();
 	public IEntidadeEstatica getBackground();
-	public Sala getSala();
-	public int getPosX();
-	public int getPosY();
 	
-	public void moverEntidade(Direcao dir);
-	public void addEntidade(IEntidadeDinamica ent);
-	public IEntidadeDinamica removerEntidade();
+	public void pushEntidade(IEntidadeDinamica ent);
+	public IEntidadeDinamica popEntidade();
+	public IEntidadeDinamica peekEntidade();
 	
 	public boolean isVisivel();
 	public void setVisivel(boolean visivel);

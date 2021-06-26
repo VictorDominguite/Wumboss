@@ -1,61 +1,47 @@
 package src.model.space;
 
+import java.util.Stack;
+
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.IPassagem;
 import src.model.entidade.estatica.PocoVenenoso;
-import src.utils.Direcao;
 import src.utils.observer.EventCreator;
 
 public class Celula extends EventCreator implements ICelula{
-    private IEntidadeDinamica foreground;
+    private Stack<IEntidadeDinamica> actors;
     private IEntidadeEstatica background;
     private boolean visivel = false;
     private int posX, posY;
-    private Sala sala;
 
-    public Celula(Sala sala, int x, int y, IEntidadeEstatica background) {
-        this.sala = sala;
+    public Celula(int x, int y, IEntidadeEstatica background) {
         this.posX = x;
         this.posY = y;
         
+        this.actors = new Stack<IEntidadeDinamica>();
         this.background = background;
     }
 
-    public IEntidadeDinamica getEntidade() {
-        return foreground;
+    public IEntidadeDinamica peekEntidade() {
+    	if(this.actors.empty())
+    		return null;
+        return actors.peek();
     }
     
     public IEntidadeEstatica getBackground() {
     	return background;
     }
 
-    public Sala getSala() {
-        return sala;
-    }
+    public void pushEntidade(IEntidadeDinamica ent) {
+        popEntidade();
 
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-    
-    public void moverEntidade(Direcao dir) {
-    	sala.moverEntidade(posX, posY, dir);
-    }
-
-    public void addEntidade(IEntidadeDinamica ent) {
-        removerEntidade();
-
-        this.foreground = ent;
-
-        this.foreground.setPosX(posX);
-        this.foreground.setPosY(posY);
-
+        ent.setPosX(posX);
+        ent.setPosY(posY);
+        
+        this.actors.push(ent);
+        
         if (background instanceof PocoVenenoso && ent instanceof Heroi) {
             ent.envenenar();
         }
@@ -63,9 +49,11 @@ public class Celula extends EventCreator implements ICelula{
         onUpdate();
     }
 
-    public IEntidadeDinamica removerEntidade() {
-    	IEntidadeDinamica e = this.foreground;
-        this.foreground = null;
+    public IEntidadeDinamica popEntidade() {
+    	if(this.actors.empty())
+    		return null;
+    	
+    	IEntidadeDinamica e = this.actors.pop();
         
         if (e instanceof IInimigo) {
             //TODO: dropar flechas
@@ -94,7 +82,7 @@ public class Celula extends EventCreator implements ICelula{
     	String[] res = new String[3];
     	
     	res[0] = getBackground() != null ? getBackground().toString() : "null";
-    	res[1] = getEntidade() != null ? getEntidade().toString() : "null";
+    	res[1] = peekEntidade() != null ? peekEntidade().toString() : "null";
     	res[2] = isVisivel() ? "true" : "false";
     	
     	return res;

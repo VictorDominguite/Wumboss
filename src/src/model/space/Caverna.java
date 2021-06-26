@@ -4,7 +4,6 @@ import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
-import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
 import src.utils.Direcao;
@@ -57,18 +56,15 @@ public class Caverna implements ICave{
     	getSalaAtiva().moverEntidade(x, y, dir);
     }
 
-    public void moverEntidadeEntreSalas(int xEnt, int yEnt, IEntidadeEstatica passagem) {
-    	if(!passagem.isPassagem())
-    		throw new RuntimeException("A passagem não é uma passagem!");
-    	
+    public void moverEntidadeEntreSalas(int xEnt, int yEnt, IPassagem passagem) {
     	int idInativado = getSalaAtiva().getID();
     	IEntidadeDinamica e = removerEntidade(xEnt, yEnt);
     	
-        idAtivo = ((IPassagem) passagem).getDestino();
+        idAtivo = passagem.getDestino();
         getSala(idAtivo).setAtiva();
         
-        int xFim = ((IPassagem) passagem).getXFim();
-        int yFim = ((IPassagem) passagem).getYFim();
+        int xFim = passagem.getXFim();
+        int yFim = passagem.getYFim();
         
         System.out.println(xFim + ":" + yFim);
         
@@ -99,8 +95,8 @@ public class Caverna implements ICave{
         Sala atual = getSalaAtiva();
         for (int i = 1; i < atual.getTamX() - 1; i++) {
             for (int j = 1; j < atual.getTamY() - 1; j++) {
-                if (atual.getCelula(i, j).getEntidade() instanceof Heroi) {
-                    return (Heroi) atual.getCelula(i, j).getEntidade();
+                if (atual.getCelula(i, j).peekEntidade() instanceof Heroi) {
+                    return (Heroi) atual.getCelula(i, j).peekEntidade();
                 }
             }
         }
@@ -116,7 +112,7 @@ public class Caverna implements ICave{
             for (int j = 0; j < salaAtual.getTamY(); j++) {
             	ICelula cellAtual = salaAtual.getCelula(i, j);
                 
-                IEntidadeDinamica e = cellAtual.getEntidade();
+                IEntidadeDinamica e = cellAtual.peekEntidade();
                 
                 if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta())
                     ((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
