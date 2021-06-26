@@ -10,4 +10,5 @@ public interface IItem extends IEventCreator{
 	public String getDescricao();
 	
 	public void equipar();
+	public void desequipar();
 }
