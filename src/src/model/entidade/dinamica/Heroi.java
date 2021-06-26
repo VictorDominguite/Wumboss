@@ -72,8 +72,5 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
 				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;
 			}
 		}
-		if (inv.getItem("Mapa") != null && inv.getItem("Mapa").isColetado()) {
-			space.getCelula(posX, posY).descobrir();
-		}
 	}
 }

@@ -79,7 +79,7 @@ public class Space implements ISpace{
                     }
                 }
                 else {
-                	if(cellAtual.isVisivel() && !cellAtual.isDescoberta())
+                	if(cellAtual.isVisivel() && !heroInstance.getInventario().getItem("Mapa").isEquipado())
                 		salaAtual.getCelula(i, j).setVisivel(false);
                 }
             }
