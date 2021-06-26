@@ -1,19 +1,19 @@
 package src.model.entidade.dinamica;
 
+import src.model.entidade.itens.Elixir;
 import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
+import src.model.entidade.itens.Tocha;
 import src.utils.Direcao;
 import src.utils.actions.IActionExecutor;
 
 public class Heroi extends EntidadeDinamica implements IActionExecutor, IHeroi {
 	private Inventario inv;
 	private static final int VISAO_PADRAO = 2;
-	private int visao;
 	//TODO: incremento de visao com tocha
 
     private Heroi(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
-        visao = VISAO_PADRAO; 
         this.inv = new Inventario(10);
     }
     
@@ -45,6 +45,34 @@ public class Heroi extends EntidadeDinamica implements IActionExecutor, IHeroi {
 	}
 
 	public int getVisao() {
+		int visao = VISAO_PADRAO;
+		if (inv.getItem("Tocha") != null && inv.getItem("Tocha").isEquipado())
+			visao += ((Tocha) inv.getItem("Tocha")).getIncrementoVisao();
 		return visao;
+	}
+
+	@Override
+	public int getAtaque() {
+		int ataque = 0;
+		if (inv.getArmaEquipada() != null)
+			ataque += inv.getArmaEquipada().getDano();
+		if (inv.getItem("Elixir").isColetado() && ((Elixir) inv.getItem("Elixir")).isAtivo())
+			ataque += ((Elixir) inv.getItem("Elixir")).getBonusDano();
+		return ataque;
+	}
+
+	@Override
+	public int getDefesa() {
+		return inv.getArmaduraEquipada();
+	}
+
+	@Override
+	public void processarEfeitos() {
+		super.processarEfeitos();
+		if (inv.getItem("Elixir").isColetado()) {
+			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && (((Elixir) inv.getItem("Elixir")).emCooldown())) {
+				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;
+			}
+		}
 	}
 }

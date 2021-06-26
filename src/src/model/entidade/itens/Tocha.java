@@ -13,4 +13,10 @@ public class Tocha extends Item {
         return INCREMENTO_VISAO;
     }
 
+    @Override
+    public void coletar() {
+        super.coletar();
+        equipar();
+    }
+
 }

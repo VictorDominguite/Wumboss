@@ -1,10 +1,11 @@
 package src.model.entidade.itens;
 
 public class Elixir extends Item {
-    private int bonusDano;
     private int rodadasAtivo;
     private int cooldown;
+    private static final int BONUS_DANO = 4;
     private static final int CD_INICIAL = 10;
+    private static final int DURACAO_EFEITO = 5;
 
     public Elixir(boolean coletado, boolean equipado) {
         super(coletado, equipado);
@@ -13,7 +14,7 @@ public class Elixir extends Item {
     }
 
     public int getBonusDano() {
-        return bonusDano;
+        return BONUS_DANO;
     }
 
     public boolean emCooldown() {
@@ -44,11 +45,16 @@ public class Elixir extends Item {
     }
 
     public void incrementarRodadasAtivo() {
-        if (rodadasAtivo < 5) {
+        if (rodadasAtivo < DURACAO_EFEITO) {
             rodadasAtivo += 1;
         }
         else {
             resetRodadasAtivo();
         }
+    }
+
+    public void consumir() {
+        if (!emCooldown())
+            rodadasAtivo = 1;
     }
 }

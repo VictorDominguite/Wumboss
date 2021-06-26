@@ -5,8 +5,8 @@ import src.utils.observer.Observer;
 public interface IInventario {
 	public void subToItem(String item, Observer e);
 	
-	public IItem getArmaEquipada();
-	public IItem getArmaduraEquipada();
+	public IItemAtaque getArmaEquipada();
+	public int getArmaduraEquipada();
 	
 	public int getTamanho();
 	public IItem getItem(String name);
