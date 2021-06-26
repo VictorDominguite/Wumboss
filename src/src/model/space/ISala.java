@@ -9,7 +9,6 @@ public interface ISala {
 	public int getID();
 	public String[] estado(int x, int y);
 	
-	public void ativar();
 	public void inativar();
 	
 	public void addEntidade(int x, int y, IEntidadeDinamica e);

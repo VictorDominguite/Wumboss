@@ -5,7 +5,7 @@ import src.utils.Direcao;
 import src.utils.observer.Observer;
 
 public interface ICave extends ICaveProperties{
-	public void moveEntidade(int x, int y, Direcao dir);
+	public boolean moveEntidade(int x, int y, Direcao dir);
 	public void addEntidade(int x, int y, IEntidadeDinamica e);
     public IEntidadeDinamica removeEntidade(int x, int y);
     

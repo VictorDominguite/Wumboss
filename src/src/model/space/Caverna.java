@@ -23,19 +23,19 @@ public class Caverna implements ICave{
     	return getSalaAtiva().estado(x, y);
     }
     
-    public void moveEntidade(int xIni, int yIni, Direcao dir) {
+    public boolean moveEntidade(int xIni, int yIni, Direcao dir) {
     	int[] locFim = Direcao.newLoc(xIni, yIni, dir);
     	int xFim = locFim[0];
     	int yFim = locFim[1];
     	
     	if(!posicoesValidas(xIni, yIni, xFim, yFim))
-    		return;
+    		return false;
     	
     	ICelula origem = getSalaAtiva().getCelula(xIni, yIni);
     	ICelula fim = getSalaAtiva().getCelula(xFim, yFim);
     	
     	if(!celulasValidas(origem, fim))
-    		return;
+    		return false;
     	
     	if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
     		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
@@ -56,7 +56,7 @@ public class Caverna implements ICave{
     		
     		e.processarEfeitos();
     	}
-    	atualizarVisaoEInimigos();
+    	return true;
     }
     
     public void addEntidade(int x, int y, IEntidadeDinamica e) {
@@ -89,7 +89,6 @@ public class Caverna implements ICave{
     public void setSala(int id, ISala s) {
     	if(s.getID() == id) {
     		salas[id] = s;
-    		if(id == idAtivo) s.ativar();
     	}
     	else
     		throw new IDInvalido("Sala", s.getID(), id);
@@ -100,7 +99,6 @@ public class Caverna implements ICave{
     	IEntidadeDinamica e = removeEntidade(xEnt, yEnt);
     	
         idAtivo = passagem.getDestino();
-        getSala(idAtivo).ativar();
         
         int xFim = passagem.getXFim();
         int yFim = passagem.getYFim();
@@ -137,37 +135,6 @@ public class Caverna implements ICave{
             }
         }
         return null;
-    }
-
-    public void atualizarVisaoEInimigos() {
-        ISala salaAtual = getSalaAtiva();
-        IHeroi heroi = getHeroi();
-        int heroiX = heroi.getPosX(), heroiY = heroi.getPosY();
-
-        for (int i = 0; i < salaAtual.getTamX(); i++) {
-            for (int j = 0; j < salaAtual.getTamY(); j++) {
-            	ICelula cellAtual = salaAtual.getCelula(i, j);
-                
-                IEntidadeDinamica e = cellAtual.peekEntidade();
-                
-                if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta())
-                    ((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
-                
-                if (cellAtual.distanciaAte(heroiX, heroiY) <= heroi.getVisao()) {
-                	cellAtual.setVisivel(true);
-                	
-                    if (e != null && e instanceof IInimigo) {
-                        if (!((IInimigo) e).emAlerta())
-                            ((IInimigo) e).alertar();
-                    }
-                }
-                else {
-                	//TODO: Add check do mapa
-                	if(cellAtual.isVisivel())
-                		salaAtual.getCelula(i, j).setVisivel(false);
-                }
-            }
-        }
     }
 
 }

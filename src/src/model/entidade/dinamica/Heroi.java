@@ -4,9 +4,8 @@ import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.utils.Constantes;
 import src.utils.Direcao;
-import src.utils.actions.IActionExecutor;
 
-public class Heroi extends EntidadeDinamica implements IActionExecutor, IHeroi {
+public class Heroi extends EntidadeDinamica implements IHeroi {
 	private Inventario inv;
 	private int visao;
 	//TODO: incremento de visao com tocha

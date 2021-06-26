@@ -2,6 +2,7 @@ package src.model;
 
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
+import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
 import src.model.space.ISpace;
@@ -16,7 +17,7 @@ public class GameModel implements IGameModel{
 	private IActionParser modelAction;
 	
 	private ISpace space;
-	private Heroi hero;
+	private IHeroi hero;
 	private IInventario inv;
 	
 	public void start() {
@@ -38,8 +39,10 @@ public class GameModel implements IGameModel{
 		
 		if(modelAction != null)
 			modelAction.connect("hero", h);
-		if(space != null)
+		if(space != null) {
 			hero.connect(space);
+			space.connect(hero);
+		}
 	}
 	
 	public void setInventario(IInventario inv) {

@@ -6,7 +6,6 @@ import src.utils.observer.Observer;
 public class Sala implements ISala{
     private ICelula[][] celulas;
     private int ID, tamX, tamY;
-    private boolean isAtiva = false;
 
     public Sala(int ID, int tamX, int tamY) {
         this.ID = ID;
@@ -39,17 +38,12 @@ public class Sala implements ISala{
     }
     
     public void inativar() {
-    	isAtiva = false;
     	for(int i = 0; i < getTamX(); i++) {
     		for(int j = 0; j < getTamY(); j++) {
     			getCelula(i, j).inativar();
                 getCelula(i, j).setVisivel(false);
     		}
     	}
-    }
-    
-    public void ativar() {
-    	isAtiva = true;
     }
     
     public int getID() {
