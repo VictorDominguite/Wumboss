@@ -8,4 +8,6 @@ public interface IItem extends IEventCreator{
 	
 	public String getNome();
 	public String getDescricao();
+	
+	public void equipar();
 }

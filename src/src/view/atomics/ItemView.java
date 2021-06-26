@@ -42,6 +42,9 @@ public class ItemView extends JPanel implements Observer{
 		this.description = new JLabel();
 		this.equipButton = new JButton();
 		
+		equipButton.setActionCommand(name);
+		parent.getGameView().getController().setButtonMappings(equipButton);
+		
 		inscrever();
 		onUpdate();
 		

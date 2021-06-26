@@ -48,6 +48,9 @@ public class GameModel implements IGameModel{
 	
 	public void setInventario(IInventario inv) {
 		this.inv = inv;
+		
+		if(modelAction != null)
+			modelAction.connect("inventory", inv);
 	}
 
 	public void setControl(IController io) {
