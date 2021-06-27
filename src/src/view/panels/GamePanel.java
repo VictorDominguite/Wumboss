@@ -2,6 +2,7 @@ package src.view.panels;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.HashMap;
 
 import javax.swing.JComponent;
 
@@ -11,6 +12,16 @@ import src.view.atomics.CellView;
 
 public class GamePanel extends Panel{
 	private static final long serialVersionUID = 4246347561043763922L;
+	
+	private static HashMap<String, String> assetsNames =
+			new HashMap<String, String>();
+	
+	static {
+		assetsNames.put("orc", "Orc");
+		assetsNames.put("goblin", "Goblin");
+		assetsNames.put("serpente", "Serpente");
+		assetsNames.put("gato", "Gato");
+	}
 
 	public GamePanel(GameView gv){
         super(gv, new GridLayout(Constantes.TAM_SALAS, Constantes.TAM_SALAS));
@@ -25,4 +36,11 @@ public class GamePanel extends Panel{
         	}
         }
     }
+	
+	public String getAssetName(String modelName) {
+		String res = assetsNames.get(modelName.toLowerCase());
+		if(res == null) 
+			return modelName;
+		return res;
+	}
 }

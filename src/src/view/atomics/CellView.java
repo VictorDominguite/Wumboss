@@ -58,8 +58,8 @@ public class CellView extends JButton implements Observer{
 		
 		String[] newData = getInfo();
 		
-		backgroundName = newData[0];
-		foregroundName = newData[1];
+		backgroundName = parentPanel.getAssetName(newData[0]);
+		foregroundName = parentPanel.getAssetName(newData[1]);
 		isVisible = newData[2].equals("true");
 		
 		imgForeground.setIcon(null);
