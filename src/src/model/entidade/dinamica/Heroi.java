@@ -1,5 +1,6 @@
 package src.model.entidade.dinamica;
 
+import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Elixir;
 import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
@@ -74,7 +75,10 @@ public class Heroi extends EntidadeViva implements IHeroi {
 
 	@Override
 	public void processarEfeitos() {
-		super.processarEfeitos();
+		if(estaEnvenenado()) {
+    		receberDano(PocoVenenoso.getDano());
+    		envenenado -= 1;
+    	}
 		if (inv.getItem("Elixir") != null && inv.getItem("Elixir").isColetado()) {
 			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && (((Elixir) inv.getItem("Elixir")).emCooldown())) {
 				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;

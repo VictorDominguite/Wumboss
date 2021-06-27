@@ -32,7 +32,13 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     }
     
     public void processarEfeitos() {
-    	if(estaEnvenenado()) {
+    	
+        if (this instanceof Heroi) {
+            ((Heroi) this).processarEfeitos();
+            return;
+        }
+        
+        if(estaEnvenenado()) {
     		receberDano(PocoVenenoso.getDano());
     		envenenado -= 1;
     	}

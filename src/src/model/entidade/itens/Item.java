@@ -24,6 +24,7 @@ public abstract class Item extends EntidadeDinamica implements IItem{
     }
 
     public void coletar() {
+        
         coletado = true;
         this.space.removerEntidade(posX, posY);
         
