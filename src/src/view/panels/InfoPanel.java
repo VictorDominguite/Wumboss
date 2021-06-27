@@ -1,5 +1,10 @@
 package src.view.panels;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import src.utils.Constantes;
 import src.view.GameView;
@@ -12,7 +17,16 @@ public class InfoPanel extends Panel{
         super(gv);
         
         setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X*5/10, Constantes.WINDOW_SIZE_Y*8/10));
+		
+        Font f = this.masterView.getFont().deriveFont(Font.BOLD, 24f);
+		
+        JLabel title = new JLabel("O submundo de Wumboss", SwingConstants.CENTER);
+        title.setFont(f);
 
-        add(new InfoView("hero", "vida", this));
+        InfoView heroLifeInfo = new InfoView("Hero", "vida", f, this);
+        heroLifeInfo.setInfoColor(Color.red);
+        
+        add(title);
+        add(heroLifeInfo);
     }
 }

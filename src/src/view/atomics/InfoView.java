@@ -1,5 +1,8 @@
 package src.view.atomics;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,7 +21,7 @@ public class InfoView extends JPanel implements Observer{
 	
 	private JLabel infoItself;
 	
-	public InfoView(String who, String what, InfoPanel parent){
+	public InfoView(String who, String what, Font f, InfoPanel parent){
 		this.parentPanel = parent;
 		
 		this.who = who;
@@ -26,7 +29,11 @@ public class InfoView extends JPanel implements Observer{
 		
 		this.infoItself = new JLabel();
 		
-		add(new JLabel(who + "'s " + what + ": "));
+		JLabel l = new JLabel(who + "'s " + what + ": ");
+		l.setFont(f);
+		infoItself.setFont(f);
+		
+		add(l);
 		add(infoItself);
 		
 		inscrever();
@@ -74,6 +81,10 @@ public class InfoView extends JPanel implements Observer{
 		}
 		
 		onUpdate();
+	}
+	
+	public void setInfoColor(Color c) {
+		infoItself.setForeground(c);
 	}
 
 }
