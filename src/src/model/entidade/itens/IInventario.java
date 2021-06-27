@@ -11,7 +11,7 @@ public interface IInventario extends IActionExecutor{
 	
 	public int getTamanho();
 	public IItem getItem(String name);
-	//talvez nao seja uma boa ideia, mas vou deixar assim por enquanto
-	//(talvez um Iterator seja melhor)
-	public IItem[] getItems();
+	
+	public String[] getCumulativeNames();
+	public String[] getCollectableNames();
 }

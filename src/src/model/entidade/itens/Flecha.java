@@ -22,7 +22,7 @@ public class Flecha extends Item {
 
     public void addFlechas(int numFlechas) {
         this.numFlechas += numFlechas;
-
+        
         onUpdate();
     }
 }

@@ -2,6 +2,7 @@ package src.view.atomics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
 import src.view.ImageCache;
+import src.view.panels.InfoPanel;
 import src.view.panels.InventoryPanel;
 
 public class ItemView extends JPanel implements Observer{
@@ -28,12 +30,14 @@ public class ItemView extends JPanel implements Observer{
 	private boolean equipado;
 	private boolean coletavel;
 	
-	public ItemView(String name, InventoryPanel parent) {
-		this(name, parent, true);
+	private int value = 999;
+	
+	public ItemView(String name, InventoryPanel parent, Font f) {
+		this(name, parent, true, f);
 	}
 	
-	public ItemView(String name, InventoryPanel parent, boolean coletavel) {
-		super(new BorderLayout());
+	public ItemView(String name, InventoryPanel parent, boolean coletavel, Font f) {
+		super(new BorderLayout(1, 1));
 		
 		Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
@@ -49,7 +53,9 @@ public class ItemView extends JPanel implements Observer{
 		updateIcon();
 		
 		this.description = new JLabel();
+		description.setFont(f);
 		this.equipButton = new JButton();
+		equipButton.setFont(f);
 		
 		equipButton.setActionCommand(name);
 		parent.getGameView().getController().setButtonMappings(equipButton);
@@ -102,6 +108,12 @@ public class ItemView extends JPanel implements Observer{
 	private void updateCumulativo(String[] args) {
 		this.equipButton.setEnabled(false);
 		this.equipButton.setText("Voce possui " + args[1] + " " + this.name.toLowerCase() + "s!");
+		
+		int num = Integer.parseInt(args[1]);
+		if(num > value)
+			InfoPanel.setFeed("Voce coletou " + (num - value) + " " + this.name.toLowerCase() + ((num - value) > 1 ? "s" : ""));
+		
+		value = num;
 	}
 	
 	private void updateIcon() {

@@ -56,13 +56,9 @@ public class Inventario implements IInventario{
         return armadura;
     }
     
-    public IItem[] getItems() {
-    	return inventario;
-    }
-    
     public IItem getItem(String name) {
     	for(IItem i : inventario) {
-    		if(i.getNome().equals(name))
+    		if(i.getNome().equalsIgnoreCase(name))
     			return i;
     	}
     	
@@ -78,6 +74,24 @@ public class Inventario implements IInventario{
             getArmaEquipada().desequipar();
 			getItem(args[0]).equipar();
         }
+	}
+
+	public String[] getCumulativeNames() {
+		String[] res = {"Flecha"};
+		return res;
+	}
+
+	public String[] getCollectableNames() {
+		String[] res = new String[9];
+		int j = 0;
+		for(IItem i : inventario) {
+    		if(!i.getNome().equalsIgnoreCase("flecha")) {
+    			res[j] = i.getNome();
+    			j += 1;
+    		}
+    	}
+		
+		return res;
 	}
 
 
