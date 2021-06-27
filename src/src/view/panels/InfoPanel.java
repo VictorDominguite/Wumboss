@@ -24,23 +24,24 @@ public class InfoPanel extends Panel{
         //BoxLayout infoPanelLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         
         //setLayout(infoPanelLayout);
-        setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X*5/10, Constantes.WINDOW_SIZE_Y*8/10));
+        setPreferredSize(new Dimension((int) (Constantes.WINDOW_SIZE_X*0.5), Constantes.WINDOW_SIZE_Y*8/10));
         
-        JPanel trueInfo = new JPanel();
-        BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
-        trueInfo.setLayout(trueInfoLayout);
-        trueInfo.setBorder(BorderFactory.createLineBorder(Color.black));
-		
         Font f = this.masterView.getFont().deriveFont(Font.BOLD, 24f);
+        
+        JLabel title = new JLabel("O submundo de Wumboss", SwingConstants.CENTER);
+        title.setFont(f);
         
         JPanel feed = new JPanel();
         textFeed = new JLabel("howdy");
         textFeed.setFont(f.deriveFont(Font.ITALIC, 18f));
         feed.add(textFeed);
+        
+        JPanel trueInfo = new JPanel();
+        BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
+        trueInfo.setLayout(trueInfoLayout);
+        trueInfo.setBorder(BorderFactory.createLineBorder(Color.black));
+        trueInfo.setPreferredSize(new Dimension((int) (Constantes.WINDOW_SIZE_X*0.505), 200));
 		
-        JLabel title = new JLabel("O submundo de Wumboss", SwingConstants.CENTER);
-        title.setFont(f);
-
         InfoView heroLifeInfo = new InfoView("Hero", "vida", f, this);
         heroLifeInfo.setInfoColor(Color.red);
         
