@@ -33,7 +33,7 @@ public class CaveFactory {
 			cave.setSala(i, atual);
 		}
 		cave.setSala(Constantes.NUM_SALAS_CAVERNA - 1, 
-					SalaFactory.montar(Constantes.NUM_SALAS_CAVERNA - 1, Constantes.NUM_SALAS_CAVERNA - 1));
+					SalaFactory.montar(Constantes.NUM_SALAS_CAVERNA - 1, 9));
 		Direcao anterior = Direcao.NORTE;
 		for (int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i++) {
 			anterior = criarPassagem(cave.getSala(i), cave.getSala(i + 1), anterior);

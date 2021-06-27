@@ -12,6 +12,7 @@ import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.exceptions.IDInvalido;
 import src.utils.observer.Observer;
+import src.view.IGameView;
 
 public class Caverna implements ICave{
     private int idAtivo;
@@ -108,6 +109,7 @@ public class Caverna implements ICave{
 			if (!((Heroi) e).getInventario().getItem("Chave").isColetado()) {
 				idAtivo = idInativado;
 				addEntidade(xEnt, yEnt, e);
+				IGameView.setFeedMessage("Voce precisa de uma chave para acessar essa sala!");
 				return;
 			}
 		}
