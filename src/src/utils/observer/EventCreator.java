@@ -9,6 +9,10 @@ public abstract class EventCreator implements IEventCreator{
 		listeners = new ArrayList<Observer>();
 	}
 	
+	public void subscribe(Observer e) {
+		listeners.add(e);
+	}
+	
 	protected void onUpdate() {
 		onUpdate(false);
 	}
@@ -19,10 +23,6 @@ public abstract class EventCreator implements IEventCreator{
 		
 		if(reinscrever)
 			listeners.clear();
-	}
-	
-	public void subscribe(Observer e) {
-		listeners.add(e);
 	}
 	
 }

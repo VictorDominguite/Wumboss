@@ -1,11 +1,15 @@
 package src.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
 import src.controller.IController;
 import src.model.IGameModel;
+import src.utils.Constantes;
 import src.utils.exceptions.SemReferenciaAComponente;
 import src.view.panels.GamePanel;
 import src.view.panels.InfoPanel;
@@ -24,8 +28,9 @@ public class GameView extends JFrame implements IGameView{
     public GameView() {
         super("O submundo de Wumboss");
 
-        setSize(1200, 800);
-        setResizable(true);
+        setSize(Constantes.WINDOW_SIZE_X, Constantes.WINDOW_SIZE_Y);
+        setLocation(200, 100);
+        setResizable(false);
     }
     
     public void montarView() {
@@ -50,6 +55,16 @@ public class GameView extends JFrame implements IGameView{
         add(invp, BorderLayout.SOUTH);
     }
     
+    private void configureFont() {
+    	try {
+			setFont(Font.createFont(NORMAL, getController().hackFontFile("Regular")));
+		} catch (FontFormatException e) {
+			System.err.println("There's a problem with the format of the font: " + e.getMessage());
+		} catch (IOException e) {
+			System.err.println("There was a problem opening the font file: " + e.getMessage());
+		}
+    }
+    
     public IGameModel getGameModel() {
     	if(this.model == null)
     		throw new SemReferenciaAComponente("model", "view");
@@ -57,7 +72,7 @@ public class GameView extends JFrame implements IGameView{
     }
     
     public IController getController() {
-    	if(this.model == null)
+    	if(this.control == null)
     		throw new SemReferenciaAComponente("controller", "view");
     	return this.control;
     }
@@ -65,6 +80,7 @@ public class GameView extends JFrame implements IGameView{
 	public void setControl(IController c) {
 		this.control = c;
 		ImageCache.setIOHandler(c);
+		configureFont();
 	}
 
 	public void setModel(IGameModel g) {

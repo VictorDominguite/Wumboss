@@ -62,6 +62,11 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     public int getDefense() {
         return defesa;
     }
+    
+    public int getVida() {
+    	return vida;
+    }
+    
     public void receberDano(int dano) {
     	int vidaRestante = this.vida - dano;
     	if (vidaRestante <= 0) {
@@ -71,10 +76,6 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     	else {
     		this.vida = vidaRestante;
     	}
-    }
-
-    protected int getVida() {
-        return vida;
     }
 
     protected int getAlcance() {
