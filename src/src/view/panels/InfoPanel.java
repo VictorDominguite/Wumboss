@@ -26,7 +26,6 @@ public class InfoPanel extends Panel{
         //setLayout(infoPanelLayout);
         setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X*5/10, Constantes.WINDOW_SIZE_Y*8/10));
         
-        
         JPanel trueInfo = new JPanel();
         BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
         trueInfo.setLayout(trueInfoLayout);
