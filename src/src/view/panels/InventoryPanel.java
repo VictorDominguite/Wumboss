@@ -20,7 +20,7 @@ public class InventoryPanel extends Panel{
         String[] itemNames = getItemNames();
 
         for(int i = 0; i < itemNames.length; i++){
-        	items[i] = new ItemView(itemNames[i], this);
+        	items[i] = new ItemView(itemNames[i], this, !itemNames[i].equalsIgnoreCase("flecha"));
             add(items[i]);
         }
     }

@@ -26,8 +26,13 @@ public class ItemView extends JPanel implements Observer{
 	
 	private boolean coletado;
 	private boolean equipado;
+	private boolean coletavel;
 	
 	public ItemView(String name, InventoryPanel parent) {
+		this(name, parent, true);
+	}
+	
+	public ItemView(String name, InventoryPanel parent, boolean coletavel) {
 		super(new BorderLayout());
 		
 		Border border = BorderFactory.createLineBorder(Color.black);
@@ -36,6 +41,10 @@ public class ItemView extends JPanel implements Observer{
 		this.name = name;
 		this.parentPanel = parent;
 		this.img = new JLabel();
+		
+		this.coletavel = coletavel;
+		if(coletavel)
+			this.coletado = true;
 		
 		updateIcon();
 		
@@ -65,8 +74,16 @@ public class ItemView extends JPanel implements Observer{
 		
 		String[] newInfo = getInfo();
 		this.description.setText(newInfo[0]);
-		this.coletado = newInfo[1].equals("true");
-		this.equipado =  newInfo[2].equals("true");
+		
+		if(this.coletavel)
+			updateColetavel(newInfo);
+		else
+			updateCumulativo(newInfo);
+	}
+	
+	private void updateColetavel(String[] args) {
+		this.coletado = args[1].equals("true");
+		this.equipado =  args[2].equals("true");
 		
 		if(!this.coletado) {
 			this.equipButton.setEnabled(false);
@@ -82,7 +99,12 @@ public class ItemView extends JPanel implements Observer{
 		}
 	}
 	
-	public void updateIcon() {
+	private void updateCumulativo(String[] args) {
+		this.equipButton.setEnabled(false);
+		this.equipButton.setText("Voce possui " + args[1] + " " + this.name.toLowerCase() + "s!");
+	}
+	
+	private void updateIcon() {
 		img.setIcon(null);
 		img.setIcon(ImageCache.getIcon(name, 42, 42));
 	}
