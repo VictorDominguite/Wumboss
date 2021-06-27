@@ -1,5 +1,7 @@
 package src.model.entidade.itens;
 
+import src.view.IGameView;
+
 public class Elixir extends Item {
     private int rodadasAtivo;
     private int cooldown;
@@ -42,6 +44,8 @@ public class Elixir extends Item {
 
     public void resetRodadasAtivo() {
         rodadasAtivo = 0;
+        cooldown = CD_INICIAL;
+        IGameView.setFeedMessage("O efeito do elixir acabou!");
     }
 
     public void incrementarRodadasAtivo() {
@@ -54,7 +58,10 @@ public class Elixir extends Item {
     }
 
     public void consumir() {
-        if (!emCooldown())
+        if (!emCooldown()) {
             rodadasAtivo = 1;
+            IGameView.setFeedMessage("Voce consumiu o elixir!");
+        }
+
     }
 }

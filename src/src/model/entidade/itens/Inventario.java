@@ -1,6 +1,7 @@
 package src.model.entidade.itens;
 
 import src.utils.observer.Observer;
+import src.view.IGameView;
 
 public class Inventario implements IInventario{
     private IItem[] inventario;
@@ -71,9 +72,8 @@ public class Inventario implements IInventario{
 
 	public void sendMessage(String action, String... args) {
 		if(action.equals("equip")){
-            if (getItem(args[0]) instanceof Elixir) {
+            if (getItem(args[0]) instanceof Elixir)
                 ((Elixir)getItem(args[0])).consumir();
-            }
             if (getArmaEquipada() != null && getItem(args[0]) instanceof ItemAtaque)
                 getArmaEquipada().desequipar();
 			getItem(args[0]).equipar();
