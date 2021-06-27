@@ -24,7 +24,8 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     }
     
     public void interagirComEntidadeEstatica(IEntidadeEstatica e) {
-    	if(e.efeito().equals("veneno"))
+    	if (e == null) return;
+        if(e.efeito().equals("veneno"))
     		this.envenenar();
     }
     
@@ -48,9 +49,9 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     	}
     	else {
     		if (y > posY)
-    			mover(Direcao.NORTE);
-    		else
     			mover(Direcao.SUL);
+    		else
+    			mover(Direcao.NORTE);
     	}
     }
 

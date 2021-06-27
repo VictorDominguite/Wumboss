@@ -16,7 +16,7 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
     }
     
     public Heroi() {
-    	this(5, 0, 0);
+    	this(100000000, 0, 0);
     }
 
     public Inventario getInventario() {

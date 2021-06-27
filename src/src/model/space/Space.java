@@ -1,5 +1,6 @@
 package src.model.space;
 
+import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
@@ -29,9 +30,10 @@ public class Space implements ISpace{
 	}
 
 	public void moverEntidade(int x, int y, Direcao dir) {
-		if(cave.moveEntidade(x, y, dir)) {
+		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade() instanceof Heroi && cave.moveEntidade(x, y, dir)) {
 			atualizarVisaoEInimigos();
 		}
+		else cave.moveEntidade(x, y, dir);
 	}
 
 	public void addEntidade(int x, int y, IEntidadeDinamica e) {
