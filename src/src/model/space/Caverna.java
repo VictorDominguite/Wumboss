@@ -102,6 +102,7 @@ public class Caverna implements ICave{
         
 		if (ehSalaBoss(idAtivo) && e instanceof Heroi) {
 			if (!((Heroi) e).getInventario().getItem("Chave").isColetado()) {
+				idAtivo = idInativado;
 				addEntidade(xEnt, yEnt, e);
 				return;
 			}

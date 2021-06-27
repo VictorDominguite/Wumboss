@@ -25,7 +25,6 @@ public class Interacao implements IInteracao {
         }
         if (e1 instanceof Inimigo && e2 instanceof Heroi) {
             atacar((Inimigo) e1, (Heroi) e2);
-            System.out.println("Heroi recebeu dano: " + ((Inimigo) e1).getAttackDamage());
             return "ataque";
         }
         if (e1 instanceof Inimigo) {
