@@ -2,6 +2,7 @@ package src.view.atomics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,12 +29,12 @@ public class ItemView extends JPanel implements Observer{
 	private boolean equipado;
 	private boolean coletavel;
 	
-	public ItemView(String name, InventoryPanel parent) {
-		this(name, parent, true);
+	public ItemView(String name, InventoryPanel parent, Font f) {
+		this(name, parent, true, f);
 	}
 	
-	public ItemView(String name, InventoryPanel parent, boolean coletavel) {
-		super(new BorderLayout());
+	public ItemView(String name, InventoryPanel parent, boolean coletavel, Font f) {
+		super(new BorderLayout(1, 1));
 		
 		Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
@@ -49,7 +50,9 @@ public class ItemView extends JPanel implements Observer{
 		updateIcon();
 		
 		this.description = new JLabel();
+		description.setFont(f);
 		this.equipButton = new JButton();
+		equipButton.setFont(f);
 		
 		equipButton.setActionCommand(name);
 		parent.getGameView().getController().setButtonMappings(equipButton);

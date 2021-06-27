@@ -1,5 +1,6 @@
 package src.view.panels;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import src.utils.Constantes;
@@ -15,12 +16,13 @@ public class InventoryPanel extends Panel{
         super(gv, new GridLayout(2, 5));
         
         setPreferredSize(new Dimension(Constantes.WINDOW_SIZE_X, Constantes.WINDOW_SIZE_Y*2/10));
+        Font f = this.masterView.getFont().deriveFont(Font.PLAIN, 12f);
         
         this.items = new ItemView[10];
         String[] itemNames = getItemNames();
 
         for(int i = 0; i < itemNames.length; i++){
-        	items[i] = new ItemView(itemNames[i], this, !itemNames[i].equalsIgnoreCase("flecha"));
+        	items[i] = new ItemView(itemNames[i], this, !itemNames[i].equalsIgnoreCase("flecha"), f);
             add(items[i]);
         }
     }
