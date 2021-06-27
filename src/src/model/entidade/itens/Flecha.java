@@ -16,6 +16,8 @@ public class Flecha extends Item {
 
     public void usarFlecha() {
         if (numFlechas > 0) numFlechas -= 1;
+
+        onUpdate();
     }
 
     public void addFlechas(int numFlechas) {
