@@ -8,6 +8,7 @@ import src.model.entidade.itens.Arco;
 import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.Item;
 import src.utils.exceptions.ErroDeInteracao;
+import src.view.IGameView;
 
 public class Interacao implements IInteracao {
 
@@ -24,7 +25,7 @@ public class Interacao implements IInteracao {
             return "ataque";
         }
         if (e1 instanceof Inimigo && e2 instanceof Heroi) {
-            atacar((Inimigo) e1, (Heroi) e2);
+            IGameView.setFeedMessage("Voce foi atacado! :(  -" + atacar((Inimigo) e1, (Heroi) e2) + " de vida");
             return "ataque";
         }
         if (e1 instanceof Inimigo) {
@@ -33,17 +34,17 @@ public class Interacao implements IInteracao {
         throw new ErroDeInteracao();
     }
 
-    public void atacar(IEntidadeViva agressor, IEntidadeViva atacado) {
+    public int atacar(IEntidadeViva agressor, IEntidadeViva atacado) {
         int danoCausado;
         // Condição para não atacar com arco sem flechas
         if (agressor instanceof Heroi && ((Heroi)agressor).getInventario().getArmaEquipada() instanceof Arco) {
             Flecha flechas = (Flecha) ((Heroi)agressor).getInventario().getItem("Flecha");
             if (flechas != null && flechas.getNumFlechas() > 0) flechas.usarFlecha();
-            else return;
+            else return 0;
         } 
 
         // Verifica se o ataque está no alcance
-        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) return;
+        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) return 0;
 
         if (agressor.getAttackDamage() > atacado.getDefense()) 
             danoCausado = agressor.getAttackDamage() - atacado.getDefense();
@@ -51,6 +52,7 @@ public class Interacao implements IInteracao {
             danoCausado = 0;
 
         atacado.receberDano(danoCausado);
+        return danoCausado;
     }
 
     public void coletarItem(Heroi h, Item item) {
