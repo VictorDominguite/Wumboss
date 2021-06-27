@@ -42,14 +42,20 @@ public abstract class EntidadeDinamica extends Entidade implements IEntidadeDina
     	int deltaY = Math.abs(y - posY);
     	
     	if (deltaX > deltaY) {
-    		if (x > posX) 
+    		if (x > posX) {
     			mover(Direcao.LESTE);
+                if (this instanceof Inimigo) 
+                    ((IInimigo) this).setMoveuNoRound(true);
+            }
     		else
     			mover(Direcao.OESTE);
     	}
     	else {
-    		if (y > posY)
+    		if (y > posY){
     			mover(Direcao.SUL);
+                if (this instanceof Inimigo) 
+                    ((IInimigo) this).setMoveuNoRound(true);
+            }
     		else
     			mover(Direcao.NORTE);
     	}

@@ -70,7 +70,11 @@ public class Space implements ISpace{
                 IEntidadeDinamica e = cellAtual.peekEntidade();
                 
                 if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta())
-                    ((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
+                    if (!((IInimigo) e).moveuNoRound()) {
+						((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
+					}
+					else	
+						((IInimigo) e).setMoveuNoRound(false);
                 
                 if (cellAtual.distanciaAte(heroiX, heroiY) <= heroInstance.getVisao()) {
                 	cellAtual.setVisivel(true);
