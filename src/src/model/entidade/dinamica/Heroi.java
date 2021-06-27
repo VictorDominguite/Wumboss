@@ -16,7 +16,7 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
     }
     
     public Heroi() {
-    	this(5, 0, 0);
+    	this(5, 0, 100);
     }
 
     public Inventario getInventario() {
@@ -68,7 +68,7 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
 
 	@Override
 	public int getDefense() {
-		return inv.getArmaduraEquipada();
+		return inv.getArmaduraEquipada() + this.defesa;
 	}
 
 	@Override

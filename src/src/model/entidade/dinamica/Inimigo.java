@@ -2,14 +2,13 @@ package src.model.entidade.dinamica;
 
 public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
     
-    private boolean emAlerta, moveuNoRound;
+    private boolean emAlerta;
 
     public Inimigo (int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
         
         this.emAlerta = false;
         this.isInimigo = true;
-        this.moveuNoRound = false;
     }
     
     public void getDrop() {
@@ -26,14 +25,6 @@ public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
     
     public void desalertar() {
     	this.emAlerta = false;
-    }
-
-    public void setMoveuNoRound(boolean moveuNoRound) {
-        this.moveuNoRound = moveuNoRound;
-    }
-
-    public boolean moveuNoRound() {
-        return moveuNoRound;
     }
 
 }

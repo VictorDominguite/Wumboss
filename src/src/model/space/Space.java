@@ -62,19 +62,20 @@ public class Space implements ISpace{
 		
         ISala salaAtual = cave.getSalaAtiva();
         int heroiX = heroInstance.getPosX(), heroiY = heroInstance.getPosY();
+		int maxInimigos = cave.getSalaAtiva().getTamX() * cave.getSalaAtiva().getTamY(); 
+		IInimigo inimigosAlerta[] = new IInimigo[maxInimigos];
+		int k = 0;
 
         for (int i = 0; i < salaAtual.getTamX(); i++) {
             for (int j = 0; j < salaAtual.getTamY(); j++) {
             	ICelula cellAtual = salaAtual.getCelula(i, j);
                 
                 IEntidadeDinamica e = cellAtual.peekEntidade();
-                
-                if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta())
-                    if (!((IInimigo) e).moveuNoRound()) {
-						((IInimigo) e).moverEmDirecaoA(heroiX, heroiY);
-					}
-					else	
-						((IInimigo) e).setMoveuNoRound(false);
+                //TODO: melhorar 
+                if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta()) {
+					inimigosAlerta[k] = (IInimigo) e;
+					k++;
+				}
                 
                 if (cellAtual.distanciaAte(heroiX, heroiY) <= heroInstance.getVisao()) {
                 	cellAtual.setVisivel(true);
@@ -90,5 +91,9 @@ public class Space implements ISpace{
                 }
             }
         }
+		for (IInimigo i : inimigosAlerta) {
+			if (i != null)
+				i.moverEmDirecaoA(heroiX, heroiY);
+		}
     }
 }
