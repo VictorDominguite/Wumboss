@@ -11,6 +11,9 @@ public class InventoryPanel extends Panel{
 	private static final long serialVersionUID = 5112485242913536772L;
 	
 	private ItemView[] items;
+	
+	private String[] collectableItems;
+	private String[] cumulativeItems;
 
 	public InventoryPanel(GameView gv){
         super(gv, new GridLayout(2, 5));
@@ -19,15 +22,25 @@ public class InventoryPanel extends Panel{
         Font f = this.masterView.getFont().deriveFont(Font.PLAIN, 12f);
         
         this.items = new ItemView[10];
-        String[] itemNames = getItemNames();
-
-        for(int i = 0; i < itemNames.length; i++){
-        	items[i] = new ItemView(itemNames[i], this, !itemNames[i].equalsIgnoreCase("flecha"), f);
-            add(items[i]);
+        getItemNames();
+        
+        int i = 0;
+        int namesIndex = 0;
+        
+        while(i < 10) {
+        	namesIndex = i % collectableItems.length;
+        	items[i] = i < collectableItems.length
+        				? new ItemView(collectableItems[namesIndex], this, true, f)
+        				: new ItemView(cumulativeItems[namesIndex], this, false, f);
+        	
+        	add(items[i]);
+        	
+        	i += 1;
         }
     }
     
-    private String[] getItemNames() {
-    	return masterView.getGameModel().getPossibleItems();
+    private void getItemNames() {
+    	collectableItems = masterView.getGameModel().getPossibleCollectableItems();
+    	cumulativeItems = masterView.getGameModel().getPossibleCumulativeItems();
     }
 }

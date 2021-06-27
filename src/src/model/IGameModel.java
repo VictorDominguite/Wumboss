@@ -27,7 +27,8 @@ public interface IGameModel {
 		 * */
 		public String[] getHeroState(String item);
 		
-		public String[] getPossibleItems();
+		public String[] getPossibleCollectableItems();
+		public String[] getPossibleCumulativeItems();
 		
 		/* Retorna o item de nome dado, na seguinte forma
 		 * String[3] = {descricao, estaColetado?, estaEquipado?}

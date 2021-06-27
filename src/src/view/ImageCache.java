@@ -15,7 +15,7 @@ public abstract class ImageCache {
 	private static IController ioHandler;
 	
 	public static void insertIconInCache(String name, ImageIcon icon) {
-		icons.put(name, icon);
+		icons.put(name.toLowerCase(), icon);
 	}
 	
 	public static void setIOHandler(IController io) {
@@ -23,14 +23,15 @@ public abstract class ImageCache {
 	}
 	
 	public static ImageIcon getIcon(String name, int width, int height) {
-		ImageIcon icon = icons.get(name);
+		String nameLower = name.toLowerCase();
+		ImageIcon icon = icons.get(nameLower);
 		
 		if(icon == null) {
 			try {
 				BufferedImage buffImg = ioHandler.readIcon(name);
 				icon = new ImageIcon(new ImageIcon(buffImg).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
 				
-				ImageCache.insertIconInCache(name, icon);
+				ImageCache.insertIconInCache(nameLower, icon);
 			} catch(IOException e) {
 				System.err.println("Não foi possivel abrir a imagem de nome: " + name);
 			}

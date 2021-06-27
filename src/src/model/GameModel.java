@@ -96,16 +96,14 @@ public class GameModel implements IGameModel{
 		return res;
 	}
 	
-	public String[] getPossibleItems() {
+	public String[] getPossibleCollectableItems() {
 		isInventoryAvailable();
-		
-		String[] res = new String[inv.getTamanho()];
-		
-		IItem[] items = inv.getItems();
-		for(int i = 0; i < inv.getTamanho(); i++) 
-			res[i] = items[i] != null ? items[i].toString() : "null";
-		
-		return res;
+		return inv.getCollectableNames();
+	}
+	
+	public String[] getPossibleCumulativeItems() {
+		isInventoryAvailable();
+		return inv.getCumulativeNames();
 	}
 
 	public String[] getItemState(String itemName) {
@@ -149,5 +147,6 @@ public class GameModel implements IGameModel{
 		
 		return true;
 	}
+
 
 }
