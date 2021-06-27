@@ -34,6 +34,13 @@ public class Celula extends EventCreator implements ICelula{
     }
 
     public void pushEntidade(IEntidadeDinamica ent) {
+        
+        if (ent instanceof Flecha) {
+            int numFlechas = Constantes.rng.nextInt(3);
+            if (numFlechas == 0) return;
+            ((Flecha) ent).addFlechas(numFlechas);
+        } 
+        
         popEntidade();
 
         this.actors.push(ent);
@@ -41,7 +48,6 @@ public class Celula extends EventCreator implements ICelula{
         ent.setPosX(posX);
         ent.setPosY(posY);
 
-        if (ent instanceof Flecha) ((Flecha) ent).addFlechas(Constantes.rng.nextInt(2) + 1);
         
         if (ent instanceof EntidadeViva)
             ((EntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
