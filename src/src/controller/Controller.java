@@ -46,7 +46,8 @@ public class Controller implements IController{
 		String path;
 		
 		if(tipo < 10)
-			path = dataPath + "sala0" + tipo + ".csv";
+			path = dataPath + "tipo00/sala01.csv";
+			//path = dataPath + "sala0" + tipo + ".csv";
 		else
 			path = dataPath + "sala" + tipo + ".csv";
 		
