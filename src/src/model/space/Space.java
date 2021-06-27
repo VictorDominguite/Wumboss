@@ -2,7 +2,6 @@ package src.model.space;
 
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.space.factories.CaveFactory;
@@ -98,7 +97,6 @@ public class Space implements ISpace{
             }
         }
 		for (IInimigo i : inimigosAlerta) {
-			System.out.println(globalTimer);
 			if (i != null && globalTimer % i.getCooldownMovimento() == 0)
 				i.moverEmDirecaoA(heroiX, heroiY);
 		}

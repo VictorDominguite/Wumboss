@@ -4,6 +4,7 @@ public class Wumboss extends Inimigo {
 
     private Wumboss(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
+        this.cooldownMovimento = 2;
     }
     
     public Wumboss() {
