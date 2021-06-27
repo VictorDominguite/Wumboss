@@ -1,34 +1,35 @@
 package src.model.entidade.interacao;
 
-import src.model.entidade.IEntidade;
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeViva;
+import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.itens.Arco;
 import src.model.entidade.itens.Flecha;
+import src.model.entidade.itens.IItem;
 import src.model.entidade.itens.Item;
 import src.utils.exceptions.ErroDeInteracao;
 import src.view.IGameView;
 
 public class Interacao implements IInteracao {
 
-    public String interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
+    public String interagir(IEntidadeViva e1, IEntidadeViva e2) throws ErroDeInteracao {
     	if(e2 == null)
     		return "mover";
-        if (e1 instanceof Heroi && e2 instanceof Item) {
-            coletarItem((Heroi) e1, (Item) e2);
+        if (e1.isHeroi() && e2 instanceof Item) {
+            coletarItem((IHeroi) e1, (IItem) e2);
 
             return "coleta";
         }
-        if (e1 instanceof Heroi && e2 instanceof Inimigo) {
-            atacar((Heroi) e1, (Inimigo) e2);
+        if (e1.isHeroi() && e2.isInimigo()) {
+            atacar((IHeroi) e1, (Inimigo) e2);
             return "ataque";
         }
-        if (e1 instanceof Inimigo && e2 instanceof Heroi) {
-            IGameView.setFeedMessage("Voce foi atacado! :(  -" + atacar((Inimigo) e1, (Heroi) e2) + " de vida");
+        if (e1.isInimigo() && e2.isHeroi()) {
+            IGameView.setFeedMessage("Voce foi atacado! :(  -" + atacar((IInimigo) e1, (IHeroi) e2) + " de vida");
             return "ataque";
         }
-        if (e1 instanceof Inimigo) {
+        if (e1.isInimigo()) {
             return "parado";
         }
         throw new ErroDeInteracao();
@@ -37,8 +38,8 @@ public class Interacao implements IInteracao {
     public int atacar(IEntidadeViva agressor, IEntidadeViva atacado) {
         int danoCausado;
         // Condição para não atacar com arco sem flechas
-        if (agressor instanceof Heroi && ((Heroi)agressor).getInventario().getArmaEquipada() instanceof Arco) {
-            Flecha flechas = (Flecha) ((Heroi)agressor).getInventario().getItem("Flecha");
+        if (agressor.isHeroi() && ((IHeroi) agressor).getInventario().getArmaEquipada() instanceof Arco) {
+            Flecha flechas = (Flecha) ((IHeroi)  agressor).getInventario().getItem("Flecha");
             if (flechas != null && flechas.getNumFlechas() > 0) flechas.usarFlecha();
             else return 0;
         } 
@@ -55,7 +56,7 @@ public class Interacao implements IInteracao {
         return danoCausado;
     }
 
-    public void coletarItem(Heroi h, Item item) {
+    public void coletarItem(IHeroi h, IItem item) {
         item.coletar();
         h.getInventario().getItem(item.getNome()).setColetado(true);
         if (item instanceof Flecha) {

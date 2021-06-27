@@ -41,8 +41,8 @@ public class Caverna implements ICave{
     		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
     	} 
     	else {
-    		IEntidadeDinamica e = origem.popEntidade();
-    		String interacao = e.interagir(fim.peekEntidade());
+    		IEntidadeViva e = (IEntidadeViva) origem.popEntidade();
+    		String interacao = e.interagir((IEntidadeViva)fim.peekEntidade());
     		
     		if (interacao.equals("mover") || interacao.equals("coleta")) {
     			fim.pushEntidade(e);

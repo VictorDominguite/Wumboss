@@ -1,8 +1,10 @@
 package src.model.entidade.dinamica;
 
+import src.model.entidade.IEntidade;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
+import src.utils.exceptions.ErroDeInteracao;
 
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
     protected int vida, ataque, defesa;
@@ -13,6 +15,17 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
+    }
+    
+    public String interagir(IEntidadeViva e) {
+        try {
+            String interacao = objInteracao.interagir(this, e);
+            return interacao;
+        } catch (ErroDeInteracao erro) {
+            //TODO: melhorar excecao
+            System.err.println(erro.getMessage());
+            return null;
+        }
     }
     
     public void processarEfeitos() {
@@ -26,6 +39,10 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	if (e == null) return;
         if(e.efeito().equals("veneno"))
     		this.envenenar();
+    }
+    
+    public boolean isHeroi() {
+    	return (this instanceof IHeroi);
     }
     
     public boolean isInimigo() {

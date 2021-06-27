@@ -7,20 +7,9 @@ import src.utils.exceptions.ErroDeInteracao;
 import src.utils.observer.EventCreator;
 
 public abstract class Entidade extends EventCreator implements IEntidade {
-    private static IInteracao objInteracao = new Interacao();
+    protected static IInteracao objInteracao = new Interacao();
     protected int posX, posY;
     protected ISpace space;
-
-    public String interagir(IEntidade e) {
-        try {
-            String interacao = objInteracao.interagir(this, e);
-            return interacao;
-        } catch (ErroDeInteracao erro) {
-            //TODO: melhorar excecao
-            System.err.println(erro.getMessage());
-            return null;
-        }
-    }
 
     public void connect(ISpace space) {
         this.space = space;
