@@ -4,7 +4,10 @@ import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.dinamica.Inimigo;
+import src.model.entidade.dinamica.Wumboss;
 import src.model.entidade.estatica.IPassagem;
+import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.exceptions.IDInvalido;
@@ -36,7 +39,8 @@ public class Caverna implements ICave{
     	
     	if(!celulasValidas(origem, fim))
     		return false;
-    	
+			
+		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof Inimigo) return true;
     	if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
     		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
     	} 
@@ -135,6 +139,15 @@ public class Caverna implements ICave{
     }
 
 	private boolean ehSalaBoss(int id) {
-		return id == Constantes.NUM_SALAS_CAVERNA - 1;
+		boolean temWumboss = false;
+		for (int i = 0; i < getSala(id).getTamX(); i++) {
+			for (int j = 0; j < getSala(id).getTamY(); j++) {
+				if (getSala(id).getCelula(i, j).peekEntidade() instanceof Wumboss) {
+					temWumboss = true;
+					break;
+				}
+			}
+		}
+		return temWumboss;
 	}
 }

@@ -2,7 +2,6 @@ package src.model.space.factories;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import src.model.entidade.estatica.Passagem;
 import src.model.space.Caverna;
