@@ -44,6 +44,7 @@ public class Interacao implements IInteracao {
 
     public void coletarItem(Heroi h, Item item) {
         item.coletar();
+        h.getInventario().getItem(item.getNome()).setColetado(true);
         //h.getInventario().addItem(item);
     }
 }

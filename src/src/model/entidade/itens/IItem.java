@@ -14,4 +14,5 @@ public interface IItem extends IEventCreator, IEntidadeDinamica {
 	public void desequipar();
 
 	public void coletar();
+	public void setColetado(boolean coletado);
 }
