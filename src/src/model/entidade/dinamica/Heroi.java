@@ -86,6 +86,12 @@ public class Heroi extends EntidadeViva implements IHeroi {
 			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && (((Elixir) inv.getItem("Elixir")).emCooldown())) {
 				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;
 			}
+			if ((((Elixir) inv.getItem("Elixir")).isAtivo())) {
+				((Elixir) inv.getItem("Elixir")).incrementarRodadasAtivo();
+			}
+			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && !(((Elixir) inv.getItem("Elixir")).emCooldown())) {
+				inv.getItem("Elixir").desequipar();
+			}
 		}
 	}
 }

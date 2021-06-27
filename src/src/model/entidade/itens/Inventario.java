@@ -73,7 +73,6 @@ public class Inventario implements IInventario{
 		if(action.equals("equip")){
             if (getItem(args[0]) instanceof Elixir) {
                 ((Elixir)getItem(args[0])).consumir();
-                return;
             }
             if (getArmaEquipada() != null && getItem(args[0]) instanceof ItemAtaque)
                 getArmaEquipada().desequipar();
