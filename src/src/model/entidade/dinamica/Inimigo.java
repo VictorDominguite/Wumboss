@@ -1,5 +1,7 @@
 package src.model.entidade.dinamica;
 
+import src.model.entidade.itens.Flecha;
+
 public abstract class Inimigo extends EntidadeViva implements IInimigo {
     
     private boolean emAlerta;
@@ -11,8 +13,16 @@ public abstract class Inimigo extends EntidadeViva implements IInimigo {
         this.isInimigo = true;
     }
     
+    @Override
+    public void morrer() {
+        super.morrer();
+        getDrop();
+    }
+
     public void getDrop() {
-    	
+        Flecha flecha = new Flecha();
+        flecha.connect(space);
+        space.addEntidade(posX, posY, flecha);
     }
 
     public boolean emAlerta() {

@@ -1,11 +1,13 @@
 package src.model.space;
 
+import java.util.Random;
 import java.util.Stack;
 
 import src.model.entidade.dinamica.EntidadeViva;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
+import src.model.entidade.itens.Flecha;
 import src.utils.observer.EventCreator;
 
 public class Celula extends EventCreator implements ICelula{
@@ -38,6 +40,9 @@ public class Celula extends EventCreator implements ICelula{
         
         ent.setPosX(posX);
         ent.setPosY(posY);
+
+        if (ent instanceof Flecha) ((Flecha) ent).addFlechas(new Random().nextInt(2) + 1);
+        
         if (ent instanceof EntidadeViva)
             ((EntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
         

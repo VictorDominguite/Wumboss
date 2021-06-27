@@ -87,11 +87,6 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
 
     protected void morrer() {
         this.space.removerEntidade(posX, posY);
-        this.dropItems();
-    }
-    
-    protected void dropItems() {
-    	
     }
 
     protected void mover(Direcao dir) {
