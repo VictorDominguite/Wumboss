@@ -8,6 +8,7 @@ import java.io.IOException;
 public class CSVHandler {
 	public String[][] readCSV(String path) throws FileNotFoundException{
 		String[][] result = null;
+		System.out.println(path);
 		try(var br = new BufferedReader(new FileReader(path))){
 			String line = br.readLine();
 			String[] tamanhos = line.split(",");

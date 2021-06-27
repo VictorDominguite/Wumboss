@@ -15,13 +15,15 @@ public class Space implements ISpace{
 	private IHeroi heroInstance;
 	
 	public static ISpace getInstance() {
-    	if (instance == null)
+    	if (instance == null) {
     		instance = new Space();
+    		montarCaverna();
+    	}
     	
     	return instance;
     }
 	
-	private Space() {
+	private static void montarCaverna() {
 		cave = CaveFactory.montar();
 	}
 	
