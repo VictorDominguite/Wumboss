@@ -14,5 +14,6 @@ public interface IEntidadeViva extends IEntidadeDinamica {
     public int getAttackDamage();
     public int getDefense();
     public int getVida();
+    public int getAlcance();
     public void receberDano(int dano);
 }

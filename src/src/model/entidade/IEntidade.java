@@ -12,4 +12,6 @@ public interface IEntidade {
 	public int getPosY();
 	
 	public boolean isPassable();
+
+	public int distanciaAte(int x, int y);
 }

@@ -46,6 +46,10 @@ public abstract class Entidade extends EventCreator implements IEntidade {
     	return true;
     }
     
+    public int distanciaAte(int x, int y) {
+        return this.space.getCelula(posX, posY).distanciaAte(x, y);
+    }
+
     @Override
     public abstract String toString();
     

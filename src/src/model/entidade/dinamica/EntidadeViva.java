@@ -77,7 +77,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	}
     }
 
-    protected int getAlcance() {
+    public int getAlcance() {
         return alcance;
     }
 

@@ -41,7 +41,10 @@ public class Interacao implements IInteracao {
             Flecha flechas = (Flecha) ((Heroi)agressor).getInventario().getItem("Flecha");
             if (flechas != null && flechas.getNumFlechas() > 0) flechas.usarFlecha();
             else return;
-        }
+        } 
+
+        // Verifica se o ataque está no alcance
+        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) return;
 
         if (agressor.getAttackDamage() > atacado.getDefense()) 
             danoCausado = agressor.getAttackDamage() - atacado.getDefense();
@@ -55,7 +58,7 @@ public class Interacao implements IInteracao {
         item.coletar();
         h.getInventario().getItem(item.getNome()).setColetado(true);
         if (item instanceof Flecha) {
-            ((Flecha) h.getInventario().getItem("Flecha")).addFlechas(((Flecha) item).getNumFlechas());
+            ((Flecha) h.getInventario().getItem("Flecha")).addFlechas(((Flecha)item).getNumFlechas());
         }
     }
 }
