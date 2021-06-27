@@ -3,6 +3,7 @@ package src.model;
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
 import src.model.space.ISpace;
@@ -113,11 +114,17 @@ public class GameModel implements IGameModel{
 		IItem item = inv.getItem(itemName);
 		if(item == null)
 			return null;
-
+		
 		String[] res = new String[3];
 		res[0] = item.getDescricao();
-		res[1] = item.isColetado() ? "true" : "false";
-		res[2] = item.isEquipado() ? "true" : "false";
+
+		if(itemName.equalsIgnoreCase("flecha")) {
+			res[1] = ((Flecha) item).getNumFlechas() + "";
+		}
+		else {
+			res[1] = item.isColetado() ? "true" : "false";
+			res[2] = item.isEquipado() ? "true" : "false";
+		}
 		
 		return res;
 	}
