@@ -4,8 +4,10 @@ import src.model.entidade.estatica.IEntidadeEstatica;
 
 public interface IEntidadeViva extends IEntidadeDinamica {
 	public void processarEfeitos();
+	public String interagir(IEntidadeViva e);
 	public void interagirComEntidadeEstatica(IEntidadeEstatica e);
 	
+	public boolean isHeroi();
 	public boolean isInimigo();
     public boolean estaEnvenenado();
     

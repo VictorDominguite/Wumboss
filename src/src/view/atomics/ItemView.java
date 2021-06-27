@@ -13,7 +13,6 @@ import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
 import src.view.ImageCache;
-import src.view.panels.InfoPanel;
 import src.view.panels.InventoryPanel;
 
 public class ItemView extends JPanel implements Observer{
@@ -29,8 +28,6 @@ public class ItemView extends JPanel implements Observer{
 	private boolean coletado;
 	private boolean equipado;
 	private boolean coletavel;
-	
-	private int value = 999;
 	
 	public ItemView(String name, InventoryPanel parent, Font f) {
 		this(name, parent, true, f);
@@ -108,12 +105,6 @@ public class ItemView extends JPanel implements Observer{
 	private void updateCumulativo(String[] args) {
 		this.equipButton.setEnabled(false);
 		this.equipButton.setText("Voce possui " + args[1] + " " + this.name.toLowerCase() + "s!");
-		
-		int num = Integer.parseInt(args[1]);
-		if(num > value)
-			InfoPanel.setFeed("Voce coletou " + (num - value) + " " + this.name.toLowerCase() + ((num - value) > 1 ? "s" : ""));
-		
-		value = num;
 	}
 	
 	private void updateIcon() {

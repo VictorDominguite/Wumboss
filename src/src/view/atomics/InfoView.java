@@ -59,9 +59,9 @@ public class InfoView extends JPanel implements Observer{
 		
 		if(what.equalsIgnoreCase("vida")) {
 			if(value > prevValue)
-				parentPanel.setFeed("Voce se sente mais vivo...");
+				InfoPanel.setFeed("Voce se sente mais vivo...");
 			else if(value < prevValue)
-				parentPanel.setFeed("Voce se sente menos vivo...");
+				InfoPanel.setFeed("Voce se sente menos vivo...");
 			
 			for(int i = 0; i < value; i++) {
 				tempString += "♥";
@@ -70,9 +70,9 @@ public class InfoView extends JPanel implements Observer{
 		
 		if(what.equalsIgnoreCase("defense")) {
 			if(value > prevValue)
-				parentPanel.setFeed("Voce se sente mais resiliente...");
+				InfoPanel.setFeed("Voce se sente mais resiliente...");
 			else if(value < prevValue)
-				parentPanel.setFeed("Voce se sente menos resiliente...");
+				InfoPanel.setFeed("Voce se sente menos resiliente...");
 			
 			for(int i = 0; i < value; i++) {
 				tempString += "☗";
@@ -81,9 +81,9 @@ public class InfoView extends JPanel implements Observer{
 		
 		if(what.equalsIgnoreCase("attack")) {
 			if(value > prevValue)
-				parentPanel.setFeed("Voce se sente mais forte...");
+				InfoPanel.setFeed("Voce se sente mais forte...");
 			else if(value < prevValue)
-				parentPanel.setFeed("Voce se sente mais fraco...");
+				InfoPanel.setFeed("Voce se sente mais fraco...");
 			
 			for(int i = 0; i < value; i++) {
 				tempString += "⚔";
