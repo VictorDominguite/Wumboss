@@ -71,7 +71,8 @@ public class Inventario implements IInventario{
 
 	public void sendMessage(String action, String... args) {
 		if(action.equals("equip")){
-            getArmaEquipada().desequipar();
+            if (getArmaEquipada() != null && getItem(args[0]) instanceof ItemAtaque)
+                getArmaEquipada().desequipar();
 			getItem(args[0]).equipar();
         }
 	}

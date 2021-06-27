@@ -1,5 +1,9 @@
 package src.model.space.factories;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import src.model.entidade.estatica.Passagem;
 import src.model.space.Caverna;
 import src.model.space.ISala;
@@ -12,13 +16,25 @@ public class CaveFactory {
 	// necessarias)
 	public static Caverna montar() {
 		Caverna cave = new Caverna();
+		ArrayList<Integer> tiposSalas = new ArrayList<Integer>();
 
-		cave.setSala(0, SalaFactory.montar(0, Constantes.rng.nextInt(Constantes.NUM_SALAS_DISPONIVEIS) + 1));
-		for (int i = 1; i < Constantes.NUM_SALAS_CAVERNA; i++) {
-			Sala atual = SalaFactory.montar(i, Constantes.rng.nextInt(Constantes.NUM_SALAS_DISPONIVEIS) + 1);
+		for (int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i ++) {
+			tiposSalas.add(i);
+		}
+
+		Collections.shuffle(tiposSalas);
+
+		while (tiposSalas.get(0) > 5)
+			Collections.shuffle(tiposSalas);
+
+		cave.setSala(0, SalaFactory.montar(0, tiposSalas.get(0)));
+		for (int i = 1; i < Constantes.NUM_SALAS_CAVERNA - 1; i++) {
+			Sala atual = SalaFactory.montar(i, tiposSalas.get(i));
 
 			cave.setSala(i, atual);
 		}
+		cave.setSala(Constantes.NUM_SALAS_CAVERNA - 1, 
+					SalaFactory.montar(Constantes.NUM_SALAS_CAVERNA - 1, Constantes.NUM_SALAS_CAVERNA - 1));
 		Direcao anterior = Direcao.NORTE;
 		for (int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i++) {
 			anterior = criarPassagem(cave.getSala(i), cave.getSala(i + 1), anterior);

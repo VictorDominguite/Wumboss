@@ -11,6 +11,7 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
+import src.utils.Constantes;
 import src.utils.actions.IActionParser;
 import src.utils.exceptions.TipoDeSalaInvalido;
 
@@ -45,11 +46,12 @@ public class Controller implements IController{
 		String[][] res;
 		String path;
 		
+		int modelo = Constantes.rng.nextInt(3) + 1;
+
 		if(tipo < 10)
-			path = dataPath + "tipo00/sala01.csv";
-			//path = dataPath + "sala0" + tipo + ".csv";
+			path = dataPath + "tipo0" + tipo + "/sala0" + modelo + ".csv";
 		else
-			path = dataPath + "sala" + tipo + ".csv";
+			path = dataPath + "tipo" + tipo + "/sala" + modelo + ".csv";
 		
 		try {
 			res = fileIO.readCSV(path);
