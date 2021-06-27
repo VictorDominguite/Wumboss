@@ -3,6 +3,7 @@ package src.model.space.factories;
 import java.util.HashMap;
 
 import src.model.entidade.Entidade;
+import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.GatinhoFofo;
 import src.model.entidade.dinamica.Goblin;
 import src.model.entidade.dinamica.Orc;
@@ -21,8 +22,8 @@ import src.model.entidade.itens.Tocha;
 
 
 public class ForegroundFactory {
-    private static HashMap<String, Class<? extends Entidade>> tabela 
-		= new HashMap<String, Class<? extends Entidade>>(40);
+    private static HashMap<String, Class<? extends EntidadeDinamica>> tabela 
+		= new HashMap<String, Class<? extends EntidadeDinamica>>(40);
 	static {
 		tabela.put("o", Orc.class);
 		tabela.put("g", Goblin.class);

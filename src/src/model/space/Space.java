@@ -71,7 +71,6 @@ public class Space implements ISpace{
             	ICelula cellAtual = salaAtual.getCelula(i, j);
                 
                 IEntidadeDinamica e = cellAtual.peekEntidade();
-                //TODO: melhorar 
                 if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta()) {
 					inimigosAlerta[k] = (IInimigo) e;
 					k++;

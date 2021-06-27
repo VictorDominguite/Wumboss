@@ -1,6 +1,7 @@
 package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
@@ -52,7 +53,7 @@ public class Caverna implements ICave{
     			// TODO: excecao - erro na interacao
     		}
     		
-    		e.processarEfeitos();
+    		((IEntidadeViva) e).processarEfeitos();
     	}
     	return true;
     }
@@ -102,7 +103,7 @@ public class Caverna implements ICave{
         int yFim = passagem.getYFim();
         
         addEntidade(xFim, yFim, e);
-        e.processarEfeitos();
+        ((IEntidadeViva) e).processarEfeitos();
         
         getSala(idInativado).inativar();
         

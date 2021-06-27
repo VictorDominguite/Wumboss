@@ -2,6 +2,7 @@ package src.model.space;
 
 import java.util.Stack;
 
+import src.model.entidade.dinamica.EntidadeViva;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
@@ -37,7 +38,8 @@ public class Celula extends EventCreator implements ICelula{
         
         ent.setPosX(posX);
         ent.setPosY(posY);
-        ent.interagirComEntidadeEstatica(getBackground());
+        if (ent instanceof EntidadeViva)
+            ((EntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
         
         onUpdate();
     }

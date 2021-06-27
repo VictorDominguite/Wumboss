@@ -2,7 +2,7 @@ package src.model.entidade.interacao;
 
 import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.Heroi;
-import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.itens.Item;
 import src.utils.exceptions.ErroDeInteracao;
@@ -32,7 +32,7 @@ public class Interacao implements IInteracao {
         throw new ErroDeInteracao();
     }
 
-    public void atacar(IEntidadeDinamica agressor, IEntidadeDinamica atacado) {
+    public void atacar(IEntidadeViva agressor, IEntidadeViva atacado) {
         int danoCausado;
         if (agressor.getAttackDamage() > atacado.getDefense()) 
             danoCausado = agressor.getAttackDamage() - atacado.getDefense();
@@ -43,7 +43,7 @@ public class Interacao implements IInteracao {
     }
 
     public void coletarItem(Heroi h, Item item) {
-        h.getInventario().addItem(item);
         item.coletar();
+        //h.getInventario().addItem(item);
     }
 }

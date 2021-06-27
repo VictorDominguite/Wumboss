@@ -1,6 +1,6 @@
 package src.model.entidade.dinamica;
 
-public interface IInimigo extends IEntidadeDinamica {
+public interface IInimigo extends IEntidadeViva {
 	public void getDrop();
 	
     public boolean emAlerta();

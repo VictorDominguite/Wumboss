@@ -1,6 +1,6 @@
 package src.model.entidade.dinamica;
 
-public abstract class Inimigo extends EntidadeDinamica implements IInimigo {
+public abstract class Inimigo extends EntidadeViva implements IInimigo {
     
     private boolean emAlerta;
 

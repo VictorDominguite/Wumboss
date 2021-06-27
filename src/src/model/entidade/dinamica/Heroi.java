@@ -6,7 +6,7 @@ import src.model.entidade.itens.Inventario;
 import src.model.entidade.itens.Tocha;
 import src.utils.Direcao;
 
-public class Heroi extends EntidadeDinamica implements IHeroi {
+public class Heroi extends EntidadeViva implements IHeroi {
 	private Inventario inv;
 	private static final int VISAO_PADRAO = 2;
 

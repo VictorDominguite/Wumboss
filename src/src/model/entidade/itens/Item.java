@@ -1,8 +1,8 @@
 package src.model.entidade.itens;
 
-import src.model.entidade.Entidade;
+import src.model.entidade.dinamica.EntidadeDinamica;
 
-public abstract class Item extends Entidade implements IItem{
+public abstract class Item extends EntidadeDinamica implements IItem{
 	private String descricao;
 	
     private boolean coletado;
