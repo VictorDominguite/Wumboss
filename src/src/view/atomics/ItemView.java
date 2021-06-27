@@ -54,7 +54,7 @@ public class ItemView extends JPanel implements Observer{
 		this.equipButton = new JButton();
 		equipButton.setFont(f);
 		
-		equipButton.setActionCommand(name);
+		equipButton.setActionCommand("inventory " + name);
 		parent.getGameView().getController().setButtonMappings(equipButton);
 		
 		inscrever();

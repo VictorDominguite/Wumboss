@@ -11,7 +11,11 @@ public class ViewHandler extends CallbackHandler{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		sendMessage("inventory " + "equip " + e.getActionCommand());
+		String[] action = e.getActionCommand().split(" ");
+		if(action[0].equalsIgnoreCase("inventory"))
+			sendMessage("inventory " + "equip " + action[1]);
+		else if(action[0].equalsIgnoreCase("attack"))
+			sendMessage("hero " + "attack " + action[1]);
 	}
 
 }

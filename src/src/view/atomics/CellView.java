@@ -45,6 +45,9 @@ public class CellView extends JButton implements Observer{
 		add(imgForeground);
 		add(imgBackground);
 		
+		setActionCommand("attack " + x + ":" + y);
+		parent.getGameView().getController().setButtonMappings(this);
+		
 		inscrever();
 	}
 	

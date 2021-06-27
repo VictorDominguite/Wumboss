@@ -28,9 +28,12 @@ public class Heroi extends EntidadeViva implements IHeroi {
 	}
 
 	public void sendMessage(String action, String... args) {
-		if(action.equals("move")) {
+		if(action.equalsIgnoreCase("move")) {
 			if(args != null)
 				mover(Direcao.fromString(args[0]));
+		}
+		else if(action.equalsIgnoreCase("attack")) {
+			
 		}
 	}
 
