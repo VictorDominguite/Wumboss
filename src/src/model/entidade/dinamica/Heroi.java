@@ -44,6 +44,7 @@ public class Heroi extends EntidadeViva implements IHeroi {
 	@Override
 	public void receberDano(int dano) {
 		super.receberDano(dano);
+		
 		onUpdate();
 	}
 	

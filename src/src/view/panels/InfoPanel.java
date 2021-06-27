@@ -26,7 +26,15 @@ public class InfoPanel extends Panel{
         InfoView heroLifeInfo = new InfoView("Hero", "vida", f, this);
         heroLifeInfo.setInfoColor(Color.red);
         
+        InfoView heroDefenseInfo = new InfoView("Hero", "defense", f, this);
+        heroDefenseInfo.setInfoColor(Color.blue);
+        
+        InfoView heroAttackInfo = new InfoView("Hero", "attack", f, this);
+        heroAttackInfo.setInfoColor(new Color(220, 100, 100));
+        
         add(title);
         add(heroLifeInfo);
+        add(heroDefenseInfo);
+        add(heroAttackInfo);
     }
 }

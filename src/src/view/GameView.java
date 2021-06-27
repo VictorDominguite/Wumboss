@@ -58,7 +58,6 @@ public class GameView extends JFrame implements IGameView{
     private void configureFont() {
     	try {
 			setFont(Font.createFont(Font.TRUETYPE_FONT, getController().hackFontFile("Regular")));
-			System.out.println(getFont());
 		} catch (FontFormatException e) {
 			System.err.println("There's a problem with the format of the font: " + e.getMessage());
 		} catch (IOException e) {

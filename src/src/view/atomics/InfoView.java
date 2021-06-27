@@ -62,6 +62,18 @@ public class InfoView extends JPanel implements Observer{
 			}
 		}
 		
+		if(what.equalsIgnoreCase("defense")) {
+			for(int i = 0; i < value; i++) {
+				tempString += "☗";
+			}
+		}
+		
+		if(what.equalsIgnoreCase("attack")) {
+			for(int i = 0; i < value; i++) {
+				tempString += "⚔";
+			}
+		}
+		
 		infoItself.setText("<html>" + tempString + "</html>");
 	}
 
