@@ -34,19 +34,26 @@ public class Heroi extends EntidadeDinamica implements IHeroi {
 		}
 	}
 
+	public int getVisao() {
+		int visao = VISAO_PADRAO;
+		if (inv.getItem("Tocha") != null && inv.getItem("Tocha").isEquipado())
+			visao += ((Tocha) inv.getItem("Tocha")).getIncrementoVisao();
+		return visao;
+	}
+	
+	@Override
+	public void receberDano(int dano) {
+		super.receberDano(dano);
+		onUpdate();
+	}
+	
+	@Override
 	public int getAlcance() {
 		IItemAtaque arma_equipada = (IItemAtaque) this.getInventario().getArmaEquipada();
 		if (arma_equipada != null) {
 			return arma_equipada.getAlcance();
 		}
 		return this.alcance;
-	}
-
-	public int getVisao() {
-		int visao = VISAO_PADRAO;
-		if (inv.getItem("Tocha") != null && inv.getItem("Tocha").isEquipado())
-			visao += ((Tocha) inv.getItem("Tocha")).getIncrementoVisao();
-		return visao;
 	}
 
 	@Override

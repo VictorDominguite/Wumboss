@@ -68,6 +68,17 @@ public class Controller implements IController{
 		
 		return img;
 	}
+	
+	public File hackFontFile(String mode) {
+		try {
+			File f = new File(assetsPath + "ttf/Hack-" + mode + ".ttf");
+			return f;
+		} catch(NullPointerException e) {
+			System.err.println("Unable to open font file " + e.getMessage());
+		}
+		
+		return null;
+	}
 
 	public void sendMessage(String message) {
 		if(actionHandler != null)

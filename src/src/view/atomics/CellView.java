@@ -46,7 +46,6 @@ public class CellView extends JButton implements Observer{
 		add(imgBackground);
 		
 		inscrever();
-		onUpdate();
 	}
 	
 	public void onUpdate() {
@@ -82,6 +81,7 @@ public class CellView extends JButton implements Observer{
 	
 	private void inscrever() {
 		parentPanel.getGameView().getGameModel().subToLocal(x, y, this);
+		onUpdate();
 	}
 
 }

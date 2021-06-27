@@ -66,8 +66,8 @@ public class GameModel implements IGameModel{
 		space.subToLocal(x, y, e);
 	}
 	
-	public void subToHeroi(Observer e) {
-		
+	public void subToHeroi(String info, Observer e) {
+		hero.subscribe(e);
 	}
 	
 	public void subToItem(String item, Observer e) {
@@ -80,10 +80,19 @@ public class GameModel implements IGameModel{
 		return space.estadoAtual(x, y);
 	}
 
-	public String[][] getHeroState() {
+	public String[] getHeroState(String item) {
 		isHeroAvailable();
 		
-		return null;
+		String[] res = new String[1];
+		
+		if(item.equalsIgnoreCase("vida"))
+			res[0] = "" + hero.getVida();
+		else if(item.equalsIgnoreCase("defense"))
+			res[0] = "" + hero.getDefense();
+		else if(item.equalsIgnoreCase("attack"))
+			res[0] = "" + hero.getAttackDamage();
+		
+		return res;
 	}
 	
 	public String[] getPossibleItems() {

@@ -46,7 +46,6 @@ public class ItemView extends JPanel implements Observer{
 		parent.getGameView().getController().setButtonMappings(equipButton);
 		
 		inscrever();
-		onUpdate();
 		
 		JLabel lName = new JLabel(name);
 		lName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,5 +93,6 @@ public class ItemView extends JPanel implements Observer{
 	
 	private void inscrever() {
 		parentPanel.getGameView().getGameModel().subToItem(name, this);
+		onUpdate();
 	}
 }

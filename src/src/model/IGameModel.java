@@ -11,7 +11,7 @@ public interface IGameModel {
 	/* Interacao com os outros componentes */
 		/* Observer pattern */
 		public void subToLocal(int x, int y, Observer e);
-		public void subToHeroi(Observer e);
+		public void subToHeroi(String info, Observer e);
 		public void subToItem(String item, Observer e);
 		
 		/* Requerir informacoes */
@@ -22,10 +22,10 @@ public interface IGameModel {
 		public String[] getCaveState(int x, int y);
 		
 		/* Retorna o estado do herói relevante ao View
-		 * Isso inclui a vida atual dele, seu poder de
-		 * ataque e defesa, possivelmente seu nome, etc 
+		 * O retorno eh apenas um numero em formato de String
+		 * na primeira posicao do array
 		 * */
-		public String[][] getHeroState();
+		public String[] getHeroState(String item);
 		
 		public String[] getPossibleItems();
 		
