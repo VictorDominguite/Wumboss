@@ -1,5 +1,6 @@
 package src.model.space;
 
+import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
@@ -99,6 +100,13 @@ public class Caverna implements ICave{
     	
         idAtivo = passagem.getDestino();
         
+		if (ehSalaBoss(idAtivo) && e instanceof Heroi) {
+			if (!((Heroi) e).getInventario().getItem("Chave").isColetado()) {
+				addEntidade(xEnt, yEnt, e);
+				return;
+			}
+		}
+
         int xFim = passagem.getXFim();
         int yFim = passagem.getYFim();
         
@@ -124,4 +132,8 @@ public class Caverna implements ICave{
     	
     	return true;
     }
+
+	private boolean ehSalaBoss(int id) {
+		return id == Constantes.NUM_SALAS_CAVERNA - 1;
+	}
 }
