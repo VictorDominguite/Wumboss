@@ -1,6 +1,5 @@
 package src.model.entidade.dinamica;
 
-import src.model.entidade.IEntidade;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
@@ -9,11 +8,16 @@ import src.utils.exceptions.ErroDeInteracao;
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
     protected int vida, ataque, defesa;
     protected int alcance = 1, envenenado = 0;
+    protected int cooldownMovimento = 1;
 
     public EntidadeViva(int vida, int ataque, int defesa) {
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
+    }
+    
+    public int getCooldownMovimento() {
+    	return cooldownMovimento;
     }
     
     public String interagir(IEntidadeDinamica e) {

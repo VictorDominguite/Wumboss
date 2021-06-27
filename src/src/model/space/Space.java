@@ -14,6 +14,8 @@ public class Space implements ISpace{
 	
 	private IHeroi heroInstance;
 	
+	private int globalTimer = 0;
+	
 	public static ISpace getInstance() {
     	if (instance == null) {
     		instance = new Space();
@@ -34,8 +36,10 @@ public class Space implements ISpace{
 	public void moverEntidade(int x, int y, Direcao dir) {
 		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade() instanceof Heroi && cave.moveEntidade(x, y, dir)) {
 			atualizarVisaoEInimigos();
+			globalTimer += 1;
 		}
 		else cave.moveEntidade(x, y, dir);
+		
 	}
 
 	public void addEntidade(int x, int y, IEntidadeDinamica e) {
@@ -93,7 +97,8 @@ public class Space implements ISpace{
             }
         }
 		for (IInimigo i : inimigosAlerta) {
-			if (i != null)
+			System.out.println(globalTimer);
+			if (i != null && globalTimer % i.getCooldownMovimento() == 0)
 				i.moverEmDirecaoA(heroiX, heroiY);
 		}
     }
