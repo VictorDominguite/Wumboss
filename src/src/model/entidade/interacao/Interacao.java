@@ -1,5 +1,6 @@
 package src.model.entidade.interacao;
 
+import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
@@ -13,7 +14,7 @@ import src.view.IGameView;
 
 public class Interacao implements IInteracao {
 
-    public String interagir(IEntidadeViva e1, IEntidadeViva e2) throws ErroDeInteracao {
+    public String interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
     	if(e2 == null)
     		return "mover";
         if (e1.isHeroi() && e2 instanceof Item) {

@@ -9,7 +9,6 @@ import src.utils.exceptions.ErroDeInteracao;
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
     protected int vida, ataque, defesa;
     protected int alcance = 1, envenenado = 0;
-    protected boolean isInimigo = false;
 
     public EntidadeViva(int vida, int ataque, int defesa) {
         this.vida = vida;
@@ -17,7 +16,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
         this.defesa = defesa;
     }
     
-    public String interagir(IEntidadeViva e) {
+    public String interagir(IEntidadeDinamica e) {
         try {
             String interacao = objInteracao.interagir(this, e);
             return interacao;
@@ -39,14 +38,6 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	if (e == null) return;
         if(e.efeito().equals("veneno"))
     		this.envenenar();
-    }
-    
-    public boolean isHeroi() {
-    	return (this instanceof IHeroi);
-    }
-    
-    public boolean isInimigo() {
-    	return isInimigo;
     }
     
     public boolean estaEnvenenado() {

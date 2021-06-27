@@ -10,7 +10,6 @@ public abstract class Inimigo extends EntidadeViva implements IInimigo {
         super(vida, ataque, defesa);
         
         this.emAlerta = false;
-        this.isInimigo = true;
     }
     
     @Override
