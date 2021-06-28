@@ -56,7 +56,7 @@ public class InfoPanel extends Panel{
         
         trancado = false;
         setFeed("<html> Depois de um longo tempo de queda, <br>"
-        		+ "voce finalmente chegando fundo do buraco. <br>"
+        		+ "voce finalmente chegou no fundo do buraco. <br>"
         		+ "Uma brisa muito gelada bate, e voce se treme. <br>"
         		+ "Voce esta sozinho e com frio no 'fundo do poco'. </html>");
         
@@ -68,7 +68,7 @@ public class InfoPanel extends Panel{
 	}
 	
 	public static void setFeed(String feed, Color c) {
-		if(c == Color.red) {
+		if(c == Color.red || c == Color.blue) {
 			trancado = true;
 			textFeed.setForeground(c);
 			

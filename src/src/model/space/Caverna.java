@@ -1,5 +1,7 @@
 package src.model.space;
 
+import java.awt.Color;
+
 import src.model.IGameModel;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
@@ -55,9 +57,6 @@ public class Caverna implements ICave{
     		} 
     		else if (interacao.equals("ataque") || interacao.equals("parado")) {
     			origem.pushEntidade(e);
-    		} 
-    		else {
-    			// TODO: excecao - erro na interacao
     		}
     		
     		((IEntidadeViva) e).processarEfeitos();
@@ -121,6 +120,10 @@ public class Caverna implements ICave{
 				IGameModel.sendFeedToView("Voce precisa de uma chave para acessar essa sala!");
 				return;
 			}
+			else {
+				IGameModel.sendFeedToView("<html> Voce se arrepia. Uma brisa forte bate <br>"
+										+ "na sua cara... Voce tem um mal pressentimento </html>", Color.gray);
+			}
 		}
 
         int xFim = passagem.getXFim();
@@ -149,16 +152,13 @@ public class Caverna implements ICave{
     }
 
 	private boolean ehSalaBoss(int id) {
-		boolean temWumboss = false;
 		for (int i = 0; i < getSala(id).getTamX(); i++) {
 			for (int j = 0; j < getSala(id).getTamY(); j++) {
-				if (getSala(id).getCelula(i, j).peekEntidade() instanceof Wumboss) {
-					temWumboss = true;
-					break;
-				}
+				if (getSala(id).getCelula(i, j).peekEntidade() instanceof Wumboss)
+					return true;
 			}
 		}
-		return temWumboss;
+		return false;
 	}
 
 	public void destroy() {

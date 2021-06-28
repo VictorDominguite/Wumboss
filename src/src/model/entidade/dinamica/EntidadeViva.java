@@ -54,16 +54,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     }
     
     public void moverEmDirecaoA(int x, int y) {
-    	int deltaX = Math.abs(x - posX);
-    	int deltaY = Math.abs(y - posY);
-    	// Primeiro tenta se mover para a direção de maior delta, depois para a de menor, caso ambos falharem,
-        // tenta mover para qualquer outro lado, mesmo que se afaste de (x, y) nesse caso
-    	Direcao d;
-    	
-    	if (deltaX > deltaY) 
-    		d = (x > posX) ? Direcao.LESTE : Direcao.OESTE;
-    	else 
-    		d = (y > posY) ? Direcao.SUL : Direcao.NORTE;
+    	Direcao d = Direcao.compare(getPosX(), getPosY(), x, y);
     	
     	Direcao dInicial = d;
     	while(!mover(d)) {

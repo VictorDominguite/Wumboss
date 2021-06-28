@@ -5,6 +5,7 @@ import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
+import src.model.entidade.dinamica.Wumboss;
 import src.model.entidade.itens.Arco;
 import src.model.entidade.itens.Armadura;
 import src.model.entidade.itens.Capacete;
@@ -31,6 +32,8 @@ public class Interacao implements IInteracao {
         		IGameModel.sendFeedToView("... leia a descricao das flechas");
         	else if(danoDado == -2)
         		IGameModel.sendFeedToView("Ainda ta meio longe demais pra voce...");
+        	else if(danoDado == 0)
+        		IGameModel.sendFeedToView("Voce ainda e fraco demais para dar dano nele :(");
         	else
         		IGameModel.sendFeedToView("Voce deu " + danoDado + " de dano! :o");
         	
@@ -40,8 +43,10 @@ public class Interacao implements IInteracao {
         	int danoDado = atacar((IInimigo) e1, (IHeroi) e2);
         	if(danoDado > 40)
         		IGameModel.sendFeedToView("Dica de vida: Nao confie em gatinhos fofinhos");
-        	else
+        	else if(danoDado > 0)
         		IGameModel.sendFeedToView("Voce foi atacado! :(  -" + danoDado + " de vida");
+        	else
+        		IGameModel.sendFeedToView("Voce e resiliente demais para ele");
         	
             return "ataque";
         }
@@ -54,6 +59,11 @@ public class Interacao implements IInteracao {
 
     public int atacar(IEntidadeViva agressor, IEntidadeViva atacado) {
         int danoCausado;
+        
+        // Verifica se o ataque está no alcance
+        if(agressor.getAlcance() < agressor.distanciaAte(atacado.getPosX(), atacado.getPosY())) 
+        	return -2;
+        
         // Condição para não atacar com arco sem flechas
         if (agressor.isHeroi() && ((IHeroi) agressor).getInventario().getArmaEquipada() instanceof Arco) {
             Flecha flechas = (Flecha) ((IHeroi)  agressor).getInventario().getItem("Flecha");
@@ -63,16 +73,15 @@ public class Interacao implements IInteracao {
             	return -1;
         } 
 
-        // Verifica se o ataque está no alcance
-        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) 
-        	return -2;
-
         if (agressor.getAttackDamage() > atacado.getDefense()) 
             danoCausado = agressor.getAttackDamage() - atacado.getDefense();
         else
             danoCausado = 0;
 
         atacado.receberDano(danoCausado);
+        if(atacado instanceof Wumboss) 
+        	((Wumboss) atacado).revidar(agressor);
+        
         return danoCausado;
     }
 
@@ -80,8 +89,9 @@ public class Interacao implements IInteracao {
         item.coletar();
         h.getInventario().getItem(item.getNome()).setColetado(true);
         if (item instanceof Flecha)
-            ((Flecha) h.getInventario().getItem("Flecha")).addFlechas(((Flecha)item).getNumFlechas());
+            ((Flecha) h.getInventario().getItem("Flecha")).addFlechas(((Flecha) item).getNumFlechas());
 
+        //equipa automaticamente
         if (item instanceof Armadura || item instanceof Capacete || item instanceof Chave ||
             item instanceof Tocha || item instanceof Mapa) 
             h.getInventario().getItem(item.getNome()).equipar();
