@@ -422,9 +422,9 @@ Método | Objetivo
 --- | ---
 `start` | Inicializa o jogo
 `setControl` | Conecta Model ao Controller
-`subToLocal` | | Indica quando algo se altera no espaço
-`subToHero` | | Indica quando algo se altera no Heroi
-`subToItem` | | Indica quando algo se altera em um item do inventário
+`subToLocal` | Indica quando algo se altera no espaço
+`subToHero` | Indica quando algo se altera no Heroi
+`subToItem` | Indica quando algo se altera em um item do inventário
 `getCaveState` | Retorna informações sobre o estado atual de uma posição na sala ativa
 `getHeroState` | Retorna o estado atual do herói
 `getPossibleCollectableItems` | Retorna uma lista de todos os itens únicos do inventário
