@@ -16,8 +16,6 @@ public interface ICelula {
 	public void setVisivel(boolean visivel);
 	public void inativar();
 	
-	public int distanciaAte(int x, int y);
-	
 	public void subscribe(Observer o);
 	public String[] estado();
 }

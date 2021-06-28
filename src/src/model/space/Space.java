@@ -73,9 +73,9 @@ public class Space implements ISpace{
 		IInimigo inimigosAlerta[] = new IInimigo[maxInimigos];
 		int k = 0;
 
-        for (int i = 0; i < salaAtual.getTamX(); i++) {
-            for (int j = 0; j < salaAtual.getTamY(); j++) {
-            	ICelula cellAtual = salaAtual.getCelula(i, j);
+        for (int x = 0; x < salaAtual.getTamX(); x++) {
+            for (int y = 0; y < salaAtual.getTamY(); y++) {
+            	ICelula cellAtual = salaAtual.getCelula(x, y);
                 
                 IEntidadeDinamica e = cellAtual.peekEntidade();
                 if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta()) {
@@ -83,7 +83,7 @@ public class Space implements ISpace{
 					k++;
 				}
                 
-                if (cellAtual.distanciaAte(heroiX, heroiY) <= heroInstance.getVisao()) {
+                if (distanciaAte(x, y, heroiX, heroiY) <= heroInstance.getVisao()) {
                 	cellAtual.setVisivel(true);
                 	
                     if (e != null && e instanceof IInimigo) {
@@ -93,7 +93,7 @@ public class Space implements ISpace{
                 }
                 else {
                 	if(cellAtual.isVisivel() && !heroInstance.getInventario().getItem("Mapa").isEquipado())
-                		salaAtual.getCelula(i, j).setVisivel(false);
+                		salaAtual.getCelula(x, y).setVisivel(false);
                 }
             }
         }
@@ -102,4 +102,13 @@ public class Space implements ISpace{
 				i.moverEmDirecaoA(heroiX, heroiY);
 		}
     }
+
+	public void refreshLocal(int x, int y) {
+		ICelula c = cave.getSalaAtiva().getCelula(x, y);
+		c.setVisivel(c.isVisivel());
+	}
+
+	public int distanciaAte(int xIni, int yIni, int xFim, int yFim) {
+		return Math.abs(xIni - xFim) + Math.abs(yIni - yFim);
+	}
 }

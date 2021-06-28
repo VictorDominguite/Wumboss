@@ -97,8 +97,4 @@ public class Celula extends EventCreator implements ICelula{
             ((Inimigo) peekEntidade()).desalertar();
     	super.onUpdate(true);
     }
-
-    public int distanciaAte(int x, int y) {
-        return Math.abs(posX - x) + Math.abs(posY - y);
-    }
 }

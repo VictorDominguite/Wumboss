@@ -13,7 +13,7 @@ public class Heroi extends EntidadeViva implements IHeroi {
 
     private Heroi(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
-        this.inv = new Inventario(10);
+        this.inv = new Inventario(10, this);
     }
     
     public Heroi() {
@@ -36,6 +36,9 @@ public class Heroi extends EntidadeViva implements IHeroi {
 		else if(action.equalsIgnoreCase("attack")) {
 			
 		}
+		else if(action.equalsIgnoreCase("update")) {
+			onUpdate();
+		}
 	}
 
 	public int getVisao() {
@@ -43,6 +46,12 @@ public class Heroi extends EntidadeViva implements IHeroi {
 		if (inv.getItem("Tocha") != null && inv.getItem("Tocha").isEquipado())
 			visao += ((Tocha) inv.getItem("Tocha")).getIncrementoVisao();
 		return visao;
+	}
+	
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		space.refreshLocal(getPosX(), getPosY());
 	}
 	
 	@Override

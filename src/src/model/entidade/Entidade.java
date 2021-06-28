@@ -3,7 +3,6 @@ package src.model.entidade;
 import src.model.entidade.interacao.IInteracao;
 import src.model.entidade.interacao.Interacao;
 import src.model.space.ISpace;
-import src.utils.exceptions.ErroDeInteracao;
 import src.utils.observer.EventCreator;
 
 public abstract class Entidade extends EventCreator implements IEntidade {
@@ -36,7 +35,7 @@ public abstract class Entidade extends EventCreator implements IEntidade {
     }
     
     public int distanciaAte(int x, int y) {
-        return this.space.getCelula(posX, posY).distanciaAte(x, y);
+        return space.distanciaAte(getPosX(), getPosY(), x, y);
     }
 
     @Override
