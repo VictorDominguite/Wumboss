@@ -7,7 +7,7 @@ public class Serpente extends Inimigo {
     }
     
     public Serpente() {
-    	this(1, 6, 0);
+    	this(1, 4, 0);
     }
 
 	@Override

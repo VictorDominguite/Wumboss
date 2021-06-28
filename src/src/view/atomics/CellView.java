@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
@@ -21,10 +20,8 @@ public class CellView extends JButton implements Observer{
 	private final Border emptyBorder = BorderFactory.createEmptyBorder();
 	
 	private class MouseListen implements MouseListener{
-		private final Border over = BorderFactory.createBevelBorder(
-				BevelBorder.LOWERED, Color.red, Color.red);
-		private final Border clicked = BorderFactory.createBevelBorder(
-				BevelBorder.LOWERED, Color.orange, Color.orange);
+		private final Border over = BorderFactory.createLineBorder(Color.red);
+		private final Border clicked = BorderFactory.createLineBorder(Color.orange);
 		private CellView instance;
 		
 		public MouseListen(CellView instance) {

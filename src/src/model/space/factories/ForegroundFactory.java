@@ -51,8 +51,7 @@ public class ForegroundFactory {
 		try {
 			result = classe.getConstructor().newInstance();
 		} catch (Exception e) {
-			//TODO: Melhor exception handling
-			e.printStackTrace();
+			System.err.println("Nao foi possivel decodificar uma entidade dinamica na sala: " + e.getMessage());
 		}
 		
 		return result;

@@ -8,7 +8,7 @@ public class Orc extends Inimigo {
     }
     
     public Orc() {
-    	this(4, 2, 3);
+    	this(4, 6, 3);
     }
 
 	@Override

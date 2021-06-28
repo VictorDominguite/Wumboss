@@ -18,8 +18,8 @@ public class InfoView extends JPanel implements Observer{
 	private String who;
 	private String what;
 	
-	private int prevValue;
-	private int value = 999;
+	private int maxLife;
+	private int value = 0;
 	
 	private JLabel infoItself;
 	
@@ -50,7 +50,8 @@ public class InfoView extends JPanel implements Observer{
 		String[] info = getInfo();
 		if(info == null)
 			return;
-		this.prevValue = value;
+		
+		this.maxLife = Math.max(value, maxLife);
 		this.value = Integer.parseInt(info[0]);
 		
 		setDisplay();
@@ -60,21 +61,17 @@ public class InfoView extends JPanel implements Observer{
 		String tempString = "";
 		
 		if(what.equalsIgnoreCase("vida")) {
-			if(value > prevValue)
-				InfoPanel.setFeed("Voce se sente mais vivo...");
-			else if(value < prevValue)
-				InfoPanel.setFeed("Voce se sente menos vivo...");
-			
-			for(int i = 0; i < value; i++) {
+			int i = 0;
+			for(; i < value; i++) {
 				tempString += "♥";
 			}
+			for(; i < maxLife; i++) {
+				tempString += "♡";
+			}
+			
 		}
 		
 		if(what.equalsIgnoreCase("defense")) {
-			if(value > prevValue)
-				InfoPanel.setFeed("Voce se sente mais resiliente...");
-			else if(value < prevValue)
-				InfoPanel.setFeed("Voce se sente menos resiliente...");
 			
 			for(int i = 0; i < value; i++) {
 				tempString += "☗";
@@ -82,11 +79,6 @@ public class InfoView extends JPanel implements Observer{
 		}
 		
 		if(what.equalsIgnoreCase("attack")) {
-			if(value > prevValue)
-				InfoPanel.setFeed("Voce se sente mais forte...");
-			else if(value < prevValue)
-				InfoPanel.setFeed("Voce se sente mais fraco...");
-			
 			for(int i = 0; i < value; i++) {
 				tempString += "⚔";
 			}

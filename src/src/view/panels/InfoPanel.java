@@ -63,6 +63,19 @@ public class InfoPanel extends Panel{
         feed.add(textFeed);
     }
 	
+	public void addToFeed(String message) {
+		addToFeed(message, Color.black);
+	}
+	
+	public void addToFeed(String message, Color c) {
+		textFeed.setForeground(c);
+		
+		String text = textFeed.getText().strip();
+		text = "<html>" + text + "<br> <br>" + message + "</html>";
+		
+		textFeed.setText(text);
+	}
+	
 	public static void setFeed(String feed) {
 		setFeed(feed, Color.black);
 	}

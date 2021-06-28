@@ -21,6 +21,8 @@ public class Interacao implements IInteracao {
     public String interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
     	if(e2 == null)
     		return "mover";
+    	if(!e1.estaVivo())
+    		return "";
     	
         if (e1.isHeroi() && e2 instanceof IItem) {
             coletarItem((IHeroi) e1, (IItem) e2);

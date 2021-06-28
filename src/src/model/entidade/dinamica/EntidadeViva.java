@@ -1,5 +1,6 @@
 package src.model.entidade.dinamica;
 
+import src.model.IGameModel;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
@@ -90,7 +91,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
         return alcance;
     }
 
-    protected boolean estaVivo() {
+    public boolean estaVivo() {
         return vida > 0;
     }
 
@@ -104,6 +105,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
 
     protected void envenenar() {
         envenenado = PocoVenenoso.getDuracaoEfeito();
+        IGameModel.sendFeedToView("<html> eww, voce pulou numa <br> piscina de veneno! <html>");
     }
 
     protected void receberDanoVeneno() {

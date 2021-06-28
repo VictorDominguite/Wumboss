@@ -12,6 +12,7 @@ public interface IEntidadeViva extends IEntidadeDinamica {
     public boolean estaEnvenenado();
     
     public void moverEmDirecaoA(int x, int y);
+    public boolean estaVivo();
     
     public int getAttackDamage();
     public int getDefense();
