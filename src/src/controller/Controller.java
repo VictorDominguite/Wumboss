@@ -51,7 +51,7 @@ public class Controller implements IController{
 		if(tipo < 10)
 			path = dataPath + "tipo0" + tipo + "/sala0" + modelo + ".csv";
 		else
-			path = dataPath + "tipo" + tipo + "/sala" + modelo + ".csv";
+			path = dataPath + "tipo" + tipo + "/sala0" + modelo + ".csv";
 		
 		try {
 			res = fileIO.readCSV(path);

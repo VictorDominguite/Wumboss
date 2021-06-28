@@ -77,13 +77,10 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     }
     
     public void receberDano(int dano) {
-    	int vidaRestante = this.vida - dano;
-    	if (vidaRestante <= 0) {
+    	this.vida -= dano;
+    	if (vida <= 0) {
     		this.vida = 0;
     		this.morrer();
-    	}
-    	else {
-    		this.vida = vidaRestante;
     	}
     }
 

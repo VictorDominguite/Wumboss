@@ -7,7 +7,7 @@ public class GatinhoFofo extends Inimigo {
     }
     
     public GatinhoFofo() {
-    	this(1, 100, 0);
+    	this(1, 999, 0);
     }
 
 	@Override

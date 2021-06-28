@@ -7,7 +7,7 @@ public class Goblin extends Inimigo {
     }
     
     public Goblin() {
-    	this(2, 1, 0);
+    	this(2, 2, 0);
     }
 
 	@Override

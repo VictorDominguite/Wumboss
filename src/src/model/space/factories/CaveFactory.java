@@ -14,9 +14,16 @@ public class CaveFactory {
 	public static Caverna montar() {
 		Caverna cave = new Caverna();
 		ArrayList<Integer> tiposSalas = new ArrayList<Integer>();
+		
+		int temp = Constantes.NUM_TIPOS_DISPONIVEIS;
 
-		for (int i = 0; i < Constantes.NUM_SALAS_CAVERNA - 1; i ++) {
+		for (int i = 0; i < temp - 1; i ++) {
 			tiposSalas.add(i);
+		}
+		
+		while(temp < Constantes.NUM_SALAS_CAVERNA) {
+			tiposSalas.add(Constantes.TIPO_SALAS_SEM_ITEMS);
+			temp += 1;
 		}
 
 		Collections.shuffle(tiposSalas);
