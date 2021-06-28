@@ -3,10 +3,13 @@ package src.model.space;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
 import src.utils.Direcao;
+import src.utils.actions.IActionExecutor;
 import src.utils.observer.Observer;
 
-public interface ISpace {
-	public void connect(IHeroi hero);
+public interface ISpace extends IActionExecutor{
+	public void connectHero(IHeroi hero);
+	public void disconnectHero();
+	public void destroy();
 	
 	public void subToLocal(int x, int y, Observer e);
 	

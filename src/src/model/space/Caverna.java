@@ -152,4 +152,12 @@ public class Caverna implements ICave{
 		}
 		return temWumboss;
 	}
+
+	public void destroy() {
+		for(ISala s : salas) {
+			s.destroy();
+		}
+		salas = null;
+		
+	}
 }

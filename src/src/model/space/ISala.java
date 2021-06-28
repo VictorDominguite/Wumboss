@@ -18,5 +18,6 @@ public interface ISala {
 	public ICelula getCelula(int x, int y);
 	
 	public void subToLocal(int x, int y, Observer e);
+	public void destroy();
 
 }

@@ -101,5 +101,10 @@ public class Controller implements IController{
 	public void setButtonMappings(JButton b) {
 		b.addActionListener(view);
 	}
+
+	public void disconnect() {
+		this.actionHandler = null;
+		
+	}
 	
 }

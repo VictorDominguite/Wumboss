@@ -15,6 +15,7 @@ public interface ICelula {
 	public boolean isVisivel();
 	public void setVisivel(boolean visivel);
 	public void inativar();
+	public void destroy();
 	
 	public void subscribe(Observer o);
 	public String[] estado();

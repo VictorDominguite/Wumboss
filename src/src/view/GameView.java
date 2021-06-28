@@ -27,10 +27,11 @@ public class GameView extends JFrame implements IGameView{
 
     public GameView() {
         super("O submundo de Wumboss");
-
+        
         setSize(Constantes.WINDOW_SIZE_X, Constantes.WINDOW_SIZE_Y);
         setLocation(200, 100);
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public void montarView() {
@@ -38,9 +39,10 @@ public class GameView extends JFrame implements IGameView{
         configurePanels();
         
         ImageCache.setGameView(this);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+    }
+    
+    public void showView() {
+    	setVisible(true);
     }
 
     private void createPanels() {
@@ -65,6 +67,15 @@ public class GameView extends JFrame implements IGameView{
 		} catch (IOException e) {
 			System.err.println("There was a problem opening the font file: " + e.getMessage());
 		}
+    }
+    
+    public void rebuild() {
+    	remove(gp);
+    	remove(infop);
+    	remove(invp);
+    	
+    	montarView();
+    	showView();
     }
     
     public IGameModel getGameModel() {

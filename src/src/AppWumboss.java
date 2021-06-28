@@ -8,16 +8,28 @@ import src.view.GameView;
 import src.view.IGameView;
 
 public class AppWumboss {
+	private static IController controller;
+	private static IGameModel model;
+	private static IGameView view;
+	
 	public static void main(String[] args) {
-		IController controller = new Controller("data/", "assets/");
-		IGameModel gm = new GameModel();
-		IGameView mv = new GameView();
+		controller = new Controller("data/", "assets/");
+		model = GameModel.getInstance();
+		view = new GameView();
 		
-		mv.setControl(controller);
-		mv.setModel(gm);
-		gm.setControl(controller);
+		view.setControl(controller);
+		connectModel(model, false);
+		view.montarView();
+		view.showView();
+	}
+	
+	public static void connectModel(IGameModel g, boolean rebuilding) {
+		model = g;
+		view.setModel(g);
+		g.setControl(controller);
 		
-		gm.start();
-		mv.montarView();
+		g.start();
+		if(rebuilding)
+			view.rebuild();
 	}
 }

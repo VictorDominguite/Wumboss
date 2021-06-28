@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import src.model.entidade.dinamica.EntidadeViva;
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.Inimigo;
+import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.itens.Flecha;
 import src.utils.Constantes;
@@ -93,8 +93,17 @@ public class Celula extends EventCreator implements ICelula{
     
     
     public void inativar() {
-        if (peekEntidade() instanceof Inimigo)
-            ((Inimigo) peekEntidade()).desalertar();
+        if (peekEntidade() instanceof IInimigo)
+            ((IInimigo) peekEntidade()).desalertar();
     	super.onUpdate(true);
     }
+
+
+	public void destroy() {
+		actors.clear();
+		background = null;
+		super.disconnectAll();
+		
+		inativar();
+	}
 }

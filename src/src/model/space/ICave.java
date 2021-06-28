@@ -10,4 +10,5 @@ public interface ICave extends ICaveProperties{
     public IEntidadeDinamica removeEntidade(int x, int y);
     
     public void subToLocal(int x, int y, Observer e);
+    public void destroy();
 }

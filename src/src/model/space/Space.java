@@ -1,5 +1,6 @@
 package src.model.space;
 
+import src.model.GameModel;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IHeroi;
@@ -29,7 +30,7 @@ public class Space implements ISpace{
 		cave = CaveFactory.montar();
 	}
 	
-	public void connect(IHeroi hero) {
+	public void connectHero(IHeroi hero) {
 		this.heroInstance = hero;
 	}
 
@@ -110,5 +111,26 @@ public class Space implements ISpace{
 
 	public int distanciaAte(int xIni, int yIni, int xFim, int yFim) {
 		return Math.abs(xIni - xFim) + Math.abs(yIni - yFim);
+	}
+
+	public void sendMessage(String action, String... args) {
+		if(action.equalsIgnoreCase("destroy")) {
+			System.exit(0);
+		}
+		else if(action.equalsIgnoreCase("rebuild")) {
+			if(heroInstance.getVida() <= 0)
+				GameModel.rebuild();
+		}
+	}
+
+	public void disconnectHero() {
+		this.heroInstance = null;
+	}
+	
+	public void destroy() {
+		disconnectHero();
+		cave.destroy();
+		cave = null;
+		Space.instance = null;
 	}
 }

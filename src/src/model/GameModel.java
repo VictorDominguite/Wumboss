@@ -1,5 +1,6 @@
 package src.model;
 
+import src.AppWumboss;
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IHeroi;
@@ -15,12 +16,43 @@ import src.utils.exceptions.SemReferenciaAComponente;
 import src.utils.observer.Observer;
 
 public class GameModel implements IGameModel{
+	private static GameModel instance;
 	private IController io;
 	private IActionParser modelAction;
 	
 	private ISpace space;
 	private IHeroi hero;
 	private IInventario inv;
+	
+	public static GameModel getInstance() {
+    	if (instance == null) {
+    		System.out.println("hi");
+    		instance = new GameModel();
+    	}
+    	
+    	return instance;
+    }
+	
+	public static void rebuild() {
+		instance.rebuildInstance();
+	}
+	
+	public void rebuildInstance() {
+		modelAction.disconnectFromAll();
+		
+		space.disconnectHero();
+		space.destroy();
+		hero.destroy();
+		
+		space = null;
+		hero = null;
+		inv = null;
+		
+		io.disconnect();
+		
+		GameModel.instance = null;
+		AppWumboss.connectModel(GameModel.getInstance(), true);
+	}
 	
 	public void start() {
 		montarCaverna();
@@ -35,6 +67,10 @@ public class GameModel implements IGameModel{
 	public void montarCaverna() {
 		SalaFactory.setIO(io);
 		space = Space.getInstance();
+		
+		if(modelAction != null) {
+			modelAction.connect("space", space);
+		}
 	}
 	
 	public void setHeroi(Heroi h) {
@@ -44,7 +80,7 @@ public class GameModel implements IGameModel{
 			modelAction.connect("hero", h);
 		if(space != null) {
 			hero.connect(space);
-			space.connect(hero);
+			space.connectHero(hero);
 		}
 	}
 	
