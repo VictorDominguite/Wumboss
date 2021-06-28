@@ -12,7 +12,7 @@ public interface ISpace {
 
 	public ICelula getCelula(int x, int y);
 	
-	public void moverEntidade(int x, int y, Direcao dir);
+	public boolean moverEntidade(int x, int y, Direcao dir);
 	public void addEntidade(int x, int y, IEntidadeDinamica e);
     public IEntidadeDinamica removerEntidade(int x, int y);
 

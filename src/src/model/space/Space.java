@@ -33,12 +33,13 @@ public class Space implements ISpace{
 		this.heroInstance = hero;
 	}
 
-	public void moverEntidade(int x, int y, Direcao dir) {
+	public boolean moverEntidade(int x, int y, Direcao dir) {
 		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade() instanceof Heroi && cave.moveEntidade(x, y, dir)) {
 			atualizarVisaoEInimigos();
 			globalTimer += 1;
+			return true;
 		}
-		else cave.moveEntidade(x, y, dir);
+		else return cave.moveEntidade(x, y, dir);
 		
 	}
 

@@ -41,7 +41,7 @@ public class Caverna implements ICave{
     	if(!celulasValidas(origem, fim))
     		return false;
 			
-		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof Inimigo) return true;
+		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof Inimigo) return false;
     	if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
     		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
     	} 
