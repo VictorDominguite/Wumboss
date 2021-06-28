@@ -5,9 +5,9 @@ public class Capacete extends Item {
 
     public Capacete() {
         super(false, false);
-        this.defesa = 4;
+        this.defesa = 2;
         
-        setDescricao("<html> Um protetor de cabeca <br> <em> +4 def </em> </html>");
+        setDescricao("<html> Um protetor de cabeca <br> <em> +2 def </em> </html>");
     }
 
     public int getDefesa() {

@@ -90,7 +90,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
         return alcance;
     }
 
-    protected boolean estaVivo() {
+    public boolean estaVivo() {
         return vida > 0;
     }
 
