@@ -98,6 +98,14 @@ public class Caverna implements ICave{
     	else
     		throw new IDInvalido("Sala", s.getID(), id);
     }
+    
+    public void atacar(IEntidadeViva e, int x, int y) {
+        ICelula fim = getSalaAtiva().getCelula(x, y);
+        IEntidadeDinamica entFim = fim.peekEntidade();
+        
+        if(entFim != null && entFim.isInimigo())
+            e.interagir(fim.peekEntidade());
+    }
 
     public void moverEntidadeEntreSalas(int xEnt, int yEnt, IPassagem passagem) {
     	int idInativado = getSalaAtiva().getID();

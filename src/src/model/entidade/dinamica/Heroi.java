@@ -38,7 +38,12 @@ public class Heroi extends EntidadeViva implements IHeroi {
 				mover(Direcao.fromString(args[0]));
 		}
 		else if(action.equalsIgnoreCase("attack")) {
-			
+			if(args != null) {
+				String[] temp = args[0].split(":");
+				int x = Integer.parseInt(temp[0]);
+				int y = Integer.parseInt(temp[1]);
+				space.atacar(this, x, y);
+			}
 		}
 		else if(action.equalsIgnoreCase("update")) {
 			onUpdate();

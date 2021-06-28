@@ -3,6 +3,7 @@ package src.model.space;
 import src.model.GameModel;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.space.factories.CaveFactory;
@@ -50,6 +51,10 @@ public class Space implements ISpace{
 
 	public IEntidadeDinamica removerEntidade(int x, int y) {
 		return cave.removeEntidade(x, y);
+	}
+	
+	public void atacar(IEntidadeViva e, int x, int y) {
+		cave.atacar(e, x, y);
 	}
 
 	public String[] estadoAtual(int x, int y) {
