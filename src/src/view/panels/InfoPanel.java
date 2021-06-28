@@ -16,15 +16,12 @@ import src.view.atomics.InfoView;
 public class InfoPanel extends Panel{
 	private static final long serialVersionUID = 7502620923273176398L;
 	
-	private static JLabel textFeed;
+	private static JLabel textFeed = new JLabel("");
 	private static boolean trancado = false;
 
 	public InfoPanel(GameView gv){
         super(gv);
         
-        //BoxLayout infoPanelLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        
-        //setLayout(infoPanelLayout);
         setPreferredSize(new Dimension((int) (Constantes.WINDOW_SIZE_X*0.5), Constantes.WINDOW_SIZE_Y*8/10));
         
         Font f = this.masterView.getFont().deriveFont(Font.BOLD, 24f);
@@ -33,9 +30,7 @@ public class InfoPanel extends Panel{
         title.setFont(f);
         
         JPanel feed = new JPanel();
-        textFeed = new JLabel("howdy");
         textFeed.setFont(f.deriveFont(Font.ITALIC, 18f));
-        feed.add(textFeed);
         
         JPanel trueInfo = new JPanel();
         BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
@@ -59,10 +54,13 @@ public class InfoPanel extends Panel{
         add(trueInfo);
         add(feed);
         
+        trancado = false;
         setFeed("<html> Depois de um longo tempo de queda, <br>"
         		+ "voce finalmente chegando fundo do buraco. <br>"
         		+ "Uma brisa muito gelada bate, e voce se treme. <br>"
         		+ "Voce esta sozinho e com frio no 'fundo do poco'. </html>");
+        
+        feed.add(textFeed);
     }
 	
 	public static void setFeed(String feed) {

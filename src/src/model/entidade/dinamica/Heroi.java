@@ -5,7 +5,6 @@ import java.awt.Color;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Elixir;
 import src.model.entidade.itens.IInventario;
-import src.model.entidade.itens.IItem;
 import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.model.entidade.itens.Tocha;
