@@ -21,7 +21,7 @@ public class Heroi extends EntidadeViva implements IHeroi {
     }
     
     public Heroi() {
-    	this(6, 0, 1);
+    	this(10, 0, 1);
     }
 
     public IInventario getInventario() {
