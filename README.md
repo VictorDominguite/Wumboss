@@ -15,6 +15,7 @@ O _Submundo de Wumboss_ é um jogo criado em Java, pensado como uma continuaçã
 ### Slides da prévia
 [Slides de apresentação inicial do jogo](https://docs.google.com/presentation/d/1Me5ZMq8UdEnHFej91MhEyC3Btpk-YnCvo0WzEDYdrdM/edit?usp=sharing)
 ### Slides da Apresentação Final
+[Slides de apresentação final do jogo](https://docs.google.com/presentation/d/1mRQyarQHMtyBF4gRG0BXxCCoWIqquhXTJSRBX5N_6VM/edit?usp=sharing)
 
 ## Relatório de Evolução
 Ao longo do desenvolvimento do jogo, não houve mudanças fundamentais em relação ao design inicial planejado. Porém, vale ressaltar que a complexidade de se implementar o jogo se demonstrou maior do que esperada, o que fez com que, durante seu desenvolvimento, fosse necessária a criação de mais sub-componentes (como pode ser observado no diagrama de componentes) e interfaces para conectar efetivamente os principais componentes do jogo (isto é, model, view e controller).
@@ -329,9 +330,6 @@ Classes | src.src.model.GameModel, src.src.model.ModelAction
 Autores | Thiago e Victor
 Interface | IGameModel
 
-#### Interfaces
-
-Interfaces associadas a esse componente:
 
 ### **Componente View**
 
@@ -342,9 +340,6 @@ Classe | src.src.view.GameView
 Autores | Thiago e Victor
 Interface | IGameView
 
-#### Interfaces
-
-Interfaces associadas a esse componente:
 
 ### **Componente Controller**
 
@@ -355,14 +350,12 @@ Classe | src.src.controller.Controller
 Autores | Thiago e Victor
 Interface | IController
 
-#### Interfaces
-
-Interfaces associadas a esse componente:
+*OBS: As informações a respeito das interfaces associadas a cada componente encontram-se na seção abaixo*
 
 ## Detalhamento das interfaces
 
 ### **Interface IController**
-
+Interface provida pelo Conroller para receber comandos externos e ler arquivos
 ~~~java
 
 public interface IController extends IActionCreator{
@@ -386,7 +379,7 @@ Método | Objetivo
 
 
 ### **Interface IGameModel**
-
+Interface provida pelo Model para inicializar o jogo, atualizar suas informações e obter informações do seu estado atual.
 ~~~java
 
 public interface IGameModel {
@@ -438,7 +431,7 @@ Método | Objetivo
 
 
 ### **Interface ISpace**
-
+Interface provida pela espaço para atualizar suas informações, assim como obtê-las
 ~~~java
 
 public interface ISpace extends IActionExecutor{
@@ -479,7 +472,7 @@ Método | Objetivo
 `refreshLocal` | Atualiza a visibilidade de uma célula (x,y) da sala atual
 
 ### **Interface ICaveProperties**
-
+Interface provida pela caverna para obter informações básicas
 ~~~java
 
 public interface ICaveProperties{
@@ -498,7 +491,7 @@ Método | Objetivo
 
 
 ### **Interface ICave**
-
+Interface provida pela caverna para realizar alterações nela
 ~~~java
 
 public interface ICave extends ICaveProperties{
@@ -524,7 +517,7 @@ Método | Objetivo
 `destroy` | Destrói a instância da caverna
 
 ### **Interface ISala**
-
+Interface provida pela Sala para obter informações a seu respeito e alterá-las
 ~~~java
 
 public interface ISala {
@@ -563,7 +556,7 @@ Método | Objetivo
 `destroy` | Destrói a sala
 
 ### **Interface ICelula**
-
+Interface provida pela Célula para obter informações a seu respeito e alterá-las
 ~~~java
 
 public interface ICelula {
@@ -600,7 +593,7 @@ Método | Objetivo
 
 
 ### **Interface IActionCreator**
-
+Interface provida por alguém que receba os comandos e os repasse para um ActionParser
 ~~~java
 
 public interface IActionCreator{
@@ -617,7 +610,7 @@ Método | Objetivo
 
 
 ### **Interface IActionParser**
-
+Interface provida por alguém que repasse as ações para um ActionExecutor
 ~~~java
 
 public interface IActionParser{
@@ -635,7 +628,7 @@ Método | Objetivo
 `sendMessage` | Manda uma ação para um ActionExecutor
 
 ### **Interface IActionExecutor**
-
+Interface para passagem da ação para o objeto que a realizará
 ~~~java
 
 public interface IActionExecutor{
@@ -651,7 +644,7 @@ Método | Objetivo
 
 
 ### **Interface IEventCreator**
-
+Interface parao manuseio de listeners
 ~~~java
 
 public interface IEventCreator {
@@ -668,7 +661,7 @@ Método | Objetivo
 
 
 ### **Interface Observer**
-
+Interface para a atualização de observers
 ~~~java
 
 public interface Observer {
@@ -685,7 +678,7 @@ Método | Objetivo
 `getInfo` | Obtém informações a respeito do Observer
 
 ### **Interface IGameView**
-
+Interface provida pelo View para sua inicialização e alteração
 ~~~java
 
 public interface IGameView {
@@ -717,11 +710,12 @@ Método | Objetivo
 `setFeedMessage` | Altera a mensagem mostrada no painel de informações do jogo
 
 
-As demais interfaces utilizadas foram utilizadas como forma de desacoplar as partes do programa, mas não possuem um papel tão significativo para a estrutura do jogo como as descritas acima.
+As demais interfaces foram utilizadas como forma de desacoplar as partes do programa, mas não possuem um papel tão significativo para a estrutura do jogo como as descritas acima, por isso, não foram mencionadas.
 
 ## Plano de exceções
 
 ### Diagrama da hierarquia de exceções
+Todas as exceções são independentes, não herdando uma da outra.
 
 ### Descrição das classes de exceção
 
