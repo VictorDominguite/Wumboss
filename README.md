@@ -323,28 +323,44 @@ De maneira geral, aprendemos bastante sobre a prática de orientação a objetos
 #### Ficha Técnica
 item | detalhamento
 --- | ---
-Classe |
-Autores |
-Interfaces |
+Classes | src.src.model.GameModel, src.src.model.ModelAction
+Autores | Thiago e Victor
+Interface | IGameModel
+
+#### Interfaces
+
+Interfaces associadas a esse componente:
 
 ### **Componente View**
 
 #### Ficha Técnica
 item | detalhamento
 --- | ---
-Classe |
-Autores |
-Interfaces |
+Classe | src.src.view.GameView
+Autores | Thiago e Victor
+Interface | IGameView
+
+#### Interfaces
+
+Interfaces associadas a esse componente:
 
 ### **Componente Controller**
 
 #### Ficha Técnica
 item | detalhamento
 --- | ---
-Classe |
-Autores |
-Interfaces |
+Classe | src.src.controller.Controller
+Autores | Thiago
+Interface | IController
+
+#### Interfaces
+
+Interfaces associadas a esse componente:
 
 ## Detalhamento das interfaces
 
 ## Plano de exceções
+
+### Diagrama da hierarquia 
+
+### Descrição das classes de exceção
