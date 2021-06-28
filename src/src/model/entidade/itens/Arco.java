@@ -10,6 +10,6 @@ public class Arco extends ItemAtaque {
     }
 
     public Arco() {
-        this(true, false, 5, 2);
+        this(false, false, 5, 2);
     }
 }

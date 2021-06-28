@@ -42,8 +42,4 @@ public class SalaFactory {
 		return s;
 	}
 	
-	/* Cria entidades dinamicas na sala - TODO */
-	private static void popular(Sala s) {
-		
-	}
 }

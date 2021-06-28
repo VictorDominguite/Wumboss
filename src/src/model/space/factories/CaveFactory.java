@@ -11,8 +11,6 @@ import src.utils.Constantes;
 import src.utils.Direcao;
 
 public class CaveFactory {
-	// TODO: Fazer lazy loading das salas (i.e. carregar elas somente quando forem
-	// necessarias)
 	public static Caverna montar() {
 		Caverna cave = new Caverna();
 		ArrayList<Integer> tiposSalas = new ArrayList<Integer>();

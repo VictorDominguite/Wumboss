@@ -1,7 +1,6 @@
 package src.model.entidade.itens;
 
 import src.utils.observer.Observer;
-import src.view.IGameView;
 
 public class Inventario implements IInventario{
     private IItem[] inventario;
