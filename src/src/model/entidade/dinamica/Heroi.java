@@ -2,6 +2,7 @@ package src.model.entidade.dinamica;
 
 import java.awt.Color;
 
+import src.model.IGameModel;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Elixir;
 import src.model.entidade.itens.IInventario;
@@ -9,7 +10,6 @@ import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.model.entidade.itens.Tocha;
 import src.utils.Direcao;
-import src.view.IGameView;
 
 public class Heroi extends EntidadeViva implements IHeroi {
 	private IInventario inv;
@@ -60,9 +60,9 @@ public class Heroi extends EntidadeViva implements IHeroi {
 	@Override
 	public void morrer() {
 		super.morrer();
-		IGameView.setFeedMessage( "<html> Sua jornada chegou ao fim... <br>"
+		IGameModel.sendFeedToView( "Sua jornada chegou ao fim... <br>"
 				+ "ó Heroi, tens o que é necessário para <br>"
-				+ "tentar novamente? Se sim, pressione ENTER... </html>", Color.red);
+				+ "tentar novamente? Se sim, pressione ENTER...", Color.red);
 	}
 	
 	@Override
@@ -81,9 +81,8 @@ public class Heroi extends EntidadeViva implements IHeroi {
 	@Override
 	public int getAlcance() {
 		IItemAtaque arma_equipada = (IItemAtaque) this.getInventario().getArmaEquipada();
-		if (arma_equipada != null) {
+		if (arma_equipada != null) 
 			return arma_equipada.getAlcance();
-		}
 		return this.alcance;
 	}
 

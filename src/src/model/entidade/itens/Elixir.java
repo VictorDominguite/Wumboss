@@ -1,6 +1,6 @@
 package src.model.entidade.itens;
 
-import src.view.IGameView;
+import src.model.IGameModel;
 
 public class Elixir extends Item {
     private int rodadasAtivo;
@@ -10,7 +10,7 @@ public class Elixir extends Item {
     private static final int DURACAO_EFEITO = 5;
 
     public Elixir() {
-        super(true, false);
+        super(false, false);
         
         setDescricao("<html> Um elixir de dano <br> <em> +" + BONUS_DANO + " atk por " + DURACAO_EFEITO + " rodadas </em> </html>");
     }
@@ -52,7 +52,7 @@ public class Elixir extends Item {
     public void resetRodadasAtivo() {
         rodadasAtivo = 0;
         cooldown = CD_INICIAL;
-        IGameView.setFeedMessage("O efeito do elixir acabou!");
+        IGameModel.sendFeedToView("O efeito do elixir acabou!");
     }
 
     public void incrementarRodadasAtivo() {
@@ -65,7 +65,7 @@ public class Elixir extends Item {
     public void consumir() {
         if (!emCooldown()) {
             rodadasAtivo = 1;
-            IGameView.setFeedMessage("Voce consumiu o elixir!");
+            IGameModel.sendFeedToView("Voce consumiu o elixir!");
         }
 
     }

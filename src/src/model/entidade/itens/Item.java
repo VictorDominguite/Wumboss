@@ -1,7 +1,7 @@
 package src.model.entidade.itens;
 
+import src.model.IGameModel;
 import src.model.entidade.dinamica.EntidadeDinamica;
-import src.view.IGameView;
 
 public abstract class Item extends EntidadeDinamica implements IItem{
 	private String descricao;
@@ -28,7 +28,7 @@ public abstract class Item extends EntidadeDinamica implements IItem{
         coletado = true;
         this.space.removerEntidade(posX, posY);
         
-        IGameView.setFeedMessage("Voce coletou " + getNome());
+        IGameModel.sendFeedToView("Voce coletou um(a) " + getNome().toLowerCase());
         
         onUpdate();
     }

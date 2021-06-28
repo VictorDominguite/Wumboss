@@ -1,7 +1,10 @@
 package src.model;
 
+import java.awt.Color;
+
 import src.controller.IController;
 import src.utils.observer.Observer;
+import src.view.IGameView;
 
 public interface IGameModel {
 	/* Inicializacao */
@@ -34,4 +37,12 @@ public interface IGameModel {
 		 * String[3] = {descricao, estaColetado?, estaEquipado?}
 		 * */
 		public String[] getItemState(String itemName);
+		
+		public static void sendFeedToView(String message) {
+			sendFeedToView(message, Color.black);
+		}
+		
+		public static void sendFeedToView(String message, Color c) {
+			IGameView.setFeedMessage(message, c);
+		}
 }

@@ -1,43 +1,54 @@
 package src.model.entidade.interacao;
 
+import src.model.IGameModel;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
-import src.model.entidade.dinamica.Inimigo;
 import src.model.entidade.itens.Arco;
 import src.model.entidade.itens.Armadura;
 import src.model.entidade.itens.Capacete;
 import src.model.entidade.itens.Chave;
 import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.IItem;
-import src.model.entidade.itens.Item;
 import src.model.entidade.itens.Mapa;
 import src.model.entidade.itens.Tocha;
 import src.utils.exceptions.ErroDeInteracao;
-import src.view.IGameView;
 
 public class Interacao implements IInteracao {
 
     public String interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
     	if(e2 == null)
     		return "mover";
-        if (e1.isHeroi() && e2 instanceof Item) {
+    	
+        if (e1.isHeroi() && e2 instanceof IItem) {
             coletarItem((IHeroi) e1, (IItem) e2);
-
             return "coleta";
         }
         if (e1.isHeroi() && e2.isInimigo()) {
-            atacar((IHeroi) e1, (Inimigo) e2);
+        	int danoDado = atacar((IHeroi) e1, (IInimigo) e2);
+        	if(danoDado == -1)
+        		IGameModel.sendFeedToView("... leia a descricao das flechas");
+        	else if(danoDado == -2)
+        		IGameModel.sendFeedToView("Ainda ta meio longe demais pra voce...");
+        	else
+        		IGameModel.sendFeedToView("Voce deu " + danoDado + " de dano! :o");
+        	
             return "ataque";
         }
         if (e1.isInimigo() && e2.isHeroi()) {
-            IGameView.setFeedMessage("Voce foi atacado! :(  -" + atacar((IInimigo) e1, (IHeroi) e2) + " de vida");
+        	int danoDado = atacar((IInimigo) e1, (IHeroi) e2);
+        	if(danoDado > 40)
+        		IGameModel.sendFeedToView("Dica de vida: Nao confie em gatinhos fofinhos");
+        	else
+        		IGameModel.sendFeedToView("Voce foi atacado! :(  -" + danoDado + " de vida");
+        	
             return "ataque";
         }
-        if (e1.isInimigo()) {
+        
+        if (e1.isInimigo()) 
             return "parado";
-        }
+        
         throw new ErroDeInteracao();
     }
 
@@ -46,12 +57,15 @@ public class Interacao implements IInteracao {
         // Condição para não atacar com arco sem flechas
         if (agressor.isHeroi() && ((IHeroi) agressor).getInventario().getArmaEquipada() instanceof Arco) {
             Flecha flechas = (Flecha) ((IHeroi)  agressor).getInventario().getItem("Flecha");
-            if (flechas != null && flechas.getNumFlechas() > 0) flechas.usarFlecha();
-            else return 0;
+            if (flechas != null && flechas.getNumFlechas() > 0) 
+            	flechas.usarFlecha();
+            else 
+            	return -1;
         } 
 
         // Verifica se o ataque está no alcance
-        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) return 0;
+        if(!(agressor.getAlcance() >= agressor.distanciaAte(atacado.getPosX(), atacado.getPosY()))) 
+        	return -2;
 
         if (agressor.getAttackDamage() > atacado.getDefense()) 
             danoCausado = agressor.getAttackDamage() - atacado.getDefense();

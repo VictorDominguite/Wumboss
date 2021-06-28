@@ -25,7 +25,6 @@ public class GameModel implements IGameModel{
 	
 	public static GameModel getInstance() {
     	if (instance == null) {
-    		System.out.println("hi");
     		instance = new GameModel();
     	}
     	

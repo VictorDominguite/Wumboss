@@ -68,12 +68,19 @@ public class InfoPanel extends Panel{
 	}
 	
 	public static void setFeed(String feed, Color c) {
+		if(c == Color.red) {
+			trancado = true;
+			textFeed.setForeground(c);
+			
+			String text = textFeed.getText().strip();
+			text = "<html>" + text + "<br> <br>" + feed + "</html>";
+			
+			textFeed.setText(text);
+		}
+		
 		if(textFeed != null && !trancado) {
 			textFeed.setForeground(c);
 			textFeed.setText(feed);
 		}
-		
-		if(c == Color.red)
-			trancado = true;
 	}
 }

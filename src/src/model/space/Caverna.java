@@ -1,10 +1,10 @@
 package src.model.space;
 
-import src.model.entidade.dinamica.Heroi;
+import src.model.IGameModel;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
-import src.model.entidade.dinamica.Inimigo;
+import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.dinamica.Wumboss;
 import src.model.entidade.estatica.IPassagem;
 import src.model.entidade.estatica.PocoVenenoso;
@@ -12,7 +12,6 @@ import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.exceptions.IDInvalido;
 import src.utils.observer.Observer;
-import src.view.IGameView;
 
 public class Caverna implements ICave{
     private int idAtivo;
@@ -41,7 +40,9 @@ public class Caverna implements ICave{
     	if(!celulasValidas(origem, fim))
     		return false;
 			
-		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof Inimigo) return false;
+		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof IInimigo) 
+			return false;
+		
     	if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
     		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
     	} 
@@ -113,11 +114,11 @@ public class Caverna implements ICave{
     	
         idAtivo = passagem.getDestino();
         
-		if (ehSalaBoss(idAtivo) && e instanceof Heroi) {
-			if (!((Heroi) e).getInventario().getItem("Chave").isColetado()) {
+		if (ehSalaBoss(idAtivo) && e.isHeroi()) {
+			if (!((IHeroi) e).getInventario().getItem("Chave").isColetado()) {
 				idAtivo = idInativado;
 				addEntidade(xEnt, yEnt, e);
-				IGameView.setFeedMessage("Voce precisa de uma chave para acessar essa sala!");
+				IGameModel.sendFeedToView("Voce precisa de uma chave para acessar essa sala!");
 				return;
 			}
 		}
@@ -129,7 +130,6 @@ public class Caverna implements ICave{
         ((IEntidadeViva) e).processarEfeitos();
         
         getSala(idInativado).inativar();
-        
     }
     
     private boolean posicoesValidas(int xIni, int yIni, int xFim, int yFim) {
