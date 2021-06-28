@@ -361,6 +361,364 @@ Interfaces associadas a esse componente:
 
 ## Detalhamento das interfaces
 
+### **Interface IController**
+
+~~~java
+
+public interface IController extends IActionCreator{
+	public String[][] readSala(int tipo) throws TipoDeSalaInvalido, IOException;
+	public BufferedImage readIcon(String name) throws IOException;
+	public File hackFontFile(String mode);
+	
+	public void setKeyboardMappings(InputMap im, ActionMap am);
+	public void setButtonMappings(JButton b);
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`readSala` | Retorna uma matriz de strings que corresponde a uma sala lida de um arquivo CSV
+`readIcon` | Retorna a imagem correspondente ao ícone solicitado
+`hackFontFile` | Retorna o arquivo de uma fonte
+`setKeyboardMappings` | Mapeia as teclas que devem ser observadas
+`setButtonMappings` | Adiciona um botão que deve ser observado
+
+
+### **Interface IGameModel**
+
+~~~java
+
+public interface IGameModel {
+	/* Inicializacao */
+		public void start();
+		public void setControl(IController c);
+	
+	/* Interacao com os outros componentes */
+		/* Observer pattern */
+		public void subToLocal(int x, int y, Observer e);
+		public void subToHeroi(String info, Observer e);
+		public void subToItem(String item, Observer e);
+		
+		/* Requerir informacoes */
+		
+		/* Retorna o estado da caverna em dada posição, na seguinte forma
+		 * String[3] = {nome do background, nome do foreground, estado}
+		 * */
+		public String[] getCaveState(int x, int y);
+		
+		/* Retorna o estado do herói relevante ao View
+		 * O retorno eh apenas um numero em formato de String
+		 * na primeira posicao do array
+		 * */
+		public String[] getHeroState(String item);
+		
+		public String[] getPossibleCollectableItems();
+		public String[] getPossibleCumulativeItems();
+		
+		/* Retorna o item de nome dado, na seguinte forma
+		 * String[3] = {descricao, estaColetado?, estaEquipado?}
+		 * */
+		public String[] getItemState(String itemName);
+}
+~~~
+
+Método | Objetivo
+--- | ---
+`start` | Inicializa o jogo
+`setControl` | Conecta Model ao Controller
+`subToLocal` | | Indica quando algo se altera no espaço
+`subToHero` | | Indica quando algo se altera no Heroi
+`subToItem` | | Indica quando algo se altera em um item do inventário
+`getCaveState` | Retorna informações sobre o estado atual de uma posição na sala ativa
+`getHeroState` | Retorna o estado atual do herói
+`getPossibleCollectableItems` | Retorna uma lista de todos os itens únicos do inventário
+`getPossibleCumulativeItems` | Retorna uma lista de todos os itens que acumulam do inventário
+`getItemState` | Retorna informações sobre um certo item do inventário
+
+
+### **Interface ISpace**
+
+~~~java
+
+public interface ISpace extends IActionExecutor{
+	public void connectHero(IHeroi hero);
+	public void disconnectHero();
+	public void destroy();
+	
+	public void subToLocal(int x, int y, Observer e);
+	
+	public boolean moverEntidade(int x, int y, Direcao dir);
+	public void addEntidade(int x, int y, IEntidadeDinamica e);
+    public IEntidadeDinamica removerEntidade(int x, int y);
+    
+    public void atacar(IEntidadeViva e, int x, int y);
+    
+    public int distanciaAte(int xIni, int yIni, int xFim, int yFim);
+
+	public void atualizarVisaoEInimigos();
+    public String[] estadoAtual(int x, int y);
+    public void refreshLocal(int x, int y);
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`connectHeroi` | Obtém uma referência ao herói
+`disconnectHero` | Desvincula o herói ao espaço
+`destroy` | Destrói o espaço criado para recomeçar o jogo
+`subToLocal` | Indica quando algo se altera no espaço
+`moverEntidade` | Move uma Entidade para uma certa direção
+`addEntidade` | Adiciona uma Entidade em uma certa posição da sala atual
+`removerEnridade` | Remove uma Entidade de uma certa posição da sala atual
+`atacar` | Faz uma entidade atacar outra
+`distânciaAte` | Retorna a distância entre dois pontos na sala atual
+`atualizarVisaoEInimigos` | Atualiza a visão do herói após se movimentar e a movimentação e ataque de inimigos
+`estadoAtual` | Retorna informações sobre uma célula (x, y) da sala atual
+`refreshLocal` | Atualiza a visibilidade de uma célula (x,y) da sala atual
+
+### **Interface ICaveProperties**
+
+~~~java
+
+public interface ICaveProperties{
+	public ISala getSalaAtiva();
+	
+	public String[] estado(int x, int y);
+}
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`getSalaAtiva` | Retorna a sala ativa atualmente no jogo
+`estado` | Retorna informações sobre uma célula (x, y) da sala ativa
+
+
+### **Interface ICave**
+
+~~~java
+
+public interface ICave extends ICaveProperties{
+	public boolean moveEntidade(int x, int y, Direcao dir);
+	public void addEntidade(int x, int y, IEntidadeDinamica e);
+    public IEntidadeDinamica removeEntidade(int x, int y);
+    
+    public void atacar(IEntidadeViva e, int x, int y);
+    
+    public void subToLocal(int x, int y, Observer e);
+    public void destroy();
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`moveEntidade` | Move uma Entidade para uma certa direção
+`addEntidade` | Adiciona uma Entidade em uma certa posição da sala atual
+`removeEnridade` | Remove uma Entidade de uma certa posição da sala atual
+`atacar` | Faz uma entidade atacar outra
+`subToLocal` | Indica quando algo se altera no espaço
+`destroy` | Destrói a instância da caverna
+
+### **Interface ISala**
+
+~~~java
+
+public interface ISala {
+	public int getTamX();
+	public int getTamY();
+	public int getID();
+	public String[] estado(int x, int y);
+	
+	public void inativar();
+	
+	public void addEntidade(int x, int y, IEntidadeDinamica e);
+	public IEntidadeDinamica removeEntidade(int x, int y);
+	
+	public boolean outOfBounds(int x, int y);
+	public ICelula getCelula(int x, int y);
+	
+	public void subToLocal(int x, int y, Observer e);
+	public void destroy();
+
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`getTamX` | Retorna a largura da sala
+`getTamY` | Retorna a altura da sala
+`getID` | Retorna o ID da sala
+`estado` | Retorna informações sobre uma célula (x, y)
+`inativar` | Torna a sala inativa
+`addEntidade` | Adiciona uma Entidade em uma certa posição
+`removeEnridade` | Remove uma Entidade de uma certa posição
+`outOfBounds` | Verifica se uma posição (x,y) está dentro da sala
+`getCelula` | Retorna a célula numa posição (x,y)
+`subToLocal` | Indica quando algo se altera na sala
+`destroy` | Destrói a sala
+
+### **Interface ICelula**
+
+~~~java
+
+public interface ICelula {
+	public IEntidadeEstatica getBackground();
+	public void setBackground(IEntidadeEstatica e);
+	
+	public void pushEntidade(IEntidadeDinamica ent);
+	public IEntidadeDinamica popEntidade();
+	public IEntidadeDinamica peekEntidade();
+	
+	public boolean isVisivel();
+	public void setVisivel(boolean visivel);
+	public void inativar();
+	public void destroy();
+	
+	public void subscribe(Observer o);
+	public String[] estado();
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`getBackground` | Retorna a Entidade de fundo da célula
+`setBackground` | Altera a Entidade de fundo da célula
+`pushEntidade` | Altera a Entidade principal da célula
+`peekEntidade` | Retorna a Entidade principal da célula
+`isVisivel` | Retorna se a célula está visível
+`setVisivel` | Altera o valor de "visível"
+`inativar` | Torna a célula inativa
+`destroy` | Destrói a célula
+`subscribe` | Indica quando algo se altera na célula
+`estado` | Retorna informações sobre a célula
+
+
+### **Interface IActionCreator**
+
+~~~java
+
+public interface IActionCreator{
+	public void connect(IActionParser agent);
+	public void disconnect();
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`connect` | Conceta o ActionCreator a um ActionParser
+`disconnect` | Desconceta o ActionParser
+
+
+### **Interface IActionParser**
+
+~~~java
+
+public interface IActionParser{
+	public void connect(String name, IActionExecutor agent);
+	public void disconnectFromAll();
+	public void sendMessage(String action, String... args);
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`connect` | Conceta o ActionParser a um ActionExecutor
+`disconnectFromAll` | Desconceta todos ActionExecutor
+`sendMessage` | Manda uma ação para um ActionExecutor
+
+### **Interface IActionExecutor**
+
+~~~java
+
+public interface IActionExecutor{
+	/* Send a message to this object */
+    public void sendMessage(String action, String... args);
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`sendMessage` | Manda uma ação para o objeto que irá realizá-la
+
+
+### **Interface IEventCreator**
+
+~~~java
+
+public interface IEventCreator {
+	public void subscribe(Observer e);
+	public void disconnectAll();
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`subscribe` | Adiciona um listeners à lista de observers
+`disconnectAll` | Limpa a lista de observers
+
+
+### **Interface Observer**
+
+~~~java
+
+public interface Observer {
+	public void onUpdate();
+	public void onUpdate(boolean reinscrever);
+	public String[] getInfo();
+}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`onUpdate` | Faz com que o Observer atualize
+`getInfo` | Obtém informações a respeito do Observer
+
+### **Interface IGameView**
+
+~~~java
+
+public interface IGameView {
+	public void setControl(IController c);
+	public void setModel(IGameModel g);
+	
+	public void montarView();
+	public void showView();
+	
+	public void rebuild();
+	
+	public static void setFeedMessage(String message) {
+		InfoPanel.setFeed(message);
+	}
+	
+	public static void setFeedMessage(String message, Color c) {
+		InfoPanel.setFeed(message, c);
+	}
+
+~~~
+
+Método | Objetivo
+--- | ---
+`setControl` | Conecta ao Controller
+`setModel` | Conecta ao Model
+`montarView` | Monta os painéis do view
+`showView` | Torna os painéis visíveis
+`rebuild` | Remonta o View
+`setFeedMessage` | Altera a mensagem mostrada no painel de informações do jogo
+
+
+As demais interfaces utilizadas foram utilizadas como forma de desacoplar as partes do programa, mas não possuem um papel tão significativo para a estrutura do jogo como as descritas acima.
+
 ## Plano de exceções
 
 ### Diagrama da hierarquia de exceções
