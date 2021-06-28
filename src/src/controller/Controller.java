@@ -66,8 +66,7 @@ public class Controller implements IController{
 	}
 	
 	public BufferedImage readIcon(String name) throws IOException{
-		BufferedImage img = null;
-		img = ImageIO.read(new File(assetsPath + name + ".png"));
+		BufferedImage img = ImageIO.read(new File(assetsPath + name + ".png"));
 		
 		return img;
 	}

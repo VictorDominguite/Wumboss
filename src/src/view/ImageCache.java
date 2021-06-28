@@ -13,6 +13,7 @@ public abstract class ImageCache {
 	private static HashMap<String, ImageIcon> icons = new HashMap<String, ImageIcon>(50);
 	
 	private static IController ioHandler;
+	private static GameView view;
 	
 	public static void insertIconInCache(String name, ImageIcon icon) {
 		icons.put(name.toLowerCase(), icon);
@@ -22,7 +23,14 @@ public abstract class ImageCache {
 		ImageCache.ioHandler = io;
 	}
 	
+	public static void setGameView(GameView view) {
+		ImageCache.view = view;
+	}
+	
 	public static ImageIcon getIcon(String name, int width, int height) {
+		if(name.equalsIgnoreCase("heroi"))
+			name = ImageCache.getNameHeroi();
+		
 		String nameLower = name.toLowerCase();
 		ImageIcon icon = icons.get(nameLower);
 		
@@ -38,5 +46,20 @@ public abstract class ImageCache {
 		}
 		
 		return icon;
+	}
+	
+	private static String getNameHeroi() {
+		if(view == null)
+			return "Heroi";
+		
+		String res = "Heroi";
+		String[] heroState = view.getGameModel().getHeroState("state");
+		
+		for(int i = 0; i < heroState.length; i++) {
+			if(!heroState[i].equals("null"))
+				res += "_" + heroState[i].toLowerCase();
+		}
+		
+		return res;
 	}
 }

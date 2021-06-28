@@ -6,6 +6,7 @@ import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
+import src.model.entidade.itens.IItemAtaque;
 import src.model.space.ISpace;
 import src.model.space.Space;
 import src.model.space.factories.SalaFactory;
@@ -84,8 +85,16 @@ public class GameModel implements IGameModel{
 	public String[] getHeroState(String item) {
 		isHeroAvailable();
 		
-		String[] res = new String[1];
+		if(item.equalsIgnoreCase("state")) {
+			String[] res = new String[3];
+			IItemAtaque arma = hero.getInventario().getArmaEquipada();
+			res[0] = arma != null ? arma.getNome() : "null";
+			res[1] = hero.getInventario().getItem("armadura").isEquipado() ? "armadura" : "null";
+			res[2] = hero.getInventario().getItem("capacete").isEquipado() ? "capacete" : "null";
+			return res;
+		}
 		
+		String[] res = new String[1];
 		if(item.equalsIgnoreCase("vida"))
 			res[0] = "" + hero.getVida();
 		else if(item.equalsIgnoreCase("defense"))

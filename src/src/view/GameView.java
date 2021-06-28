@@ -36,6 +36,8 @@ public class GameView extends JFrame implements IGameView{
     public void montarView() {
     	createPanels();
         configurePanels();
+        
+        ImageCache.setGameView(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
