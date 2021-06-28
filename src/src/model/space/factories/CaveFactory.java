@@ -40,7 +40,6 @@ public class CaveFactory {
 		return cave;
 	}
 
-	// TODO: Checar se ja nao existe passagem na celula
 	private static Direcao criarPassagem(ISala s1, ISala s2, Direcao anterior) {
 		Passagem pass = null;
 		Passagem passComplemento = null;

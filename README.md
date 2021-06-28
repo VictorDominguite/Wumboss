@@ -125,6 +125,7 @@ No jogo, quando os inimigos entram no campo de visao do herói, eles são alerta
 public void atualizarVisaoEInimigos() {
     
     ...
+
     // Faz com que todos os inimigos em alerta na sala se movam em direção ao
     // herói, caso o seu movimento não estiver em cooldown
 	for (IInimigo i : inimigosAlerta) {
@@ -138,6 +139,10 @@ public void atualizarVisaoEInimigos() {
 
 ## Destaques de Pattern
 
+### Diagrama do Pattern
+
+### Código do Pattern
+
 A trasmissão de comandos entre os componentes Controller e Model tem como intermediária a classe ModelAction.
 
 ~~~java
@@ -150,6 +155,7 @@ public class ModelAction implements IActionParser {
     }
 
     ...
+
 	// A partir de uma string padronizada, o comando é obtido e repassado
 	private void parseMessage(String message) {
 		String[] splitMessage = message.split(" ");
@@ -187,16 +193,158 @@ public interface Observer {
 
 public abstract class EventCreator implements IEventCreator{
 	protected ArrayList<Observer> listeners;
+    // Listeners engloba todos aqueles que precisam ser atualizados
+
+    ...
 
 ~~~
 
+A construção da caverna é feita completamente usando Factories. A caverna como um todo é montada pela CaveFactory. Sendo a caverna formada de salas, a CaveFactory utiliza da SalaFactory para formar as salas, a qual, por sua vez, utiliza da CelulaFactory. Essa última, em muitos casos contém alguma Entidade, como um personagem ou item e, dessa forma, utiliza do ForegroundFactory para montar esses elementos.
+
+~~~java
+
+public class CaveFactory {
+
+    ...
+
+	public static Caverna montar() {
+		Caverna cave = new Caverna();
+		
+        ...
+
+        // SalaFactory cuidará da formação de uma sala específica
+		cave.setSala(0, SalaFactory.montar(0, tiposSalas.get(0)));
+
+        ...
+    
+		return cave;
+	}
+
+    ...
+
+}
+
+
+public class SalaFactory {
+	
+    ...
+
+	public static Sala montar(int id, int tipo) {
+		
+        ...
+        
+		Sala s = new Sala(id, Constantes.TAM_SALAS, Constantes.TAM_SALAS);
+		int x = 0, y = 0;
+		
+		try {
+			String[][] template = io.readSala(tipo);
+            
+			// As células da sala são montadas com base no arquivo lido
+			for(String[] linha : template) {
+				for(String celula : linha) {
+                // CelulaFactory cuidará da formação de uma célula específica
+					s.setCelula(x, y, CelulaFactory.montar(x, y, celula));
+					x += 1;
+				}
+				x = 0;
+				y += 1;
+			}
+		
+        ...
+		
+        return s;
+	}
+	
+}
+
+
+public class CelulaFactory {
+	
+    ...
+	
+	public static ICelula montar(int x, int y, String repr) {
+        // A célula é montada com base na String passada a ela que a representa
+		Celula c = new Celula(x, y, decodeRawEntity(repr));
+
+        // Caso houver algum item ou entidade viva nessa célula, a 
+        // ForegroundFactory é responsável por criá-lo
+		Entidade e = ForegroundFactory.decodeRawEntity(repr);
+		if (e != null) {
+			e.connect(Space.getInstance());
+			c.pushEntidade((IEntidadeDinamica) e);
+		}
+		return c;
+	}
+}
+
+
+public class ForegroundFactory {
+    
+    ...
+
+	public static Entidade decodeRawEntity(String repr) {
+        // A entidade (item ou criatura) é criada a partir da string
+        // que a representa
+		Class<? extends Entidade> classe = tabela.get(repr);
+		if(classe == null) return null;
+		
+		Entidade result = null;
+		
+		try {
+			result = classe.getConstructor().newInstance();
+		} 
+
+        ...
+		
+		return result;
+	}
+}
+
+
+~~~
+
+## Conclusões e Trabalhos Futuros
+Repensando o processo de implementação do jogo, chegamos à conclusão de que a arquitetura poderia ter sido mais bem planejada previamente ao início da escrita do código, de forma a tornar o programa mais robusto e com maior independência das classes e componentes.
+
+Ademais, há certas funcionalidades que deixamos de implementar no jogo por falta de tempo, mas que possivelmente ainda implementaremos no futuro. Dentre essas: a opção de salvar o progresso no jogo e retomar em seguida, a sala do Wumboss não sendo necessariamente a última, mais personagens, tamanho variável das salas, movimentação mais inteligente dos inimigos, geração completamente aleatória e independente de arquivos modelo da caverna, entre outras.
+
+De maneira geral, aprendemos bastante sobre a prática de orientação a objetos com esse projeto, além de também termos tido nosso contato inicial com interfaces gráficas e com a noção de arquiteturas. Também pode-se mencionar a aquisição de uma maior prática e o desenvolvimento de nossas habilidades com a linguagem de programação Java.
+
 ## Documentação dos componentes
+## Diagramas
 ### Diagrama geral do projeto
 ![diagrama1](./diagramas/diagrama.png)
 
 ### Diagrama geral de componentes
 ![diagrama2](./diagramas/diagrama2.png)
 
-### Detalhamento das interfaces
+### **Componente Model**
 
-### Plano de exceções
+#### Ficha Técnica
+item | detalhamento
+--- | ---
+Classe |
+Autores |
+Interfaces |
+
+### **Componente View**
+
+#### Ficha Técnica
+item | detalhamento
+--- | ---
+Classe |
+Autores |
+Interfaces |
+
+### **Componente Controller**
+
+#### Ficha Técnica
+item | detalhamento
+--- | ---
+Classe |
+Autores |
+Interfaces |
+
+## Detalhamento das interfaces
+
+## Plano de exceções

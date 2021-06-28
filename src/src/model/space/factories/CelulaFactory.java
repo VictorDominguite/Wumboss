@@ -45,7 +45,6 @@ public class CelulaFactory {
 			e.connect(Space.getInstance());
 			c.pushEntidade((IEntidadeDinamica) e);
 		}
-		//TODO: fix pra qualquer entidade (inclusive itens)
 		return c;
 	}
 }
