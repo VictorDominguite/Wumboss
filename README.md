@@ -144,6 +144,8 @@ Foi utilizado o design pattern Model - View - Controller (MVC)
 
 ### Diagrama do Pattern
 
+Na seção **Documentação dos Componentes** mais abaixo, é possível encontrar diagramas que ilustram detalhadamente a conexão feita entre Model, View e Controller, que determina o pattern utilizado no desenvolvimento do jogo.
+
 ### Código do Pattern
 
 A trasmissão de comandos entre os componentes Controller e Model tem como intermediária a classe ModelAction.
