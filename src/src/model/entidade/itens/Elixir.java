@@ -10,9 +10,16 @@ public class Elixir extends Item {
     private static final int DURACAO_EFEITO = 5;
 
     public Elixir() {
-        super(false, false);
+        super(true, false);
         
         setDescricao("<html> Um elixir de dano <br> <em> +" + BONUS_DANO + " atk por " + DURACAO_EFEITO + " rodadas </em> </html>");
+    }
+    
+    @Override
+    public String estadoEquipado() {
+    	if(!emCooldown() && isEquipado()) return "true";
+    	else if(emCooldown()) return "" + cooldown;
+    	else return "false";
     }
 
     public int getBonusDano() {
@@ -20,10 +27,7 @@ public class Elixir extends Item {
     }
 
     public boolean emCooldown() {
-        if (cooldown > 0)
-            return true;
-        else 
-            return false;
+        return (cooldown > 0);
     }
 
     public void resetCooldown() {
@@ -31,8 +35,11 @@ public class Elixir extends Item {
     }
 
     public void diminuirCooldown() {
-        if (cooldown > 0)
+        if (cooldown > 0) {
             cooldown -= 1;
+            desequipar();
+            onUpdate();
+        }
     }
 
     public boolean isAtivo() {
@@ -49,12 +56,10 @@ public class Elixir extends Item {
     }
 
     public void incrementarRodadasAtivo() {
-        if (rodadasAtivo < DURACAO_EFEITO) {
+        if (rodadasAtivo < DURACAO_EFEITO) 
             rodadasAtivo += 1;
-        }
-        else {
+        else 
             resetRodadasAtivo();
-        }
     }
 
     public void consumir() {

@@ -21,6 +21,7 @@ public class GamePanel extends Panel{
 		assetsNames.put("goblin", "Goblin");
 		assetsNames.put("serpente", "Serpente");
 		assetsNames.put("gato", "Gato");
+		assetsNames.put("wumboss", "Wumboss");
 	}
 
 	public GamePanel(GameView gv){

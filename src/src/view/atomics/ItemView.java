@@ -123,6 +123,11 @@ public class ItemView extends JPanel implements Observer{
 			this.equipButton.setEnabled(false);
 			this.equipButton.setText("Equipado!");
 		}
+		else if(args[2].matches("[0-9]")) {
+			this.layout.show(this, "content");
+			this.equipButton.setEnabled(false);
+			this.equipButton.setText("Em cooldown! Aguarde mais " + args[2] + "s!");
+		}
 		else {
 			this.layout.show(this, "content");
 			this.equipButton.setEnabled(true);

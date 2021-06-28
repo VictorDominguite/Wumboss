@@ -9,6 +9,16 @@ public class Flecha extends Item {
         
         setDescricao("<html> Infelizmente ainda nao se atira sozinha... </html>");
     }
+    
+    @Override
+    public String estadoColetado() {
+    	return "" + getNumFlechas();
+    }
+    
+    @Override
+    public String estadoEquipado() {
+    	return "";
+    }
 
     public int getNumFlechas() {
         return numFlechas;

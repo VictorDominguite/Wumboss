@@ -12,6 +12,9 @@ public interface IItem extends IEventCreator, IEntidadeDinamica {
 	
 	public void equipar();
 	public void desequipar();
+	
+	public String estadoColetado();
+	public String estadoEquipado();
 
 	public void coletar();
 	public void setColetado(boolean coletado);

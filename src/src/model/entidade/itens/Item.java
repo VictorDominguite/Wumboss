@@ -47,6 +47,17 @@ public abstract class Item extends EntidadeDinamica implements IItem{
         onUpdate();
     }
     
+    public String estadoColetado() {
+    	if(isColetado()) return "true";
+    	return "false";
+    }
+    
+    public String estadoEquipado() {
+    	if(isEquipado())
+    		return "true";
+    	return "false";
+    }
+    
     public String toString() {
     	return this.getClass().getSimpleName();
     }

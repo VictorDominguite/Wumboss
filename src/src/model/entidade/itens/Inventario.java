@@ -44,7 +44,7 @@ public class Inventario implements IInventario{
 
     public IItemAtaque getArmaEquipada() {
         for (IItem i : inventario) {
-            if (i instanceof ItemAtaque && ((ItemAtaque) i).isEquipado())
+            if (i instanceof IItemAtaque && ((IItemAtaque) i).isEquipado())
                 return (IItemAtaque) i;
         }
         return null;

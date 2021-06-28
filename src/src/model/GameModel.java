@@ -160,14 +160,8 @@ public class GameModel implements IGameModel{
 		
 		String[] res = new String[3];
 		res[0] = item.getDescricao();
-
-		if(itemName.equalsIgnoreCase("flecha")) {
-			res[1] = ((Flecha) item).getNumFlechas() + "";
-		}
-		else {
-			res[1] = item.isColetado() ? "true" : "false";
-			res[2] = item.isEquipado() ? "true" : "false";
-		}
+		res[1] = item.estadoColetado();
+		res[2] = item.estadoEquipado();
 		
 		return res;
 	}
