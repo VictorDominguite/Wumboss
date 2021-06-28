@@ -10,6 +10,7 @@ O _Submundo de Wumboss_ é um jogo criado em Java, pensado como uma continuaçã
 ### Vídeo da prévia
 [Vídeo de apresentação inicial do jogo](https://drive.google.com/file/d/1lccrVUTai-J20fjwlvtDMPQStChpDiqT/view?usp=sharing)
 ### Vídeo do jogo
+[Vídeo de apresentação final do jogo](https://drive.google.com/file/d/15Ui0k4YRBMqnPOY6VR4QFnK1KdnhXH7a/view?usp=sharing)
 
 ## Slides do Projeto 
 ### Slides da prévia
