@@ -1,5 +1,9 @@
 package src.model.entidade.dinamica;
 
+import java.awt.Color;
+
+import src.model.IGameModel;
+
 public class Wumboss extends Inimigo {
 
     private Wumboss(int vida, int ataque, int defesa) {
@@ -14,5 +18,23 @@ public class Wumboss extends Inimigo {
 	@Override
 	public String toString() {
 		return "wumboss";
+	}
+	
+	public void revidar(IEntidadeViva agressor) {
+		interagir(agressor);
+	}
+	
+	@Override
+	public void morrer() {
+		super.morrer();
+		
+		IGameModel.sendFeedToView("Ò grande guerreiro, <br>"
+				+ "conquistador desta caverna.<br>"
+				+ "Voce agora esta livre! <br>"
+				+ "O que uma vez te pareceu uma <br>"
+				+ "ideia distante, nada mais que um sonho, <br>"
+				+ "agora se torna realidade. <br>"
+				+ "Vá, reencontre teus amigos, tua familia, <br>"
+				+ "e adote um gatinho fofo! ☻ ", Color.blue);
 	}
 }

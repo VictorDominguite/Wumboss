@@ -25,20 +25,19 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
             String interacao = objInteracao.interagir(this, e);
             return interacao;
         } catch (ErroDeInteracao erro) {
-            //TODO: melhorar excecao
-            System.err.println(erro.getMessage());
+            System.err.println("Houve algum erro na interacao de " +
+            			this.toString() + " e " + e);
             return null;
         }
     }
     
     public void processarEfeitos() {
-    	
         if (this instanceof Heroi) {
             ((Heroi) this).processarEfeitos();
             return;
         }
         
-        if(estaEnvenenado()) {
+        if (estaEnvenenado()) {
     		receberDano(PocoVenenoso.getDano());
     		envenenado -= 1;
     	}
@@ -46,7 +45,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     
     public void interagirComEntidadeEstatica(IEntidadeEstatica e) {
     	if (e == null) return;
-        if(e.efeito().equals("veneno"))
+        if (e.efeito().equals("veneno"))
     		this.envenenar();
     }
     
@@ -55,19 +54,13 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     }
     
     public void moverEmDirecaoA(int x, int y) {
-    	int deltaX = Math.abs(x - posX);
-    	int deltaY = Math.abs(y - posY);
-    	//Primeiro tenta se mover para a direção de maior delta, depois para a de menor, caso ambos falharem,
-        // tenta mover para qualquer outro lado, mesmo que se afaste de (x, y) nesse caso
-    	Direcao d;
+    	Direcao d = Direcao.compare(getPosX(), getPosY(), x, y);
     	
-    	if (deltaX > deltaY) 
-    		d = (x > posX) ? Direcao.LESTE : Direcao.OESTE;
-    	else 
-    		d = (y > posY) ? Direcao.SUL : Direcao.NORTE;
-    	
-    	while(!mover(d))
+    	Direcao dInicial = d;
+    	while(!mover(d)) {
     		d = Direcao.proxima(d);
+    		if(d == dInicial) break;
+    	}
     }
 
     public int getAttackDamage() {

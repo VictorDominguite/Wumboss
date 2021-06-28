@@ -37,6 +37,13 @@ public enum Direcao {
     	return null;
     }
     
+    public static Direcao compare(int x1, int y1, int x2, int y2) {
+    	if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) 
+    		return (x2 > x1) ? Direcao.LESTE : Direcao.OESTE;
+    	else 
+    		return (y2 > y1) ? Direcao.SUL : Direcao.NORTE;
+    }
+    
     public static Direcao proxima(Direcao d) {
     	switch(d) {
     	case NORTE:

@@ -2,8 +2,8 @@ package src.model.space;
 
 import java.util.Stack;
 
-import src.model.entidade.dinamica.EntidadeViva;
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.itens.Flecha;
@@ -34,7 +34,6 @@ public class Celula extends EventCreator implements ICelula{
     }
 
     public void pushEntidade(IEntidadeDinamica ent) {
-        
         if (ent instanceof Flecha) {
             int numFlechas = Constantes.rng.nextInt(3);
             if (numFlechas == 0) return;
@@ -47,10 +46,9 @@ public class Celula extends EventCreator implements ICelula{
         
         ent.setPosX(posX);
         ent.setPosY(posY);
-
         
-        if (ent instanceof EntidadeViva)
-            ((EntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
+        if (ent instanceof IEntidadeViva)
+            ((IEntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
         
         onUpdate();
     }
