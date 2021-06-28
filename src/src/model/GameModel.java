@@ -4,7 +4,6 @@ import src.AppWumboss;
 import src.controller.IController;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IHeroi;
-import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.IInventario;
 import src.model.entidade.itens.IItem;
 import src.model.entidade.itens.IItemAtaque;

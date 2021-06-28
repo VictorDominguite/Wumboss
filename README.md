@@ -139,6 +139,8 @@ public void atualizarVisaoEInimigos() {
 
 ## Destaques de Pattern
 
+Foi utilizado o design pattern Model - View - Controller (MVC)
+
 ### Diagrama do Pattern
 
 ### Código do Pattern
@@ -350,7 +352,7 @@ Interfaces associadas a esse componente:
 item | detalhamento
 --- | ---
 Classe | src.src.controller.Controller
-Autores | Thiago
+Autores | Thiago e Victor
 Interface | IController
 
 #### Interfaces
@@ -361,6 +363,14 @@ Interfaces associadas a esse componente:
 
 ## Plano de exceções
 
-### Diagrama da hierarquia 
+### Diagrama da hierarquia de exceções
 
 ### Descrição das classes de exceção
+
+Classe | Descrição
+--- | ---
+IDInvalido | Indica que houve tentativa de acesso a uma sala de ID inválido na caverna.
+MensagemInvalida | Indica que foi passada uma String inválida contendo o comando de ação interpretado pelo Controller
+SemControllerNaMontagem | Indica que houve tentativa de montagem da caverna sem haver Controller disponível para ler arquivos
+SemReferenciaAComponente | Indica que não há referência ao Controller ou View no Model
+ErroDeInteracao | Indica que houve erro de interação entre Entidades no Model
