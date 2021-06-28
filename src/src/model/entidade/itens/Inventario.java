@@ -1,16 +1,20 @@
 package src.model.entidade.itens;
 
+import src.model.entidade.dinamica.IHeroi;
 import src.utils.observer.Observer;
 
 public class Inventario implements IInventario{
+	private IHeroi owner;
     private IItem[] inventario;
     private int maxTamanho;
     private int atualTamanho;
 
-    public Inventario(int tamanho) {
+    public Inventario(int tamanho, IHeroi owner) {
         this.maxTamanho = tamanho;
         this.atualTamanho = 0;
         inventario = new IItem[tamanho];
+        
+        this.owner = owner;
         
         addItem(new Arco());
         addItem(new Armadura());
@@ -29,12 +33,13 @@ public class Inventario implements IInventario{
     }
     
     public void addItem(IItem i) {
-    	//TODO: melhor exception
     	if(atualTamanho == maxTamanho)
     		throw new RuntimeException("acabou espaço do inventario");
     	
     	inventario[atualTamanho] = i;
     	atualTamanho += 1;
+    	
+    	i.subscribe(this);
     }
 
     public IItemAtaque getArmaEquipada() {
@@ -95,6 +100,18 @@ public class Inventario implements IInventario{
     	}
 		
 		return res;
+	}
+
+	public void onUpdate() {
+		onUpdate(false);
+	}
+
+	public void onUpdate(boolean reinscrever) {
+		owner.sendMessage("update");
+	}
+
+	public String[] getInfo() {
+		return null;
 	}
 
 

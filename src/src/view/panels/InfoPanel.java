@@ -17,6 +17,7 @@ public class InfoPanel extends Panel{
 	private static final long serialVersionUID = 7502620923273176398L;
 	
 	private static JLabel textFeed;
+	private static boolean trancado = false;
 
 	public InfoPanel(GameView gv){
         super(gv);
@@ -65,7 +66,16 @@ public class InfoPanel extends Panel{
     }
 	
 	public static void setFeed(String feed) {
-		if(textFeed != null)
+		setFeed(feed, Color.black);
+	}
+	
+	public static void setFeed(String feed, Color c) {
+		if(textFeed != null && !trancado) {
+			textFeed.setForeground(c);
 			textFeed.setText(feed);
+		}
+		
+		if(c == Color.red)
+			trancado = true;
 	}
 }

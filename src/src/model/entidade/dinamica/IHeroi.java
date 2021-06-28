@@ -10,4 +10,5 @@ public interface IHeroi extends IEntidadeViva, IActionExecutor, IEventCreator{
     public int getPosY();
     
     public IInventario getInventario();
+    public void destroy();
 }

@@ -18,6 +18,10 @@ public class ModelAction implements IActionParser {
 			mappings.put(name, (IActionExecutor) actor);
 	}
 	
+	public void disconnectFromAll() {
+		mappings.clear();
+	}
+	
 	private void parseMessage(String message) {
 		String[] splitMessage = message.split(" ");
 		
@@ -41,4 +45,5 @@ public class ModelAction implements IActionParser {
 	private void sendAction(IActionExecutor actor, String action, String... args) {
 		actor.sendMessage(action, args);
 	}
+
 }

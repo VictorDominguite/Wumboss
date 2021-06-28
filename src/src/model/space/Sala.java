@@ -64,4 +64,13 @@ public class Sala implements ISala{
     public void subToLocal(int x, int y, Observer e) {
     	getCelula(x, y).subscribe(e);
     }
+
+	public void destroy() {
+		for(int x = 0; x < tamX; x++) {
+			for(int y = 0; y < tamY; y++) {
+				getCelula(x, y).destroy();
+			}
+		}
+		celulas = null;
+	}
 }

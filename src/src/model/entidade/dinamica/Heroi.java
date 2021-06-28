@@ -1,26 +1,31 @@
 package src.model.entidade.dinamica;
 
+import java.awt.Color;
+
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Elixir;
+import src.model.entidade.itens.IInventario;
+import src.model.entidade.itens.IItem;
 import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.model.entidade.itens.Tocha;
 import src.utils.Direcao;
+import src.view.IGameView;
 
 public class Heroi extends EntidadeViva implements IHeroi {
-	private Inventario inv;
+	private IInventario inv;
 	private static final int VISAO_PADRAO = 2;
 
     private Heroi(int vida, int ataque, int defesa) {
         super(vida, ataque, defesa);
-        this.inv = new Inventario(10);
+        this.inv = new Inventario(10, this);
     }
     
     public Heroi() {
     	this(5, 0, 4);
     }
 
-    public Inventario getInventario() {
+    public IInventario getInventario() {
     	return this.inv;
     }
 
@@ -36,6 +41,9 @@ public class Heroi extends EntidadeViva implements IHeroi {
 		else if(action.equalsIgnoreCase("attack")) {
 			
 		}
+		else if(action.equalsIgnoreCase("update")) {
+			onUpdate();
+		}
 	}
 
 	public int getVisao() {
@@ -43,6 +51,20 @@ public class Heroi extends EntidadeViva implements IHeroi {
 		if (inv.getItem("Tocha") != null && inv.getItem("Tocha").isEquipado())
 			visao += ((Tocha) inv.getItem("Tocha")).getIncrementoVisao();
 		return visao;
+	}
+	
+	@Override
+	public void morrer() {
+		super.morrer();
+		IGameView.setFeedMessage( "<html> Sua jornada chegou ao fim... <br>"
+				+ "ó Heroi, tens o que é necessário para <br>"
+				+ "tentar novamente? Se sim, pressione ENTER... </html>", Color.red);
+	}
+	
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		space.refreshLocal(getPosX(), getPosY());
 	}
 	
 	@Override
@@ -82,16 +104,23 @@ public class Heroi extends EntidadeViva implements IHeroi {
     		receberDano(PocoVenenoso.getDano());
     		envenenado -= 1;
     	}
-		if (inv.getItem("Elixir") != null && inv.getItem("Elixir").isColetado()) {
-			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && (((Elixir) inv.getItem("Elixir")).emCooldown())) {
-				((Elixir) inv.getItem("Elixir")).diminuirCooldown();;
-			}
-			if ((((Elixir) inv.getItem("Elixir")).isAtivo())) {
-				((Elixir) inv.getItem("Elixir")).incrementarRodadasAtivo();
-			}
-			if (!(((Elixir) inv.getItem("Elixir")).isAtivo()) && !(((Elixir) inv.getItem("Elixir")).emCooldown())) {
-				inv.getItem("Elixir").desequipar();
+		
+		Elixir elixir = (Elixir) inv.getItem("Elixir");
+		
+		if (elixir != null && elixir.isColetado()) {
+			if(elixir.isAtivo()) 
+				elixir.incrementarRodadasAtivo();
+			else {
+				if (elixir.emCooldown()) 
+					elixir.diminuirCooldown();
+				else 
+					elixir.desequipar();
 			}
 		}
+	}
+
+	public void destroy() {
+		this.disconnectAll();
+		
 	}
 }

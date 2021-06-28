@@ -13,6 +13,10 @@ public abstract class EventCreator implements IEventCreator{
 		listeners.add(e);
 	}
 	
+	public void disconnectAll() {
+		listeners.clear();
+	}
+	
 	protected void onUpdate() {
 		onUpdate(false);
 	}
