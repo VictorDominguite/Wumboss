@@ -37,6 +37,21 @@ public enum Direcao {
     	return null;
     }
     
+    public static Direcao proxima(Direcao d) {
+    	switch(d) {
+    	case NORTE:
+    		return LESTE;
+    	case LESTE:
+    		return SUL;
+    	case SUL:
+    		return OESTE;
+    	case OESTE:
+    		return NORTE;
+    	}
+    	
+    	return null;
+    }
+    
     public static int[] newLoc(int x, int y, Direcao dir) {
     	 switch (dir) {
          case NORTE:

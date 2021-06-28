@@ -59,58 +59,15 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	int deltaY = Math.abs(y - posY);
     	//Primeiro tenta se mover para a direção de maior delta, depois para a de menor, caso ambos falharem,
         // tenta mover para qualquer outro lado, mesmo que se afaste de (x, y) nesse caso
-    	if (deltaX > deltaY) {
-    		if (x > posX) {
-    			if (!mover(Direcao.LESTE)) {
-                    if (y > posY)
-                        if (!mover(Direcao.SUL))
-                            if (!mover(Direcao.NORTE))
-                                mover(Direcao.OESTE);
-                    else
-                        if (!mover(Direcao.NORTE))
-                            if (!mover(Direcao.SUL))
-                                mover(Direcao.OESTE);
-                }
-                    
-            } 
-    		else
-    			if (!mover(Direcao.OESTE)) {
-                    if (y > posY)
-    			        if (!mover(Direcao.SUL))
-                            if (!mover(Direcao.NORTE))
-                                mover(Direcao.LESTE);
-    		        else
-    			        if (!mover(Direcao.NORTE))
-                            if (!mover(Direcao.SUL))
-                                mover(Direcao.LESTE);
-                }
-    	}
-    	else {
-    		if (y > posY)
-    			if (!mover(Direcao.SUL)) {
-                    if (x > posY)
-    			        if (!mover(Direcao.LESTE))
-                            if (!mover(Direcao.NORTE))
-                                mover(Direcao.OESTE);
-    	        	else
-    			        if (!mover(Direcao.OESTE))
-                            if (!mover(Direcao.NORTE))
-                                mover(Direcao.LESTE);
-
-                }
-    		else
-    			if (!mover(Direcao.NORTE)) {
-                    if (x > posY)
-    			        if (!mover(Direcao.LESTE))
-                            if (!mover(Direcao.SUL))
-                                mover(Direcao.OESTE);
-    	        	else
-    			        if (!mover(Direcao.OESTE))
-                            if (!mover(Direcao.SUL))
-                                mover(Direcao.LESTE);
-                            
-                }
-    	}
+    	Direcao d;
+    	
+    	if (deltaX > deltaY) 
+    		d = (x > posX) ? Direcao.LESTE : Direcao.OESTE;
+    	else 
+    		d = (y > posY) ? Direcao.SUL : Direcao.NORTE;
+    	
+    	while(!mover(d))
+    		d = Direcao.proxima(d);
     }
 
     public int getAttackDamage() {
