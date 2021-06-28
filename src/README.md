@@ -5,4 +5,4 @@
 * O usuário deve ter Java instalado em sua máquina ([Link para download do JDK](https://www.oracle.com/java/technologies/javase-downloads.html)).
 
 ## Execução
-* Rode o programa AppMundoWumboss
+* Rode o programa AppWumboss
