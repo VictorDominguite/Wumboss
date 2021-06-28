@@ -1,7 +1,9 @@
 package src.view.atomics;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -9,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import src.utils.observer.Observer;
 import src.view.ImageCache;
@@ -19,6 +20,11 @@ public class ItemView extends JPanel implements Observer{
 	private static final long serialVersionUID = -7610186360675545438L;
 	
 	private InventoryPanel parentPanel;
+	
+	private CardLayout layout;
+	
+	private JPanel content;
+	private JPanel darkMask;
 	
 	private String name;
 	private JLabel description;
@@ -34,10 +40,19 @@ public class ItemView extends JPanel implements Observer{
 	}
 	
 	public ItemView(String name, InventoryPanel parent, boolean coletavel, Font f) {
-		super(new BorderLayout(1, 1));
+		super();
 		
-		Border border = BorderFactory.createLineBorder(Color.black);
-		setBorder(border);
+		this.layout = new CardLayout();
+		setLayout(layout);
+		
+		this.darkMask = new JPanel();
+		this.darkMask.setBackground(new Color(0, 0, 0, 120));
+		this.darkMask.setPreferredSize(new Dimension(64, 64));
+		this.darkMask.setOpaque(true);
+		this.darkMask.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		this.content = new JPanel(new BorderLayout(1, 1));
+		this.content.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		this.name = name;
 		this.parentPanel = parent;
@@ -57,15 +72,22 @@ public class ItemView extends JPanel implements Observer{
 		equipButton.setActionCommand("inventory " + name);
 		parent.getGameView().getController().setButtonMappings(equipButton);
 		
-		inscrever();
-		
 		JLabel lName = new JLabel(name);
 		lName.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		add(lName, BorderLayout.NORTH);
-		add(img, BorderLayout.EAST);
-		add(description, BorderLayout.CENTER);
-		add(equipButton, BorderLayout.SOUTH);
+		this.content.add(lName, BorderLayout.NORTH);
+		this.content.add(img, BorderLayout.EAST);
+		this.content.add(description, BorderLayout.CENTER);
+		this.content.add(equipButton, BorderLayout.SOUTH);
+		
+		add(content, "content");
+		add(darkMask, "mask");
+		
+		inscrever();
+	}
+	
+	public boolean isColetado() {
+		return this.coletado;
 	}
 	
 	public void onUpdate() {
@@ -73,7 +95,10 @@ public class ItemView extends JPanel implements Observer{
 	}
 	
 	public void onUpdate(boolean reinscrever) {
-		if(reinscrever) inscrever();
+		if(reinscrever) { 
+			inscrever();
+			return;
+		}
 		
 		String[] newInfo = getInfo();
 		this.description.setText(newInfo[0]);
@@ -89,20 +114,24 @@ public class ItemView extends JPanel implements Observer{
 		this.equipado =  args[2].equals("true");
 		
 		if(!this.coletado) {
+			this.layout.show(this, "mask");
 			this.equipButton.setEnabled(false);
 			this.equipButton.setText("Voce nao possui esse item!");
 		}
 		else if(this.equipado) {
+			this.layout.show(this, "content");
 			this.equipButton.setEnabled(false);
 			this.equipButton.setText("Equipado!");
 		}
 		else {
+			this.layout.show(this, "content");
 			this.equipButton.setEnabled(true);
 			this.equipButton.setText("Equipar");
 		}
 	}
 	
 	private void updateCumulativo(String[] args) {
+		this.layout.show(this, "content");
 		this.equipButton.setEnabled(false);
 		this.equipButton.setText("Voce possui " + args[1] + " " + this.name.toLowerCase() + "s!");
 	}
