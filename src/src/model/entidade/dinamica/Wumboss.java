@@ -1,8 +1,7 @@
 package src.model.entidade.dinamica;
 
-import java.awt.Color;
-
 import src.model.IGameModel;
+import src.utils.Priority;
 
 public class Wumboss extends Inimigo {
 
@@ -35,6 +34,6 @@ public class Wumboss extends Inimigo {
 				+ "ideia distante, nada mais que um sonho, <br>"
 				+ "agora se torna realidade. <br>"
 				+ "Vá, reencontre teus amigos, tua familia, <br>"
-				+ "e adote um gatinho fofo! ☻ ", Color.blue);
+				+ "e adote um gatinho fofo! ☻ ", Priority.HIGH);
 	}
 }

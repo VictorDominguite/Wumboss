@@ -1,7 +1,5 @@
 package src.model.space;
 
-import java.awt.Color;
-
 import src.model.IGameModel;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
@@ -12,6 +10,7 @@ import src.model.entidade.estatica.IPassagem;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Constantes;
 import src.utils.Direcao;
+import src.utils.Priority;
 import src.utils.exceptions.IDInvalido;
 import src.utils.observer.Observer;
 
@@ -122,7 +121,7 @@ public class Caverna implements ICave{
 			}
 			else {
 				IGameModel.sendFeedToView("<html> Voce se arrepia. Uma brisa forte bate <br>"
-										+ "na sua cara... Voce tem um mal pressentimento </html>", Color.gray);
+										+ "na sua cara... Voce tem um mal pressentimento </html>", Priority.MEDIUM);
 			}
 		}
 

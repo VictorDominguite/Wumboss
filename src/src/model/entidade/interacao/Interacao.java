@@ -14,11 +14,18 @@ import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.IItem;
 import src.model.entidade.itens.Mapa;
 import src.model.entidade.itens.Tocha;
+import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public class Interacao implements IInteracao {
+	
+	public String interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
+		String res = _interagir(e1, e2);
+		IGameModel.updateFeed(Priority.LOW);
+		return res;
+	}
 
-    public String interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
+    private String _interagir(IEntidadeViva e1, IEntidadeDinamica e2) throws ErroDeInteracao {
     	if(e2 == null)
     		return "mover";
     	if(!e1.estaVivo())
@@ -54,7 +61,7 @@ public class Interacao implements IInteracao {
         }
         
         if (e1.isInimigo()) 
-            return "parado";
+        	return "parado";
         
         throw new ErroDeInteracao();
     }

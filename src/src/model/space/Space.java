@@ -1,6 +1,7 @@
 package src.model.space;
 
 import src.model.GameModel;
+import src.model.IGameModel;
 import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
@@ -8,6 +9,7 @@ import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.space.factories.CaveFactory;
 import src.utils.Direcao;
+import src.utils.Priority;
 import src.utils.observer.Observer;
 
 public class Space implements ISpace{
@@ -36,9 +38,11 @@ public class Space implements ISpace{
 	}
 
 	public boolean moverEntidade(int x, int y, Direcao dir) {
-		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade() instanceof Heroi && cave.moveEntidade(x, y, dir)) {
+		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade().equals(heroInstance) && cave.moveEntidade(x, y, dir)) {
 			atualizarVisaoEInimigos();
+			
 			globalTimer += 1;
+			
 			return true;
 		}
 		else return cave.moveEntidade(x, y, dir);

@@ -1,9 +1,8 @@
 package src.view;
 
-import java.awt.Color;
-
 import src.controller.IController;
 import src.model.IGameModel;
+import src.utils.Priority;
 import src.view.panels.InfoPanel;
 
 public interface IGameView {
@@ -16,10 +15,14 @@ public interface IGameView {
 	public void rebuild();
 	
 	public static void setFeedMessage(String message) {
-		InfoPanel.setFeed(message);
+		InfoPanel.addToFeed(message);
 	}
 	
-	public static void setFeedMessage(String message, Color c) {
-		InfoPanel.setFeed(message, c);
+	public static void setFeedMessage(String message, Priority p) {
+		InfoPanel.addToFeed(message, p);
+	}
+	
+	public static void updateFeed(Priority minimum) {
+		InfoPanel.updateFeed(minimum);
 	}
 }

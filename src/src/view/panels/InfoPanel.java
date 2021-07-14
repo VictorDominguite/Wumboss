@@ -1,7 +1,9 @@
 package src.view.panels;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -10,14 +12,34 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import src.utils.Constantes;
+import src.utils.Priority;
 import src.view.GameView;
 import src.view.atomics.InfoView;
 
 public class InfoPanel extends Panel{
 	private static final long serialVersionUID = 7502620923273176398L;
 	
-	private static JLabel textFeed = new JLabel("");
-	private static boolean trancado = false;
+	private static HashMap<Priority, Color> colorMaps = 
+			new HashMap<Priority, Color>(10);
+	static {
+		colorMaps.put(Priority.LOW, Color.gray);
+		colorMaps.put(Priority.MEDIUM, Color.blue);
+		colorMaps.put(Priority.HIGH, Color.red);
+		colorMaps.put(Priority.CRITICAL, Color.black);
+	}
+	
+	private static HashMap<Priority, JLabel> labels = 
+			new HashMap<Priority, JLabel>(10);
+	static {
+		for(Priority p : Priority.values()) {
+			JLabel l = new JLabel();
+			l.setForeground(colorMaps.get(p));
+			labels.put(p, l);
+		}
+	}
+	
+	private static HashMap<Priority, String> pool = 
+			new HashMap<Priority, String>(10);
 
 	public InfoPanel(GameView gv){
         super(gv);
@@ -30,7 +52,9 @@ public class InfoPanel extends Panel{
         title.setFont(f);
         
         JPanel feed = new JPanel();
-        textFeed.setFont(f.deriveFont(Font.ITALIC, 18f));
+        Font fd = f.deriveFont(Font.ITALIC, 18f);
+        for(JLabel l : labels.values())
+        	l.setFont(fd);
         
         JPanel trueInfo = new JPanel();
         BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
@@ -54,46 +78,36 @@ public class InfoPanel extends Panel{
         add(trueInfo);
         add(feed);
         
-        trancado = false;
-        setFeed("<html> Depois de um longo tempo de queda, <br>"
+        addToFeed("<html> Depois de um longo tempo de queda, <br>"
         		+ "voce finalmente chegou no fundo do buraco. <br>"
         		+ "Uma brisa muito gelada bate, e voce se treme. <br>"
-        		+ "Voce esta sozinho e com frio no 'fundo do poco'. </html>");
+        		+ "Voce esta sozinho e com frio no 'fundo do poco'. </html>", Priority.HIGH);
         
-        feed.add(textFeed);
+        for(JLabel l : labels.values())
+        	feed.add(l);
+        
+        updateFeed(Priority.LOW);
     }
 	
-	public void addToFeed(String message) {
-		addToFeed(message, Color.black);
+	public static void addToFeed(String feed) {
+		addToFeed(feed, Priority.LOW);
 	}
 	
-	public void addToFeed(String message, Color c) {
-		textFeed.setForeground(c);
-		
-		String text = textFeed.getText().strip();
-		text = "<html>" + text + "<br> <br>" + message + "</html>";
-		
-		textFeed.setText(text);
+	public static void addToFeed(String feed, Priority p) {
+		String text = pool.get(p) == null ? "" : pool.get(p).strip();
+		pool.put(p, "<html>" + text + "<br> <br>" + feed + "</html>");
 	}
 	
-	public static void setFeed(String feed) {
-		setFeed(feed, Color.black);
-	}
-	
-	public static void setFeed(String feed, Color c) {
-		if(c == Color.red || c == Color.blue) {
-			trancado = true;
-			textFeed.setForeground(c);
+	public static void updateFeed(Priority minimum) {
+		for(Priority p : Priority.values()) {
+			JLabel l = labels.get(p);
+			if(p.lowerThan(minimum)) {
+				l.setText("");
+				continue;
+			}
 			
-			String text = textFeed.getText().strip();
-			text = "<html>" + text + "<br> <br>" + feed + "</html>";
-			
-			textFeed.setText(text);
+			l.setText(pool.get(p));
 		}
-		
-		if(textFeed != null && !trancado) {
-			textFeed.setForeground(c);
-			textFeed.setText(feed);
-		}
+		pool.clear();
 	}
 }

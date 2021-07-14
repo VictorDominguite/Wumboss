@@ -4,6 +4,7 @@ import src.model.IGameModel;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
+import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{

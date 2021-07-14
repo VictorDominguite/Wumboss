@@ -1,8 +1,7 @@
 package src.model;
 
-import java.awt.Color;
-
 import src.controller.IController;
+import src.utils.Priority;
 import src.utils.observer.Observer;
 import src.view.IGameView;
 
@@ -39,10 +38,14 @@ public interface IGameModel {
 		public String[] getItemState(String itemName);
 		
 		public static void sendFeedToView(String message) {
-			sendFeedToView(message, Color.black);
+			sendFeedToView(message, Priority.LOW);
 		}
 		
-		public static void sendFeedToView(String message, Color c) {
-			IGameView.setFeedMessage(message, c);
+		public static void sendFeedToView(String message, Priority p) {
+			IGameView.setFeedMessage(message, p);
+		}
+		
+		public static void updateFeed(Priority minimum) {
+			IGameView.updateFeed(minimum);
 		}
 }

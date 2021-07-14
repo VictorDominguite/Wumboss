@@ -1,7 +1,5 @@
 package src.model.entidade.dinamica;
 
-import java.awt.Color;
-
 import src.model.IGameModel;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.model.entidade.itens.Elixir;
@@ -10,6 +8,7 @@ import src.model.entidade.itens.IItemAtaque;
 import src.model.entidade.itens.Inventario;
 import src.model.entidade.itens.Tocha;
 import src.utils.Direcao;
+import src.utils.Priority;
 
 public class Heroi extends EntidadeViva implements IHeroi {
 	private IInventario inv;
@@ -62,7 +61,7 @@ public class Heroi extends EntidadeViva implements IHeroi {
 		super.morrer();
 		IGameModel.sendFeedToView( "Sua jornada chegou ao fim... <br>"
 				+ "ó Heroi, tens o que é necessário para <br>"
-				+ "tentar novamente? Se sim, pressione ENTER...", Color.red);
+				+ "tentar novamente? Se sim, pressione ENTER...", Priority.HIGH);
 	}
 	
 	@Override
