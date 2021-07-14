@@ -1,15 +1,12 @@
 package src.model.space;
 
 import src.model.GameModel;
-import src.model.IGameModel;
-import src.model.entidade.dinamica.Heroi;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.space.factories.CaveFactory;
 import src.utils.Direcao;
-import src.utils.Priority;
 import src.utils.observer.Observer;
 
 public class Space implements ISpace{

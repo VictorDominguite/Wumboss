@@ -1,8 +1,7 @@
 package src.model.entidade.interacao;
 
-import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.IEntidadeViva;
+import src.model.entidade.IEntidade;
 
 public interface IInteracao {
-    public String interagir(IEntidadeViva e1, IEntidadeDinamica e2);
+    public String interagir(IEntidade e1, IEntidade e2);
 }
