@@ -1,6 +1,5 @@
 package src.model.entidade.interacao;
 
-import src.model.IGameModel;
 import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
@@ -9,7 +8,6 @@ import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.itens.IItem;
 import src.model.space.ISpace;
-import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public class Interacao implements IInteracao {
@@ -28,9 +26,7 @@ public class Interacao implements IInteracao {
 	}
 	
 	public boolean interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
-		boolean res = _interagir(e1, e2);
-		IGameModel.updateFeed(Priority.LOW);
-		return res;
+		return _interagir(e1, e2);
 	}
 
     private boolean _interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {

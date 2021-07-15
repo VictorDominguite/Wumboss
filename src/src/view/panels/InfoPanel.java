@@ -34,9 +34,10 @@ public class InfoPanel extends Panel{
 			new HashMap<Priority, JTextArea>(10);
 	static {
 		for(Priority p : Priority.values()) {
-			JTextArea l = new JTextArea(4, 50);
+			JTextArea l = new JTextArea();
 			l.setForeground(colorMaps.get(p));
 			l.setBackground(UIManager.getColor("Label.background"));
+			l.setColumns(50);
 			l.setEditable(false);
 			l.setFocusable(false);
 			l.setWrapStyleWord(true);
@@ -53,10 +54,10 @@ public class InfoPanel extends Panel{
         
         setPreferredSize(new Dimension((int) (Constantes.WINDOW_SIZE_X*0.5), Constantes.WINDOW_SIZE_Y*8/10));
         
-        Font f = this.masterView.getFont().deriveFont(Font.BOLD, 24f);
+        Font infoFont = this.masterView.getFont("Bold").deriveFont(24f);
         
         JLabel title = new JLabel("O submundo de Wumboss", SwingConstants.CENTER);
-        title.setFont(f);
+        title.setFont(infoFont);
         
         JPanel trueInfo = new JPanel();
         BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
@@ -64,21 +65,21 @@ public class InfoPanel extends Panel{
         trueInfo.setBorder(BorderFactory.createLineBorder(Color.black));
         trueInfo.setPreferredSize(new Dimension((int) (Constantes.WINDOW_SIZE_X*0.505), 200));
 		
-        InfoView heroLifeInfo = new InfoView("Hero", "vida", f, this);
+        InfoView heroLifeInfo = new InfoView("Hero", "vida", infoFont, this);
         heroLifeInfo.setInfoColor(Color.red);
         
-        InfoView heroDefenseInfo = new InfoView("Hero", "defense", f, this);
+        InfoView heroDefenseInfo = new InfoView("Hero", "defense", infoFont, this);
         heroDefenseInfo.setInfoColor(Color.blue);
         
-        InfoView heroAttackInfo = new InfoView("Hero", "attack", f, this);
+        InfoView heroAttackInfo = new InfoView("Hero", "attack", infoFont, this);
         heroAttackInfo.setInfoColor(new Color(220, 100, 100));
         
         JPanel feed = new JPanel();
         BoxLayout trueFeedLayout = new BoxLayout(feed, BoxLayout.Y_AXIS);
         feed.setLayout(trueFeedLayout);
-        Font fd = f.deriveFont(Font.ITALIC, 18f);
+        Font feedFont = this.masterView.getFont("Italic").deriveFont(20f);
         for(JTextArea l : labels.values())
-        	l.setFont(fd);
+        	l.setFont(feedFont);
         
         add(title);
         
@@ -91,9 +92,9 @@ public class InfoPanel extends Panel{
         	feed.add(l);
         add(feed);
         
-        addToFeed("Depois de um longo tempo de queda,"
-        		+ "voce finalmente chegou no fundo do buraco."
-        		+ "Uma brisa muito gelada bate, e voce se treme."
+        addToFeed("Depois de um longo tempo de queda,\n"
+        		+ "voce finalmente chegou no fundo do buraco.\n"
+        		+ "Uma brisa muito gelada bate, e voce se treme.\n"
         		+ "Voce esta sozinho e com frio no 'fundo do poco'.", Priority.MEDIUM);
         
         updateFeed(Priority.LOW);
@@ -115,8 +116,6 @@ public class InfoPanel extends Panel{
 				l.setText("");
 				continue;
 			}
-			
-			System.out.println(pool.get(p));
 			
 			l.setText(pool.get(p));
 		}

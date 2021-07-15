@@ -102,7 +102,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
 
     protected void envenenar() {
         envenenado = PocoVenenoso.getDuracaoEfeito();
-        IGameModel.sendFeedToView("eww, voce pulou numa <br> piscina de veneno!");
+        IGameModel.sendFeedToView("eww, voce pulou numa piscina de veneno!");
     }
 
     protected void receberDanoVeneno() {
