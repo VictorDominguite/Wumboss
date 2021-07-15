@@ -3,7 +3,6 @@ package src.model.space;
 import java.util.Stack;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
-import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.itens.Flecha;
@@ -19,6 +18,9 @@ public class Celula extends EventCreator implements ICelula{
     public Celula(int x, int y, IEntidadeEstatica background) {
         this.posX = x;
         this.posY = y;
+        
+        background.setPosX(x);
+        background.setPosY(y);
         
         this.actors = new Stack<IEntidadeDinamica>();
         this.background = background;
@@ -36,19 +38,14 @@ public class Celula extends EventCreator implements ICelula{
     public void pushEntidade(IEntidadeDinamica ent) {
         if (ent instanceof Flecha) {
             int numFlechas = Constantes.rng.nextInt(3);
-            if (numFlechas == 0) return;
+            if (numFlechas == 0) return; //evita 1 update
             ((Flecha) ent).addFlechas(numFlechas);
         } 
-        
-        popEntidade();
 
         this.actors.push(ent);
         
         ent.setPosX(posX);
         ent.setPosY(posY);
-        
-        if (ent instanceof IEntidadeViva)
-            ((IEntidadeViva) ent).interagirComEntidadeEstatica(getBackground());
         
         onUpdate();
     }

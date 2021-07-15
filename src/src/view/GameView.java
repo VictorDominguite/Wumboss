@@ -44,6 +44,24 @@ public class GameView extends JFrame implements IGameView{
     public void showView() {
     	setVisible(true);
     }
+    
+    public Font getFont(String specify){
+    	try {
+	    	if(specify.equals("Regular")) {
+	    		if(this.getFont() == null)
+	    			return Font.createFont(Font.TRUETYPE_FONT, getController().hackFontFile("Regular"));
+	    		else return this.getFont();
+	    	}
+	    	else 
+	    		return Font.createFont(Font.TRUETYPE_FONT, getController().hackFontFile(specify));
+    	} catch (FontFormatException e) {
+			System.err.println("There's a problem with the format of the font: " + e.getMessage());
+		} catch (IOException e) {
+			System.err.println("There was a problem opening the font file: " + e.getMessage());
+		}
+    	
+    	return null;
+    }
 
     private void createPanels() {
         gp = new GamePanel(this);
@@ -60,13 +78,7 @@ public class GameView extends JFrame implements IGameView{
     }
     
     private void configureFont() {
-    	try {
-			setFont(Font.createFont(Font.TRUETYPE_FONT, getController().hackFontFile("Regular")));
-		} catch (FontFormatException e) {
-			System.err.println("There's a problem with the format of the font: " + e.getMessage());
-		} catch (IOException e) {
-			System.err.println("There was a problem opening the font file: " + e.getMessage());
-		}
+		setFont(getFont("Regular"));
     }
     
     public void rebuild() {

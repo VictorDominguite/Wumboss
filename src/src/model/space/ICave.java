@@ -2,6 +2,7 @@ package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
+import src.model.entidade.estatica.IPassagem;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
 
@@ -14,4 +15,7 @@ public interface ICave extends ICaveProperties{
     
     public void subToLocal(int x, int y, Observer e);
     public void destroy();
+    
+    public void trocarDeSala(IPassagem p);
+    public boolean ehSalaBoss();
 }

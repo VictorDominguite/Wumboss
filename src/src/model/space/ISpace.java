@@ -3,6 +3,7 @@ package src.model.space;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.estatica.IPassagem;
 import src.utils.Direcao;
 import src.utils.actions.IActionExecutor;
 import src.utils.observer.Observer;
@@ -25,4 +26,7 @@ public interface ISpace extends IActionExecutor{
 	public void atualizarVisaoEInimigos();
     public String[] estadoAtual(int x, int y);
     public void refreshLocal(int x, int y);
+    
+    public void trocarDeSala(IPassagem p);
+    public boolean ehSalaDoBoss();
 }

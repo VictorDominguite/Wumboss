@@ -59,8 +59,8 @@ public class Heroi extends EntidadeViva implements IHeroi {
 	@Override
 	public void morrer() {
 		super.morrer();
-		IGameModel.sendFeedToView( "Sua jornada chegou ao fim... <br>"
-				+ "ó Heroi, tens o que é necessário para <br>"
+		IGameModel.sendFeedToView( "Sua jornada chegou ao fim...\n"
+				+ "ó Heroi, tens o que é necessário para\n"
 				+ "tentar novamente? Se sim, pressione ENTER...", Priority.HIGH);
 	}
 	

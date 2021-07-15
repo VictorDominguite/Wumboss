@@ -27,13 +27,13 @@ public class Wumboss extends Inimigo {
 	public void morrer() {
 		super.morrer();
 		
-		IGameModel.sendFeedToView("Ò grande guerreiro, <br>"
-				+ "conquistador desta caverna.<br>"
-				+ "Voce agora esta livre! <br>"
-				+ "O que uma vez te pareceu uma <br>"
-				+ "ideia distante, nada mais que um sonho, <br>"
-				+ "agora se torna realidade. <br>"
-				+ "Vá, reencontre teus amigos, tua familia, <br>"
+		IGameModel.sendFeedToView("Ò grande guerreiro,\n"
+				+ "conquistador desta caverna.\n"
+				+ "Voce agora esta livre!\n"
+				+ "O que uma vez te pareceu uma\n"
+				+ "ideia distante, nada mais que um sonho,\n"
+				+ "agora se torna realidade.\n"
+				+ "Vá, reencontre teus amigos, tua familia,\n"
 				+ "e adote um gatinho fofo! ☻ ", Priority.HIGH);
 	}
 }

@@ -1,10 +1,10 @@
 package src.model.entidade.dinamica;
 
 import src.model.IGameModel;
+import src.model.entidade.IEntidade;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
-import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
@@ -22,15 +22,14 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	return cooldownMovimento;
     }
     
-    public String interagir(IEntidadeDinamica e) {
+    public boolean interagir(IEntidade e) {
         try {
-            String interacao = objInteracao.interagir(this, e);
-            return interacao;
+            return objInteracao.interagir(this, e);
         } catch (ErroDeInteracao erro) {
             System.err.println("Houve algum erro na interacao de " +
-            			this.toString() + " e " + e);
-            return null;
+            			this.toString() + " e " + e + "\n" + erro.getMessage());
         }
+        return false;
     }
     
     public void processarEfeitos() {
@@ -103,7 +102,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
 
     protected void envenenar() {
         envenenado = PocoVenenoso.getDuracaoEfeito();
-        IGameModel.sendFeedToView("<html> eww, voce pulou numa <br> piscina de veneno! <html>");
+        IGameModel.sendFeedToView("eww, voce pulou numa piscina de veneno!");
     }
 
     protected void receberDanoVeneno() {
