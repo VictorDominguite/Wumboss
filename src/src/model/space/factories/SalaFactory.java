@@ -27,7 +27,7 @@ public class SalaFactory {
 			
 			for(String[] linha : template) {
 				for(String celula : linha) {
-					s.setCelula(x, y, CelulaFactory.montar(x, y, celula));
+					s.setCelula(x, y, CelulaFactory.montar(s, x, y, celula));
 					x += 1;
 				}
 				x = 0;

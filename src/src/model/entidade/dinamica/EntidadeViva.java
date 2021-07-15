@@ -10,16 +10,11 @@ import src.utils.exceptions.ErroDeInteracao;
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
     protected int vida, ataque, defesa;
     protected int alcance = 1, envenenado = 0;
-    protected int cooldownMovimento = 1;
 
     public EntidadeViva(int vida, int ataque, int defesa) {
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
-    }
-    
-    public int getCooldownMovimento() {
-    	return cooldownMovimento;
     }
     
     public boolean interagir(IEntidade e) {
@@ -95,6 +90,7 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     protected void morrer() {
         this.space.removerEntidade(posX, posY);
     }
+    
 
     protected boolean mover(Direcao dir) {
         return this.space.moverEntidade(posX, posY, dir);

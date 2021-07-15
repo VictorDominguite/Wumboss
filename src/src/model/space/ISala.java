@@ -1,6 +1,7 @@
 package src.model.space;
 
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IInimigo;
 import src.utils.observer.Observer;
 
 public interface ISala {
@@ -8,6 +9,8 @@ public interface ISala {
 	public int getTamY();
 	public int getID();
 	public String[] estado(int x, int y);
+	public void inimigosNaSala(IInimigo[] array);
+	public int numInimigos();
 	
 	public void inativar();
 	

@@ -2,7 +2,6 @@ package src.model.space.factories;
 
 import java.util.HashMap;
 
-import src.model.entidade.Entidade;
 import src.model.entidade.dinamica.EntidadeDinamica;
 import src.model.entidade.dinamica.GatinhoFofo;
 import src.model.entidade.dinamica.Goblin;
@@ -18,8 +17,6 @@ import src.model.entidade.itens.Espada;
 import src.model.entidade.itens.Flecha;
 import src.model.entidade.itens.Mapa;
 import src.model.entidade.itens.Tocha;
-
-
 
 public class ForegroundFactory {
     private static HashMap<String, Class<? extends EntidadeDinamica>> tabela 
@@ -42,11 +39,11 @@ public class ForegroundFactory {
 		tabela.put("t", Tocha.class);
 	}
 
-	public static Entidade decodeRawEntity(String repr) {
-		Class<? extends Entidade> classe = tabela.get(repr);
+	public static EntidadeDinamica decodeRawEntity(String repr) {
+		Class<? extends EntidadeDinamica> classe = tabela.get(repr);
 		if(classe == null) return null;
 		
-		Entidade result = null;
+		EntidadeDinamica result = null;
 		
 		try {
 			result = classe.getConstructor().newInstance();

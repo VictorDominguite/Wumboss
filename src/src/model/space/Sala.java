@@ -1,11 +1,16 @@
 package src.model.space;
 
+import java.util.ArrayList;
+
 import src.model.entidade.dinamica.IEntidadeDinamica;
+import src.model.entidade.dinamica.IInimigo;
 import src.utils.observer.Observer;
 
 public class Sala implements ISala{
     private ICelula[][] celulas;
     private int ID, tamX, tamY;
+    
+    private ArrayList<IInimigo> inimigos;
 
     public Sala(int ID, int tamX, int tamY) {
         this.ID = ID;
@@ -13,6 +18,7 @@ public class Sala implements ISala{
         this.tamY = tamY;
         
         this.celulas = new ICelula[tamY][tamX];
+        this.inimigos = new ArrayList<IInimigo>();
     }
     
     public ICelula getCelula(int x, int y) {
@@ -24,13 +30,34 @@ public class Sala implements ISala{
     public void setCelula(int x, int y, ICelula c) {
     	celulas[y][x] = c;
     }
+    
+    public void inimigosNaSala(IInimigo[] array){
+    	inimigos.toArray(array);
+    }
+    
+    public int numInimigos() {
+    	return inimigos.size();
+    }
+    
+    public void inimigoAdicionado(IInimigo e) {
+    	inimigos.add(e);
+    }
+    
+    public void inimigoRemovido(IInimigo e) {
+    	inimigos.remove(e);
+    }
 
     public IEntidadeDinamica removeEntidade(int x, int y) {
-    	return getCelula(x, y).popEntidade();
+    	IEntidadeDinamica e = getCelula(x, y).popEntidade();
+    	if(e.isInimigo())
+    		inimigoRemovido((IInimigo) e);
+    	return e;
     }
     
     public void addEntidade(int x, int y, IEntidadeDinamica e) {
     	getCelula(x, y).pushEntidade(e);
+    	if(e.isInimigo())
+    		inimigoAdicionado((IInimigo) e);
     }
     
     public String[] estado(int x, int y) {

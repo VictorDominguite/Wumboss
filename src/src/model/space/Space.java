@@ -18,8 +18,6 @@ public class Space implements ISpace{
 	
 	private IHeroi heroInstance;
 	
-	private int globalTimer = 0;
-	
 	public static ISpace getInstance() {
     	if (instance == null) {
     		instance = new Space();
@@ -42,7 +40,6 @@ public class Space implements ISpace{
 			atualizarVisaoEInimigos();
 			
 			IGameModel.updateFeed(Priority.LOW);
-			globalTimer += 1;
 			
 			return true;
 		}
@@ -80,27 +77,25 @@ public class Space implements ISpace{
 		
         ISala salaAtual = cave.getSalaAtiva();
         int heroiX = heroInstance.getPosX(), heroiY = heroInstance.getPosY();
-		int maxInimigos = cave.getSalaAtiva().getTamX() * cave.getSalaAtiva().getTamY(); 
-		IInimigo inimigosAlerta[] = new IInimigo[maxInimigos];
-		int k = 0;
+        
+        IInimigo[] inimigosNaSala = new IInimigo[salaAtual.numInimigos()];
+        salaAtual.inimigosNaSala(inimigosNaSala);
+        for(IInimigo i : inimigosNaSala) {
+        	if(i.emAlerta()) {
+        		i.moverEmDirecaoA(heroiX, heroiY);
+        	}
+        	else if(distanciaAte(i.getPosX(), i.getPosY(), heroiX, heroiY) <= heroInstance.getVisao()) {
+        		i.alertar();
+        	}
+        	
+        }
 
         for (int x = 0; x < salaAtual.getTamX(); x++) {
             for (int y = 0; y < salaAtual.getTamY(); y++) {
             	ICelula cellAtual = salaAtual.getCelula(x, y);
                 
-                IEntidadeDinamica e = cellAtual.peekEntidade();
-                if (e != null && e instanceof IInimigo && ((IInimigo) e).emAlerta()) {
-					inimigosAlerta[k] = (IInimigo) e;
-					k++;
-				}
-                
                 if (distanciaAte(x, y, heroiX, heroiY) <= heroInstance.getVisao()) {
                 	cellAtual.setVisivel(true);
-                	
-                    if (e != null && e instanceof IInimigo) {
-                        if (!((IInimigo) e).emAlerta())
-                            ((IInimigo) e).alertar();
-                    }
                 }
                 else {
                 	if(cellAtual.isVisivel() && !heroInstance.getInventario().getItem("Mapa").isEquipado())
@@ -108,10 +103,6 @@ public class Space implements ISpace{
                 }
             }
         }
-		for (IInimigo i : inimigosAlerta) {
-			if (i != null && globalTimer % i.getCooldownMovimento() == 0)
-				i.moverEmDirecaoA(heroiX, heroiY);
-		}
     }
 
 	public void refreshLocal(int x, int y) {
