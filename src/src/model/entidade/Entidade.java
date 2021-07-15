@@ -12,6 +12,7 @@ public abstract class Entidade extends EventCreator implements IEntidade {
 
     public void connect(ISpace space) {
         this.space = space;
+        objInteracao.connectSpace(space);
     }
 
     public int getPosX() {

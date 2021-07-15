@@ -30,7 +30,7 @@ public class CelulaFactory {
 		try {
 			result = classe.getConstructor().newInstance();
 		} catch (Exception e) {
-			System.err.println("Nao foi possivel decodificar uma entidade estativa na sala: " + e.getMessage());
+			System.err.println("Nao foi possivel decodificar uma entidade estatica na sala: " + e.getMessage());
 		}
 		
 		return result;

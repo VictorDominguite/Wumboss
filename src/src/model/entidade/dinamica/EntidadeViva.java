@@ -1,10 +1,10 @@
 package src.model.entidade.dinamica;
 
 import src.model.IGameModel;
+import src.model.entidade.IEntidade;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Direcao;
-import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public abstract class EntidadeViva extends EntidadeDinamica implements IEntidadeViva{
@@ -22,14 +22,12 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	return cooldownMovimento;
     }
     
-    public String interagir(IEntidadeDinamica e) {
+    public void interagir(IEntidade e) {
         try {
-            String interacao = objInteracao.interagir(this, e);
-            return interacao;
+            objInteracao.interagir(this, e);
         } catch (ErroDeInteracao erro) {
             System.err.println("Houve algum erro na interacao de " +
             			this.toString() + " e " + e);
-            return null;
         }
     }
     

@@ -1,13 +1,12 @@
 package src.model.entidade.dinamica;
 
-import src.model.entidade.estatica.IEntidadeEstatica;
+import src.model.entidade.IEntidade;
 
 public interface IEntidadeViva extends IEntidadeDinamica {
 	public int getCooldownMovimento();
 	
 	public void processarEfeitos();
-	public String interagir(IEntidadeDinamica e);
-	public void interagirComEntidadeEstatica(IEntidadeEstatica e);
+	public void interagir(IEntidade e);
 	
     public boolean estaEnvenenado();
     

@@ -5,6 +5,7 @@ import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
+import src.model.entidade.estatica.IPassagem;
 import src.model.space.factories.CaveFactory;
 import src.utils.Direcao;
 import src.utils.observer.Observer;
@@ -44,6 +45,10 @@ public class Space implements ISpace{
 		}
 		else return cave.moveEntidade(x, y, dir);
 		
+	}
+	
+	public void moverEntidadeEntreSalas(IHeroi h, IPassagem p) {
+		cave.moverEntidadeEntreSalas(h.getPosX(), h.getPosY(), p);
 	}
 
 	public void addEntidade(int x, int y, IEntidadeDinamica e) {

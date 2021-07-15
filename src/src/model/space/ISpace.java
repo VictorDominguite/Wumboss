@@ -3,6 +3,7 @@ package src.model.space;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
+import src.model.entidade.estatica.IPassagem;
 import src.utils.Direcao;
 import src.utils.actions.IActionExecutor;
 import src.utils.observer.Observer;
@@ -15,6 +16,7 @@ public interface ISpace extends IActionExecutor{
 	public void subToLocal(int x, int y, Observer e);
 	
 	public boolean moverEntidade(int x, int y, Direcao dir);
+	public void moverEntidadeEntreSalas(IHeroi h, IPassagem p);
 	public void addEntidade(int x, int y, IEntidadeDinamica e);
     public IEntidadeDinamica removerEntidade(int x, int y);
     

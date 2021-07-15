@@ -8,11 +8,11 @@ import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.estatica.IEntidadeEstatica;
 import src.model.entidade.itens.IItem;
+import src.model.space.ISpace;
 import src.utils.Priority;
 import src.utils.exceptions.ErroDeInteracao;
 
 public class Interacao implements IInteracao {
-	
 	private InteracaoMovimento iMovimento;
 	private InteracaoAtaque iAtaque;
 	private InteracaoColeta iColeta;
@@ -21,6 +21,10 @@ public class Interacao implements IInteracao {
 		iMovimento = new InteracaoMovimento();
 		iAtaque= new InteracaoAtaque();
 		iColeta = new InteracaoColeta();
+	}
+	
+	public void connectSpace(ISpace space) {
+		this.iMovimento.connectSpace(space);
 	}
 	
 	public String interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {

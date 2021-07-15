@@ -1,13 +1,12 @@
 package src.model.space;
 
 import src.model.IGameModel;
+import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
 import src.model.entidade.dinamica.IHeroi;
-import src.model.entidade.dinamica.IInimigo;
 import src.model.entidade.dinamica.Wumboss;
 import src.model.entidade.estatica.IPassagem;
-import src.model.entidade.estatica.PocoVenenoso;
 import src.utils.Constantes;
 import src.utils.Direcao;
 import src.utils.Priority;
@@ -41,25 +40,13 @@ public class Caverna implements ICave{
     	if(!celulasValidas(origem, fim))
     		return false;
 			
-		if (fim.getBackground() instanceof PocoVenenoso && origem.peekEntidade() instanceof IInimigo) 
-			return false;
-		
-    	if (fim.getBackground().isPassagem() && origem.peekEntidade() instanceof IHeroi) {
-    		moverEntidadeEntreSalas(xIni, yIni, (IPassagem) fim.getBackground());
-    	} 
-    	else {
-    		IEntidadeViva e = (IEntidadeViva) origem.popEntidade();
-    		String interacao = e.interagir((IEntidadeDinamica) fim.peekEntidade());
-    		
-    		if (interacao.equals("mover") || interacao.equals("coleta")) {
-    			fim.pushEntidade(e);
-    		} 
-    		else if (interacao.equals("ataque") || interacao.equals("parado")) {
-    			origem.pushEntidade(e);
-    		}
-    		
-    		((IEntidadeViva) e).processarEfeitos();
-    	}
+    	IEntidadeViva sujeito = (IEntidadeViva) origem.popEntidade();
+    	IEntidade objeto = (IEntidade) fim.peekEntidade() != null 
+    							? fim.peekEntidade() 
+    							: fim.getBackground();
+    	sujeito.interagir(objeto);
+    	
+    	sujeito.processarEfeitos();
     	return true;
     }
     
