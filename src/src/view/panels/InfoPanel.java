@@ -9,7 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import src.utils.Constantes;
 import src.utils.Priority;
@@ -28,12 +30,17 @@ public class InfoPanel extends Panel{
 		colorMaps.put(Priority.CRITICAL, Color.black);
 	}
 	
-	private static HashMap<Priority, JLabel> labels = 
-			new HashMap<Priority, JLabel>(10);
+	private static HashMap<Priority, JTextArea> labels = 
+			new HashMap<Priority, JTextArea>(10);
 	static {
 		for(Priority p : Priority.values()) {
-			JLabel l = new JLabel();
+			JTextArea l = new JTextArea(4, 50);
 			l.setForeground(colorMaps.get(p));
+			l.setBackground(UIManager.getColor("Label.background"));
+			l.setEditable(false);
+			l.setFocusable(false);
+			l.setWrapStyleWord(true);
+			l.setLineWrap(true);
 			labels.put(p, l);
 		}
 	}
@@ -51,11 +58,6 @@ public class InfoPanel extends Panel{
         JLabel title = new JLabel("O submundo de Wumboss", SwingConstants.CENTER);
         title.setFont(f);
         
-        JPanel feed = new JPanel();
-        Font fd = f.deriveFont(Font.ITALIC, 18f);
-        for(JLabel l : labels.values())
-        	l.setFont(fd);
-        
         JPanel trueInfo = new JPanel();
         BoxLayout trueInfoLayout = new BoxLayout(trueInfo, BoxLayout.Y_AXIS);
         trueInfo.setLayout(trueInfoLayout);
@@ -71,20 +73,28 @@ public class InfoPanel extends Panel{
         InfoView heroAttackInfo = new InfoView("Hero", "attack", f, this);
         heroAttackInfo.setInfoColor(new Color(220, 100, 100));
         
+        JPanel feed = new JPanel();
+        BoxLayout trueFeedLayout = new BoxLayout(feed, BoxLayout.Y_AXIS);
+        feed.setLayout(trueFeedLayout);
+        Font fd = f.deriveFont(Font.ITALIC, 18f);
+        for(JTextArea l : labels.values())
+        	l.setFont(fd);
+        
         add(title);
+        
         trueInfo.add(heroLifeInfo);
         trueInfo.add(heroDefenseInfo);
         trueInfo.add(heroAttackInfo);
         add(trueInfo);
+        
+        for(JTextArea l : labels.values())
+        	feed.add(l);
         add(feed);
         
-        addToFeed("<html> Depois de um longo tempo de queda, <br>"
-        		+ "voce finalmente chegou no fundo do buraco. <br>"
-        		+ "Uma brisa muito gelada bate, e voce se treme. <br>"
-        		+ "Voce esta sozinho e com frio no 'fundo do poco'. </html>", Priority.HIGH);
-        
-        for(JLabel l : labels.values())
-        	feed.add(l);
+        addToFeed("Depois de um longo tempo de queda,"
+        		+ "voce finalmente chegou no fundo do buraco."
+        		+ "Uma brisa muito gelada bate, e voce se treme."
+        		+ "Voce esta sozinho e com frio no 'fundo do poco'.", Priority.MEDIUM);
         
         updateFeed(Priority.LOW);
     }
@@ -95,16 +105,18 @@ public class InfoPanel extends Panel{
 	
 	public static void addToFeed(String feed, Priority p) {
 		String text = pool.get(p) == null ? "" : pool.get(p).strip();
-		pool.put(p, "<html>" + text + "<br> <br>" + feed + "</html>");
+		pool.put(p, text + "\n" + feed);
 	}
 	
 	public static void updateFeed(Priority minimum) {
 		for(Priority p : Priority.values()) {
-			JLabel l = labels.get(p);
+			JTextArea l = labels.get(p);
 			if(p.lowerThan(minimum)) {
 				l.setText("");
 				continue;
 			}
+			
+			System.out.println(pool.get(p));
 			
 			l.setText(pool.get(p));
 		}
