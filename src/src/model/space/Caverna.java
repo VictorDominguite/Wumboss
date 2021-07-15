@@ -1,15 +1,12 @@
 package src.model.space;
 
-import src.model.IGameModel;
 import src.model.entidade.IEntidade;
 import src.model.entidade.dinamica.IEntidadeDinamica;
 import src.model.entidade.dinamica.IEntidadeViva;
-import src.model.entidade.dinamica.IHeroi;
 import src.model.entidade.dinamica.Wumboss;
 import src.model.entidade.estatica.IPassagem;
 import src.utils.Constantes;
 import src.utils.Direcao;
-import src.utils.Priority;
 import src.utils.exceptions.IDInvalido;
 import src.utils.observer.Observer;
 
@@ -40,13 +37,13 @@ public class Caverna implements ICave{
     	if(!celulasValidas(origem, fim))
     		return false;
 			
-    	IEntidadeViva sujeito = (IEntidadeViva) origem.popEntidade();
+    	IEntidadeViva sujeito = (IEntidadeViva) origem.peekEntidade();
     	IEntidade objeto = (IEntidade) fim.peekEntidade() != null 
     							? fim.peekEntidade() 
     							: fim.getBackground();
-    	sujeito.interagir(objeto);
-    	
-    	sujeito.processarEfeitos();
+    	if(sujeito.interagir(objeto))
+    		sujeito.processarEfeitos();
+    	else return false;
     	return true;
     }
     
@@ -93,30 +90,9 @@ public class Caverna implements ICave{
             e.interagir(fim.peekEntidade());
     }
 
-    public void moverEntidadeEntreSalas(int xEnt, int yEnt, IPassagem passagem) {
+    public void trocarDeSala(IPassagem p) {
     	int idInativado = getSalaAtiva().getID();
-    	IEntidadeDinamica e = removeEntidade(xEnt, yEnt);
-    	
-        idAtivo = passagem.getDestino();
-        
-		if (ehSalaBoss(idAtivo) && e.isHeroi()) {
-			if (!((IHeroi) e).getInventario().getItem("Chave").isColetado()) {
-				idAtivo = idInativado;
-				addEntidade(xEnt, yEnt, e);
-				IGameModel.sendFeedToView("Voce precisa de uma chave para acessar essa sala!");
-				return;
-			}
-			else {
-				IGameModel.sendFeedToView("<html> Voce se arrepia. Uma brisa forte bate <br>"
-										+ "na sua cara... Voce tem um mal pressentimento </html>", Priority.MEDIUM);
-			}
-		}
-
-        int xFim = passagem.getXFim();
-        int yFim = passagem.getYFim();
-        
-        addEntidade(xFim, yFim, e);
-        ((IEntidadeViva) e).processarEfeitos();
+        idAtivo = p.getDestino();
         
         getSala(idInativado).inativar();
     }
@@ -137,10 +113,10 @@ public class Caverna implements ICave{
     	return true;
     }
 
-	private boolean ehSalaBoss(int id) {
-		for (int i = 0; i < getSala(id).getTamX(); i++) {
-			for (int j = 0; j < getSala(id).getTamY(); j++) {
-				if (getSala(id).getCelula(i, j).peekEntidade() instanceof Wumboss)
+	public boolean ehSalaBoss() {
+		for (int i = 0; i < getSalaAtiva().getTamX(); i++) {
+			for (int j = 0; j < getSalaAtiva().getTamY(); j++) {
+				if (getSalaAtiva().getCelula(i, j).peekEntidade() instanceof Wumboss)
 					return true;
 			}
 		}

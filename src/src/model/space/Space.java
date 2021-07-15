@@ -36,7 +36,7 @@ public class Space implements ISpace{
 	}
 
 	public boolean moverEntidade(int x, int y, Direcao dir) {
-		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade().equals(heroInstance) && cave.moveEntidade(x, y, dir)) {
+		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade().isHeroi() && cave.moveEntidade(x, y, dir)) {
 			atualizarVisaoEInimigos();
 			
 			globalTimer += 1;
@@ -45,10 +45,6 @@ public class Space implements ISpace{
 		}
 		else return cave.moveEntidade(x, y, dir);
 		
-	}
-	
-	public void moverEntidadeEntreSalas(IHeroi h, IPassagem p) {
-		cave.moverEntidadeEntreSalas(h.getPosX(), h.getPosY(), p);
 	}
 
 	public void addEntidade(int x, int y, IEntidadeDinamica e) {
@@ -143,5 +139,13 @@ public class Space implements ISpace{
 		cave.destroy();
 		cave = null;
 		Space.instance = null;
+	}
+
+	public void trocarDeSala(IPassagem p) {
+		cave.trocarDeSala(p);
+	}
+
+	public boolean ehSalaDoBoss() {
+		return cave.ehSalaBoss();
 	}
 }

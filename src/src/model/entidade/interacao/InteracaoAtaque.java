@@ -9,7 +9,7 @@ import src.model.entidade.itens.Arco;
 import src.model.entidade.itens.Flecha;
 
 public class InteracaoAtaque{
-	public String interagir(IHeroi heroi, IInimigo inimigo) {
+	public boolean interagir(IHeroi heroi, IInimigo inimigo) {
 		int danoDado = atacar(heroi, inimigo);
 		
     	if(danoDado == -1)
@@ -21,10 +21,10 @@ public class InteracaoAtaque{
     	else
     		IGameModel.sendFeedToView("Voce deu " + danoDado + " de dano! :o");
     	
-		return "ataque";
+		return true;
 	}
 	
-	public String interagir(IInimigo heroi, IHeroi inimigo) {
+	public boolean interagir(IInimigo inimigo, IHeroi heroi) {
 		int danoDado = atacar(inimigo, heroi);
 		
     	if(danoDado > 40)
@@ -34,7 +34,7 @@ public class InteracaoAtaque{
     	else
     		IGameModel.sendFeedToView("Voce e resiliente demais para ele");
     	
-        return "ataque";
+        return true;
 	}
 	
 	private int atacar(IEntidadeViva agressor, IEntidadeViva atacado) {

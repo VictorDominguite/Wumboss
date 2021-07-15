@@ -16,7 +16,6 @@ public interface ISpace extends IActionExecutor{
 	public void subToLocal(int x, int y, Observer e);
 	
 	public boolean moverEntidade(int x, int y, Direcao dir);
-	public void moverEntidadeEntreSalas(IHeroi h, IPassagem p);
 	public void addEntidade(int x, int y, IEntidadeDinamica e);
     public IEntidadeDinamica removerEntidade(int x, int y);
     
@@ -27,4 +26,7 @@ public interface ISpace extends IActionExecutor{
 	public void atualizarVisaoEInimigos();
     public String[] estadoAtual(int x, int y);
     public void refreshLocal(int x, int y);
+    
+    public void trocarDeSala(IPassagem p);
+    public boolean ehSalaDoBoss();
 }

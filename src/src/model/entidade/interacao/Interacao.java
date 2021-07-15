@@ -27,42 +27,45 @@ public class Interacao implements IInteracao {
 		this.iMovimento.connectSpace(space);
 	}
 	
-	public String interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
-		_interagir(e1, e2);
+	public boolean interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
+		boolean res = _interagir(e1, e2);
 		IGameModel.updateFeed(Priority.LOW);
-		return "";
+		return res;
 	}
 
-    private void _interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
+    private boolean _interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
     	if(e1 == null || e2 == null) 
     		throw new ErroDeInteracao("Nao pode haver interacao entre nulls");
     	
-    	if(!(e1 instanceof IEntidadeViva)) return;
+    	if(!(e1 instanceof IEntidadeViva)) return false;
     	
     	IEntidadeViva sujeito = (IEntidadeViva) e1;
-    	if(!sujeito.estaVivo()) return;
+    	if(!sujeito.estaVivo()) return false;
     		
     	if(e2 instanceof IEntidadeEstatica) {
-    		iMovimento.interagir(sujeito, (IEntidadeEstatica) e2);
-    		return;
+    		return iMovimento.interagir(sujeito, (IEntidadeEstatica) e2);
     	}
     	
-    	if(!(e2 instanceof IEntidadeDinamica)) return;
+    	if(!(e2 instanceof IEntidadeDinamica)) return false;
     	
     	IEntidadeDinamica objeto = (IEntidadeDinamica) e2;
     	
     	if(sujeito.isHeroi()) {
     		if(objeto.isInimigo())
-    			iAtaque.interagir((IHeroi) sujeito, (IInimigo) objeto);
-    		else if(objeto.isItem())
+    			return iAtaque.interagir((IHeroi) sujeito, (IInimigo) objeto);
+    		else if(objeto.isItem()) {
     			iColeta.interagir((IHeroi) sujeito, (IItem) objeto);
+    			return iMovimento.moverParaItem((IHeroi) sujeito, (IItem) objeto);
+    		}
     	}
     	else if(sujeito.isInimigo()) {
-    		if(objeto.isHeroi())
+    		if(objeto.isHeroi()) {
     			iAtaque.interagir((IInimigo) sujeito, (IHeroi) objeto);
-    		else return;	
+    			return true;
+    		}
+    		return false;	
     	}
         
-        throw new ErroDeInteracao();
+        throw new ErroDeInteracao("fim da interacao");
     }
 }

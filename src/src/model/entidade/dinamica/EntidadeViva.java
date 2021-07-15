@@ -22,13 +22,14 @@ public abstract class EntidadeViva extends EntidadeDinamica implements IEntidade
     	return cooldownMovimento;
     }
     
-    public void interagir(IEntidade e) {
+    public boolean interagir(IEntidade e) {
         try {
-            objInteracao.interagir(this, e);
+            return objInteracao.interagir(this, e);
         } catch (ErroDeInteracao erro) {
             System.err.println("Houve algum erro na interacao de " +
-            			this.toString() + " e " + e);
+            			this.toString() + " e " + e + "\n" + erro.getMessage());
         }
+        return false;
     }
     
     public void processarEfeitos() {

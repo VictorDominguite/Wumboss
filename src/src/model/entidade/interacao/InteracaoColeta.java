@@ -10,9 +10,9 @@ import src.model.entidade.itens.Mapa;
 import src.model.entidade.itens.Tocha;
 
 public class InteracaoColeta{
-	public String interagir(IHeroi h, IItem i) {
+	public boolean interagir(IHeroi h, IItem i) {
 		coletarItem(h, i);
-		return "coleta";
+		return true;
 	}
 	
 	private void coletarItem(IHeroi h, IItem item) {
