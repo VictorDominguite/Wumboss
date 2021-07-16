@@ -12,8 +12,8 @@ import src.utils.observer.EventCreator;
 public class Celula extends EventCreator implements ICelula{
     private Stack<IEntidadeDinamica> actors;
     private IEntidadeEstatica background;
-    private boolean visivel = false;
     private int posX, posY;
+    private int nivelLuz = 0;
 
     public Celula(int x, int y, IEntidadeEstatica background) {
         this.posX = x;
@@ -26,6 +26,14 @@ public class Celula extends EventCreator implements ICelula{
         this.background = background;
     }
 
+    public int getNivelLuz() {
+    	return nivelLuz;
+    }
+    
+    public void setNivelLuz(int luz) {
+    	this.nivelLuz = luz;
+    	onUpdate();
+    }
     
     public IEntidadeEstatica getBackground() {
     	return background;
@@ -67,13 +75,7 @@ public class Celula extends EventCreator implements ICelula{
     }
     
     public boolean isVisivel() {
-        return visivel;
-    }
-
-    public void setVisivel(boolean visivel) {
-        this.visivel = visivel;
-        
-        onUpdate();
+        return getNivelLuz() > 0;
     }
     
     public String[] estado() {
@@ -86,6 +88,9 @@ public class Celula extends EventCreator implements ICelula{
     	return res;
     }
     
+    public void refresh() {
+    	onUpdate();
+    }
     
     public void inativar() {
         if (peekEntidade() instanceof IInimigo)
@@ -100,5 +105,22 @@ public class Celula extends EventCreator implements ICelula{
 		super.disconnectAll();
 		
 		inativar();
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public int compareTo(ICelula c) {
+		int numThis = (this.getPosY() << 8) + this.getPosX();
+		int numC = (c.getPosY() << 8) + c.getPosX();
+		
+		if(numThis > numC) return 1;
+		if(numThis == numC) return 0;
+		return -1;
 	}
 }

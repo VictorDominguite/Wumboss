@@ -59,7 +59,7 @@ public class GameModel implements IGameModel{
 		space.addEntidade(1, 1, hero);
 		
 		setInventario(hero.getInventario());
-		space.atualizarVisaoEInimigos();
+		space.atualizaSpace();
 	}
 	
 	public void montarCaverna() {

@@ -27,7 +27,6 @@ public abstract class Inimigo extends EntidadeViva implements IInimigo {
     @Override
     public void moverEmDirecaoA(int x, int y) {
     	if(this.getCooldownMovimento() == 0) {
-    		System.out.println(baseCooldownMovimento);
     		super.moverEmDirecaoA(x, y);
     		this.cooldownMovimento = baseCooldownMovimento;
     	}

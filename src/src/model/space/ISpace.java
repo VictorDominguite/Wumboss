@@ -23,7 +23,7 @@ public interface ISpace extends IActionExecutor{
     
     public int distanciaAte(int xIni, int yIni, int xFim, int yFim);
 
-	public void atualizarVisaoEInimigos();
+	public void atualizaSpace();
     public String[] estadoAtual(int x, int y);
     public void refreshLocal(int x, int y);
     
