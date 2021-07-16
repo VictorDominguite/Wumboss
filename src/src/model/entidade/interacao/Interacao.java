@@ -11,6 +11,8 @@ import src.model.space.ISpace;
 import src.utils.exceptions.ErroDeInteracao;
 
 public class Interacao implements IInteracao {
+	private ISpace space;
+	
 	private InteracaoMovimento iMovimento;
 	private InteracaoAtaque iAtaque;
 	private InteracaoColeta iColeta;
@@ -22,11 +24,15 @@ public class Interacao implements IInteracao {
 	}
 	
 	public void connectSpace(ISpace space) {
+		this.space = space;
 		this.iMovimento.connectSpace(space);
 	}
 	
 	public boolean interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {
-		return _interagir(e1, e2);
+		boolean res = _interagir(e1, e2);
+		if(e1 instanceof IEntidadeDinamica && ((IEntidadeDinamica) e1).isHeroi())
+			space.atualizaSpace();
+		return res;
 	}
 
     private boolean _interagir(IEntidade e1, IEntidade e2) throws ErroDeInteracao {

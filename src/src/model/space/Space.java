@@ -48,12 +48,7 @@ public class Space implements ISpace{
 	}
 
 	public boolean moverEntidade(int x, int y, Direcao dir) {
-		if(cave.getSalaAtiva().getCelula(x, y).peekEntidade().isHeroi() && cave.moveEntidade(x, y, dir)) {
-			atualizaSpace();
-			
-			return true;
-		}
-		else return cave.moveEntidade(x, y, dir);
+		return cave.moveEntidade(x, y, dir);
 	}
 
 	public void atualizarVisaoEInimigos() {
